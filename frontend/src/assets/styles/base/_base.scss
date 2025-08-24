@@ -1,0 +1,82 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+* {
+  touch-action: manipulation;
+}
+
+:root {
+  --app-height: 100%;
+}
+
+html {
+  // This defines what 1rem is
+  font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+  // min-height: calc(100% + env(safe-area-inset-top));
+  // padding: env(safe-area-inset-top) env(safe-area-inset-right)
+  //   env(safe-area-inset-bottom) env(safe-area-inset-left);
+
+  // // min-height: -webkit-fill-available;
+  // height: 100vh;
+
+  @include respond(tab-land) {
+    // width < 1200?
+    font-size: 56.25%; //1 rem = 9px, 9/16 = 50%
+  }
+
+  @include respond(tab-port) {
+    // width < 900?
+    font-size: 50%; //1 rem = 8px, 8/16 = 50%
+  }
+
+  @include respond(big-desktop) {
+    font-size: 75%; //1rem = 12, 12/16
+  }
+}
+
+body {
+  box-sizing: border-box;
+  // height: 100vh;
+  // height: calc(var(--vh, 1vh) * 100);
+  // min-height: -webkit-fill-available;
+  position: relative;
+  z-index: 9;
+  font-size: $default-font-size;
+  font-family: $sf-regular;
+  color: $color-deep-dark;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100%;
+
+  // @media not all and (hover: hover) {
+  //   height: var(--app-height);
+  // }
+}
+
+::selection {
+  background-color: $color-sky-blue-light;
+  color: $color-white;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+}

@@ -1,0 +1,93 @@
+.toggle {
+	display: flex;
+    height: 100%;
+    flex-direction: column;
+
+	.tooltip {
+		font-size: 1.6rem;
+		background: $color-white;
+		color: $color-dark;
+		padding: .5rem .8rem;
+		border-radius: .5rem;
+		box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+		// opacity: 0;
+		pointer-events: none;
+		transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+		display: flex;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		opacity: 1;
+		color: $color-dark;
+
+		&:before {
+		  position: absolute;
+		  content: "";
+		  height: .8rem;
+		  width: .8rem;
+		  background: #ffffff;
+		  top: -3px;
+		  left: 50%;
+		  transform: translate(-50%) rotate(45deg);
+		  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+		}
+	  }
+}
+
+.toggle input[type="checkbox"] {
+	opacity: 0 !important;
+    display: none;
+}
+
+.toggle input[type="checkbox"] + label {
+    font-size: 2rem;
+    position: relative;
+    color: $color-grey-2;
+}
+
+.toggle input[type="checkbox"] + label:before {
+	-webkit-transition: background-color 0.4s ease;
+	-moz-transition: background-color 0.4s ease;
+	transition: background-color 0.4s ease;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
+    display: flex;
+	content: '';
+	width: 48px;
+	height: 24px;
+	background-color: $color-grey-3;
+	border-radius: 24px;
+}
+
+.toggle input[type="checkbox"]:checked + label:before {
+	background-color: $color-dark;
+}
+
+.toggle input[type="checkbox"] + label:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+	-webkit-transition: -webkit-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75),;
+	-moz-transition: -moz-transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+	transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+	position: absolute;
+    top: 2px;
+    left: 1px;
+    width: 20px;
+    height: 20px;
+	content: '';
+	background-color: $color-white;	
+    border-radius: 24px;
+}
+
+.toggle input[type="checkbox"]:checked + label:after {
+	transform: translateX(25px);
+	
+}
+
+.toggle.disabled {
+	opacity: 0.5;
+	pointer-events: none;
+}

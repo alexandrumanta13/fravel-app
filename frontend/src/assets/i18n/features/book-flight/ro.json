@@ -1,0 +1,13 @@
+{
+    "BOOK-FILGHT": {
+        "TITLE": "Bilete de avion",
+        "WHERE_TO_FLY": "Urmatoarea destinatie alaturi de noi va fi...",
+        "WHERE_FROM_FLY": "De unde pleci?",
+        "TOP_DESTINATIONS": {
+            "TITLE": "Destinatii populare"
+        },
+        "FORWARD": "Inainte",
+        "ROUNDTRIP": "Dus-intors",
+        "ONEWAY": "Doar dus"
+    }
+}

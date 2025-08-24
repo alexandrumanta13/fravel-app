@@ -1,0 +1,292 @@
+.complete {
+  &__container {
+    @include respond(phone) {
+      background-color: $color-sky-blue-light;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+  }
+
+  &__inner {
+    @include respond(phone) {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      box-shadow: rgb(166 197 205 / 15%) 0 1.5rem 2.5rem,
+        rgb(166 197 205 / 5%) 0 0.5rem 1rem;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+      clip-path: inset(0 round 0 0 0 0);
+      transform: translate3d(0, 0, 0) scale(1);
+      transition: transform 1200ms ease, clip-path 1800ms;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: $color-white;
+
+      &.open {
+        pointer-events: none;
+        clip-path: inset(1rem round 6rem 6rem 6rem 6rem);
+        transform: translate3d(60%, 0, 0) scale(0.8);
+        transition: transform 1200ms ease, clip-path 1800ms;
+      }
+    }
+
+    .flights {
+      &__info {
+        &.scroll {
+          top: 34%;
+        }
+      }
+    }
+  }
+
+  &__info {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translate3d(13rem, -16.5rem, 10px);
+
+    &.scroll {
+      opacity: 1;
+      visibility: visible;
+      transform: translate3d(15rem, -16.5rem, 10px);
+      display: flex;
+      gap: 4rem;
+      height: 3.2rem;
+      align-items: center;
+      background: $color-sky-blue;
+      padding: 0 1.6rem;
+      border-radius: 1.6rem;
+      box-shadow: rgba(166, 197, 205, 0.4) 0 0.8rem 2.4rem;
+
+      .border-dash {
+        top: -1.2rem;
+        height: 48px;
+        margin: auto 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 0.2rem;
+        background-image: linear-gradient(
+          180deg,
+          #fff 25%,
+          transparent 5%,
+          transparent 50%,
+          #fff 50%,
+          #fff 75%,
+          transparent 75%,
+          transparent
+        );
+        background-size: 1rem 1rem;
+        transform: rotate(-90deg);
+        font-size: 2.4rem;
+        position: relative;
+
+        i {
+          color: $color-white;
+        }
+      }
+
+      .departure h2,
+      .destination h2 {
+        margin: 0;
+        color: $color-white;
+      }
+    }
+  }
+
+  &__header {
+    background-color: #a6c5cd;
+    clip-path: inset(0 round 0 0 6rem 6rem);
+    padding: 0 1.6rem 4.8rem;
+    position: relative;
+    z-index: 10;
+    height: 20%;
+    max-height: 20%;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+    transition: transform 1200ms ease, clip-path 1800ms;
+
+    .header-info {
+      display: flex;
+      padding: 6.4rem 3.2rem 0;
+      flex-direction: column;
+      margin-left: 1.6rem;
+      position: relative;
+      transform: translate3d(0, 0, 0);
+      transition: transform 1200ms ease;
+      width: 100%;
+      opacity: 1;
+      visibility: visible;
+
+      .departure,
+      .destination {
+        flex: 1;
+        margin-left: 1.6rem;
+        transition: all 1200ms ease;
+      }
+
+      .departure {
+        //margin-bottom: 3.2rem;
+      }
+
+      .destination {
+        margin-top: 0;
+        transition: all 1200ms ease;
+      }
+
+      .border-dash {
+        position: absolute;
+        top: 5rem;
+        height: 60%;
+        margin: auto 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 0.2rem;
+        background-image: linear-gradient(
+          180deg,
+          #fff 25%,
+          transparent 5%,
+          transparent 50%,
+          #fff 50%,
+          #fff 75%,
+          transparent 75%,
+          transparent
+        );
+        background-size: 1rem 1rem;
+        transform: translate3d(-1.6rem, 15%, 0);
+        transition: height 1200ms ease, transform 1200ms ease;
+
+        .icon-plane-filled {
+          font-size: 3.5rem;
+          transition: all 1200ms ease;
+          color: $color-white;
+        }
+      }
+
+      h1 {
+        color: $color-white;
+        font-size: 2.8rem;
+        font-family: "SFProDisplay-Bold";
+        padding: 1.6rem 1.6rem 0;
+      }
+
+      h2 {
+        color: $color-white;
+        font-family: "SFProDisplay-Bold";
+      }
+
+      h5 {
+        color: $color-grey-4;
+        font-family: $sf-regular;
+        margin: 0;
+        font-size: 1.6rem;
+        opacity: 1;
+        visibility: visible;
+        position: absolute;
+        transition: all 1200ms ease;
+      }
+    }
+
+    .btn-custom {
+      position: absolute;
+      top: 35%;
+      right: 10%;
+      z-index: 10;
+    }
+
+    .go-back {
+      display: flex;
+      width: 100%;
+      justify-content: flex-start;
+      // align-items: center;
+      padding-top: 6.4rem;
+      position: relative;
+      z-index: 9;
+      transform: translate3d(0, 0, 0);
+      transition: transform 1200ms ease;
+      height: 100%;
+
+      &__action {
+        width: 4.4rem;
+        height: 4.4rem;
+        display: flex;
+        // align-items: center;
+        justify-content: center;
+        font-size: 2.4rem;
+        text-decoration: none;
+        transform: translate3d(0, 30%, 0);
+        transition: transform 1200ms ease;
+
+        &:hover,
+        &:focus,
+        &:active {
+          text-decoration: none;
+        }
+      }
+    }
+
+    &.scroll {
+      // transform: translate3d(0, -50%, 0);
+      clip-path: inset(0 round 0 0 6rem 6rem);
+
+      .go-back {
+        transform: translate3d(0, 60%, 0);
+
+        &__action {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+
+      .header-info {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate3d(25%, 0, 0);
+
+        .border-dash {
+          height: 35%;
+          transform: translate3d(-1.6rem, 5%, 0);
+
+          .icon-plane-filled {
+            font-size: 2.4rem;
+            color: $color-white;
+          }
+        }
+
+        .destination {
+          margin-top: 0.4rem;
+        }
+
+        h5 {
+          opacity: 0;
+          visibility: hidden;
+          position: absolute;
+        }
+      }
+    }
+  }
+
+  &__booking-info {
+    padding: 3.2rem 1.6rem 1.6rem;
+    background-color: $color-white;
+    height: 100%;
+    overflow: auto;
+
+    h3 {
+      font-size: 1.8rem;
+      margin: 1.6rem 0 3.2rem;
+    }
+
+    .flight-item__container--arrival {
+      position: relative;
+      transform: none;
+      height: auto;
+    }
+  }
+}

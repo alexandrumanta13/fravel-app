@@ -1,0 +1,263 @@
+@font-face {
+  font-family: "#{$sf-bold}";
+  src: url("#{$font-path}/#{$sf-bold}.eot?#iefix") format("embedded-opentype"),
+  url("#{$font-path}/#{$sf-bold}.woff2") format("opentype"),
+  url("#{$font-path}/#{$sf-bold}.woff") format("woff"),
+  url("#{$font-path}/#{$sf-bold}.ttf") format("truetype"),
+  url("#{$font-path}/#{$sf-bold}.svg##{$sf-bold}") format("svg");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "#{$sf-regular}";
+  src: url("#{$font-path}/#{$sf-regular}.eot?#iefix") format("embedded-opentype"),
+  url("#{$font-path}/#{$sf-regular}.ttf") format("opentype"),
+  url("#{$font-path}/#{$sf-regular}.woff") format("woff"),
+  url("#{$font-path}/#{$sf-regular}.ttf") format("truetype"),
+  url("#{$font-path}/#{$sf-regular}.svg##{$sf-regular}") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "#{$sf-medium}";
+  src: url("#{$font-path}/#{$sf-medium}.eot?#iefix") format("embedded-opentype"),
+  url("#{$font-path}/#{$sf-medium}.ttf") format("opentype"),
+  url("#{$font-path}/#{$sf-medium}.woff") format("woff"),
+  url("#{$font-path}/#{$sf-medium}.ttf") format("truetype"),
+  url("#{$font-path}/#{$sf-medium}.svg##{$sf-medium}") format("svg");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: '#{$icons-font-family}';
+  src:  url('#{$font-path}/#{$icons-font-family}.eot?jq2qox');
+  src:  url('#{$font-path}/#{$icons-font-family}.eot?jq2qox#iefix') format('embedded-opentype'),
+    url('#{$font-path}/#{$icons-font-family}.ttf?jq2qox') format('truetype'),
+    url('#{$font-path}/#{$icons-font-family}.woff?jq2qox') format('woff'),
+    url('#{$font-path}/#{$icons-font-family}.svg?jq2qox##{$icons-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icons-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.icon-plane-filled {
+  &:before {
+    content: $icon-plane-filled; 
+  }
+}
+.icon-boarding-cards {
+  &:before {
+    content: $icon-boarding-cards; 
+  }
+}
+.icon-adult {
+  &:before {
+    content: $icon-adult; 
+  }
+}
+.icon-economy {
+  &:before {
+    content: $icon-economy; 
+  }
+}
+.icon-round-trip {
+  &:before {
+    content: $icon-round-trip; 
+  }
+}
+.icon-child {
+  &:before {
+    content: $icon-child; 
+  }
+}
+.icon-close {
+  &:before {
+    content: $icon-close; 
+  }
+}
+.icon-credit-card {
+  &:before {
+    content: $icon-credit-card; 
+  }
+}
+.icon-email {
+  &:before {
+    content: $icon-email; 
+  }
+}
+.icon-explore {
+  &:before {
+    content: $icon-explore; 
+  }
+}
+.icon-logout {
+  &:before {
+    content: $icon-logout; 
+  }
+}
+.icon-notifications {
+  &:before {
+    content: $icon-notifications; 
+  }
+}
+.icon-support {
+  &:before {
+    content: $icon-support; 
+  }
+}
+.icon-arrow-right {
+  &:before {
+    content: $icon-arrow-right; 
+  }
+}
+.icon-edit {
+  &:before {
+    content: $icon-edit; 
+  }
+}
+.icon-arrow-left {
+  &:before {
+    content: $icon-arrow-left; 
+  }
+}
+.icon-search {
+  &:before {
+    content: $icon-search; 
+  }
+}
+.icon-plane {
+  &:before {
+    content: $icon-plane; 
+  }
+}
+.icon-profile {
+  &:before {
+    content: $icon-profile; 
+  }
+}
+.icon-saved-destinations {
+  &:before {
+    content: $icon-saved-destinations; 
+  }
+}
+.icon-settings {
+  &:before {
+    content: $icon-settings; 
+  }
+}
+.icon-infant {
+  &:before {
+    content: $icon-infant; 
+  }
+}
+.icon-plus {
+  &:before {
+    content: $icon-plus; 
+  }
+}
+.icon-minus {
+  &:before {
+    content: $icon-minus; 
+  }
+}
+.icon-hand-luggage {
+  &:before {
+    content: $icon-hand-luggage; 
+  }
+}
+.icon-luggage {
+  &:before {
+    content: $icon-luggage; 
+  }
+}
+.icon-adult-filled {
+  &:before {
+    content: $icon-adult-filled; 
+  }
+}
+.icon-child-filled {
+  &:before {
+    content: $icon-child-filled; 
+  }
+}
+.icon-hand-luggage-filled {
+  &:before {
+    content: $icon-hand-luggage-filled; 
+  }
+}
+.icon-infant-filled {
+  &:before {
+    content: $icon-infant-filled; 
+  }
+}
+.icon-luggage-filled {
+  &:before {
+    content: $icon-luggage-filled; 
+  }
+}
+.icon-filter {
+  &:before {
+    content: $icon-filter; 
+  }
+}
+.icon-firstclass {
+  &:before {
+    content: $icon-firstclass; 
+  }
+}
+.icon-business {
+  &:before {
+    content: $icon-business; 
+  }
+}
+.icon-economy-premium {
+  &:before {
+    content: $icon-economy-premium; 
+  }
+}
+.icon-economy-class {
+  &:before {
+    content: $icon-economy-class; 
+  }
+}
+.icon-calendar {
+  &:before {
+    content: $icon-calendar; 
+  }
+}
+.icon-location--filled {
+  &:before {
+    content: $icon-location--filled; 
+  }
+}
+.icon-clock--filled {
+  &:before {
+    content: $icon-clock--filled; 
+  }
+}
+.icon-calendar--filled {
+  &:before {
+    content: $icon-calendar--filled; 
+  }
+}

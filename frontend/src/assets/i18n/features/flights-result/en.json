@@ -1,0 +1,11 @@
+{
+    "FLIGHTS_RESULTS": {
+        "FLIGHT_TYPE": {
+            "FLIGHT_DIRECT": "Direct flight",
+            "FLIGHT_STOP": "Connecting flight"
+        },
+        "RETURN_DETAILS": "Return details",
+        "BUY": "BUY",
+        "DEPARTURE_DETAILS": "Departure details"
+    }
+}

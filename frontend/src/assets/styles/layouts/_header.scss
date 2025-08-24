@@ -1,0 +1,61 @@
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  height: 6.4rem;
+  padding: 0 3.2rem;
+  &__menu {
+    width: 3.6rem;
+    height: 6.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include respond(desktop) {
+    background-color: $color-sky-blue;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  @include respond(phone) {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+.stepper {
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  position: relative;
+  padding: 1.6rem 3.2rem;
+  position: relative;
+  position: fixed;
+  width: 100%;
+
+  @include respond(phone) {
+    gap: 3.2rem;
+  }
+
+  @include respond(small-phone) {
+    gap: 2.8rem;
+  }
+
+  @include respond(ultra-small-phone) {
+    gap: 1.6rem;
+  }
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    transition: transform 1200ms ease, opacity 1200ms;
+    transition-delay: 560ms;
+  }
+
+  &.open {
+    transform: translate3d(70%, 100%, 0) scale(0.8);
+  }
+}

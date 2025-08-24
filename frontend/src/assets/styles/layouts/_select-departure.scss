@@ -1,0 +1,286 @@
+.select-departure {
+  &__container {
+    @include respond(desktop) {
+      position: relative;
+    }
+    @include respond(phone) {
+      width: 100%;
+      height: 100%;
+      background-color: $color-sky-blue-light;
+
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    .go-back {
+      @include respond(desktop) {
+        display: none;
+      }
+      @include respond(phone) {
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0 1.6rem;
+      }
+
+      &__action {
+        @include respond(phone) {
+          width: 4.4rem;
+          height: 4.4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2.4rem;
+          color: $color-white;
+        }
+      }
+
+      span {
+        color: $color-white;
+      }
+    }
+
+    .bg {
+      @include respond(desktop) {
+        display: none;
+      }
+      @include respond(phone) {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        opacity: 0.2;
+      }
+    }
+  }
+
+  &__inner {
+    @include respond(desktop) {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    @include respond(phone) {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      box-shadow: rgb(166 197 205 / 15%) 0px 15px 25px,
+        rgb(166 197 205 / 5%) 0px 5px 10px;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+      clip-path: inset(0 round 0 0 0 0);
+      transform: translate3d(0, 0, 0) scale(1);
+      transition: transform 1200ms ease, clip-path 1800ms;
+      padding-top: 6.4rem;
+      display: flex;
+      flex-direction: column;
+      background-color: $color-sky-blue;
+
+      &.open {
+        pointer-events: none;
+        clip-path: inset(10px round 60px 60px 60px 60px);
+        transform: translate3d(60%, 0, 0) scale(0.8);
+        transition: transform 1200ms ease, clip-path 1800ms;
+      }
+    }
+  }
+
+  &__form {
+    @include respond(desktop) {
+      padding: 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      i {
+        position: absolute;
+        font-size: 1.8rem;
+        left: 1.6rem;
+        color: $color-grey-1;
+      }
+
+      input {
+        background: $color-white;
+        border: none;
+        box-shadow: .3rem .3rem .6rem $color-grey-3, -.3rem -.3rem .6rem $color-white;
+        border-radius: .8rem;
+        height: 4.8rem;
+        width: 100%;
+        outline: none;
+        padding: 0 1.6rem 0 4rem;
+
+        font-family: $sf-regular;
+        font-weight: 100;
+        font-size: 1.6rem;
+
+        &::placeholder {
+          // color: $color-white;
+          opacity: 1;
+          font-family: $sf-regular;
+          font-weight: 100;
+        }
+
+        &:-ms-input-placeholder {
+          // color: $color-white;
+          font-family: $sf-regular;
+          font-weight: 100;
+        }
+
+        &::-ms-input-placeholder {
+          // color: $color-white;
+          font-family: $sf-regular;
+          font-weight: 100;
+        }
+
+        &:hover {
+          outline: none;
+          box-shadow: none;
+          box-shadow: .3rem .3rem .6rem $color-grey-3, -.3rem -.3rem .6rem $color-white;
+        }
+        &:focus {
+          outline: none;
+          // background: rgba($color-white, 0.4);
+          // color: $color-white;
+          box-shadow: inset 3px 3px 6px $color-grey-3,
+            inset -3px -3px 6px $color-white;
+        }
+      }
+    }
+    @include respond(phone) {
+      padding: 3.2rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      i {
+        position: absolute;
+        font-size: 2.4rem;
+        left: 4.8rem;
+        color: $color-white;
+      }
+
+      input {
+        background: rgba($color-white, 0.4);
+        border-radius: 1.6rem;
+        height: 5.6rem;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        outline: none;
+        padding: 1.6rem 1.6rem 1.6rem 6.4rem;
+        color: $color-white;
+        font-family: $sf-regular;
+        font-weight: 100;
+        font-size: 16px;
+
+        &::placeholder {
+          color: $color-white;
+          opacity: 1;
+          font-family: $sf-regular;
+          font-weight: 100;
+        }
+
+        &:-ms-input-placeholder {
+          color: $color-white;
+          font-family: $sf-regular;
+          font-weight: 100;
+        }
+
+        &::-ms-input-placeholder {
+          color: $color-white;
+          font-family: $sf-regular;
+          font-weight: 100;
+        }
+
+        &:hover,
+        &:focus {
+          border: none;
+          outline: none;
+          background: rgba($color-white, 0.4);
+          box-shadow: none;
+          color: $color-white;
+        }
+      }
+    }
+  }
+
+  &__list {
+    @include respond(desktop) {
+      display: none;
+    }
+    @include respond(phone) {
+      padding: 1rem 3.2rem 6rem;
+      list-style: none;
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+
+      li {
+        margin: 1.6rem 0;
+        color: $color-white;
+
+        a {
+          font-size: 5.6rem;
+          color: $color-white;
+          display: flex;
+          flex-direction: column;
+          text-decoration: none;
+
+          small {
+            font-size: 1.9rem;
+          }
+
+          &.selected {
+            font-family: $sf-bold;
+          }
+        }
+      }
+
+      ul {
+        list-style: none;
+        // border-top: 1px solid rgba($color-white, .8);
+        position: relative;
+        padding: 2rem 0;
+        margin: 2rem 0;
+
+        .country {
+          display: none;
+          position: absolute;
+          top: -3rem;
+          font-size: 1.9rem;
+          color: $color-white;
+
+          span {
+            display: flex;
+            align-items: center;
+            margin: 0 8px;
+            white-space: nowrap;
+
+            &.line-left {
+              width: 1.6rem;
+              height: 1px;
+              margin: 0;
+              background-color: rgba($color-white, 0.8);
+            }
+
+            &.line-right {
+              height: 1px;
+              width: 100%;
+              margin: 0;
+              background-color: rgba($color-white, 0.8);
+            }
+          }
+
+          &:first-child {
+            display: flex;
+            width: 100%;
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
+}

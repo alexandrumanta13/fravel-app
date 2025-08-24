@@ -1,0 +1,16 @@
+:host {
+  position: fixed;
+  bottom: 0;
+  padding: 16px;
+  z-index: 0;
+  width: 100%;
+  transform: translate3d(0, 100%, 0);
+
+  transition: 0.8s 10ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation-delay: 280ms;
+  background-color: transparent;
+
+  &.open {
+    transform: translate3d(0, 0, 0);
+  }
+}

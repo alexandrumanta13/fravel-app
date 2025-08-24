@@ -1,0 +1,167 @@
+<div class="filters__container">
+  <div
+    *ngIf="state === 'open'"
+    class="filters__overlay"
+    [@toggleOverlay]="state"
+  ></div>
+  <div class="filters__slider" [class.open]="state === 'open'">
+    <div class="filters__slider-inner">
+      <h1>Modificati datele</h1>
+      <div class="trip">
+        <div class="departure" (click)="toggleDeparture()">
+          <span>{{ (selectedDeparture$ | async).city.name }}</span>
+          <i class="icon-edit"></i>
+        </div>
+        <div class="gap">
+          <i class="icon-plane-filled"></i>
+        </div>
+        <div class="destination" (click)="toggleDestination()">
+          <span>{{ (selectedDestination$ | async)?.city?.name }}</span>
+          <i class="icon-edit"></i>
+        </div>
+      </div>
+
+      <div class="trip-details">
+        <div class="departure__airport">
+          <span>{{ (selectedDeparture$ | async).name }}</span>
+        </div>
+        <div class="destination__airport">
+          <span>{{ (selectedDestination$ | async)?.city?.name }}</span>
+        </div>
+      </div>
+
+      <div class="flight-type">
+        <span>{{
+          !flightType ? "FLIGHT_TYPE.ROUNDTRIP" : "FLIGHT_TYPE.ONEWAY"
+        }}</span>
+        <div class="toggle">
+          <input
+            type="checkbox"
+            name="flightType"
+            id="flightType"
+            [checked]="!flightType"
+            (change)="flightTypeChanged($event)"
+          />
+          <label for="flightType"></label>
+        </div>
+      </div>
+
+      <ul class="class-select__list">
+        <li
+          class="class-select__class economy"
+          [class.active]="(classSelected$ | async) === 'M'"
+        >
+          <span class="tooltip">Economy</span>
+          <button
+            (click)="selectClass('M')"
+            class="btn-custom btn-square-icon btn-shadow"
+          >
+            <i class="icon-economy-class"></i>
+          </button>
+        </li>
+        <li
+          class="class-select__class premium"
+          [class.active]="(classSelected$ | async) === 'W'"
+        >
+          <span class="tooltip">Premium</span>
+          <button
+            (click)="selectClass('W')"
+            class="btn-custom btn-square-icon btn-shadow"
+          >
+            <i class="icon-economy-premium"></i>
+          </button>
+        </li>
+        <li
+          class="class-select__class business"
+          [class.active]="(classSelected$ | async) === 'C'"
+        >
+          <span class="tooltip">Business</span>
+          <button
+            (click)="selectClass('C')"
+            class="btn-custom btn-square-icon btn-shadow"
+          >
+            <i class="icon-business"></i>
+          </button>
+        </li>
+        <li
+          class="class-select__class first-class"
+          [class.active]="(classSelected$ | async) === 'F'"
+        >
+          <span class="tooltip">First class</span>
+          <button
+            (click)="selectClass('F')"
+            class="btn-custom btn-square-icon btn-shadow"
+          >
+            <i class="icon-firstclass"></i>
+          </button>
+        </li>
+      </ul>
+
+      <div class="persons-and-luggage" (click)="togglePersons()">
+        <span>{{ "SELECT_NO_PERSONS.TITLE" }} <i class="icon-edit"></i></span>
+        <ul class="persons-and-luggage__list">
+          <li>
+            <i class="icon-adult" alt="Persons"></i>
+            <span> {{ (persons$ | async)?.selectedAdults }}</span>
+          </li>
+          <li>
+            <i class="icon-child" alt="Children"></i>
+            <span> {{ (persons$ | async)?.selectedChildren }}</span>
+          </li>
+          <li>
+            <i class="icon-infant" alt="Infant"></i>
+            <span> {{ (persons$ | async)?.selectedInfants }}</span>
+          </li>
+          <li>
+            <i class="icon-hand-luggage" alt="Hand luggage"></i>
+            <span> {{ (bags$ | async)?.handBagsSelected }}</span>
+          </li>
+          <li>
+            <i class="icon-luggage" alt="Hold luggage"></i>
+            <span> {{ (bags$ | async)?.holdBagsSelected }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="date-trip" (click)="toggleDates()">
+        <div class="date-trip__title">
+          <span>{{ "PICK_DATE.TITLE" }} <i class="icon-edit"></i></span>
+        </div>
+        <div class="date-trip__dates">
+          <div class="date-from">
+            <i class="icon-calendar"></i>
+            {{ (dateSelected$ | async).fromDate.day }}.{{
+              (dateSelected$ | async).fromDate.month
+            }}.{{ (dateSelected$ | async).fromDate.year }}
+          </div>
+          <div
+            class="date-to"
+            *ngIf="
+              !(oneWay$ | async) && (dateSelected$ | async).toDate !== null
+            "
+          >
+            <i class="icon-calendar"></i>
+            {{ (dateSelected$ | async).toDate.day }}.{{
+              (dateSelected$ | async).toDate.month
+            }}.{{ (dateSelected$ | async).toDate.year }}
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="btn-custom btn-primary btn-full-width"
+        (click)="applyFilters(); toggleFilters('closed')"
+      >
+        {{ "BUTTONS.APPLY_FILTERS" }}
+      </button>
+
+      <div class="filters__close" (click)="toggleFilters('closed')">
+        <img
+          src="/assets/images/icons/close.svg"
+          [@close]="state"
+          alt="Close filters selector"
+        />
+      </div>
+    </div>
+  </div>
+</div>

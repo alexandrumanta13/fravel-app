@@ -1,0 +1,134 @@
+.top-destinations {
+  @include respond(desktop) {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8rem;
+  }
+
+  @include respond(phone) {
+    // margin-top: -6.4rem;
+    background-color: $color-white;
+    // height: calc(50% + 6.4rem);
+    // padding-top: 14rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 50%;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 6rem;
+      background-color: $color-white;
+      top: -6rem;
+      z-index: -1;
+    }
+  }
+
+  @include respond(small-phone) {
+    // padding-top: 12rem;
+    position: relative;
+    height: 50%;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 6rem;
+      background-color: $color-white;
+      top: -6rem;
+      z-index: -1;
+    }
+  }
+
+  &__inner {
+    @include respond(desktop) {
+      display: flex;
+    }
+
+    @include respond(phone) {
+      padding: 1.6rem 1.6rem 10rem 1.6rem;
+      display: flex;
+      align-items: center;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      -webkit-backface-visibility: hidden;
+      flex: 1;
+    }
+
+    @include respond(small-phone) {
+      padding: 1.6rem 1.6rem 3rem 1.6rem;
+    }
+
+    // @include respond(ultra-small-phone) {
+    //   padding: 1.6rem 1.6rem 1.6rem 1.6rem;
+    // }
+  }
+
+  &__title {
+    color: $color-dark;
+    font-family: $sf-bold;
+
+    @include respond(phone) {
+      font-size: 19px;
+      margin-left: 3.2rem;
+      margin-top: 3.2rem;
+    }
+  }
+
+  &__list {
+    @include respond(desktop) {
+      display: flex;
+    }
+
+    @include respond(phone) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
+      padding-left: 0;
+    }
+  }
+
+  &__item {
+    margin: 0 1.6rem;
+    position: relative;
+    list-style: none;
+    box-shadow: rgb(166 197 205 / 25%) 0px 50px 100px -20px,
+      rgb(166 197 205 / 30%) 0px 30px 60px -30px;
+
+    .item__clip {
+      clip-path: inset(0 round 16px 19px 16px 16px);
+      background-color: $color-sky-blue;
+      width: 180px;
+      height: 230px;
+      padding: 3.2rem;
+      z-index: 1;
+
+      @include respond(small-phone) {
+        height: 200px;
+        width: 160px;
+      }
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    h4 {
+      color: $color-white;
+      font-family: $sf-bold;
+      font-size: 24px;
+      position: relative;
+      z-index: 2;
+    }
+  }
+}

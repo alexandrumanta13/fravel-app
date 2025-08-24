@@ -1,0 +1,63 @@
+{
+    "BUTTONS": {
+        "CURRENCY": "Currency",
+        "APPLY_FILTERS": "Apply filters",
+        "SELECT": "Select"
+    },
+    "TITLES": {
+        "BOOK_FLIGHT": "Plane tickets",
+        "PICK_DATE": "Choose date",
+        "SELECT_PASSANGERS_AND_LUGGAGE": "Passengers and luggage",
+        "PICK_FLIGHT": "Choose flight",
+        "COMPLETE_BOOKING": "Complete booking"
+    },
+    "GDPR": {
+        "TITLE": "Before you continue to Fravel...",
+        "CONTENT": "By clicking \"I accept all\", you agree to the storage of cookies on your device in order to improve your site navigation, to analyze the use of the site and to help our marketing efforts.",
+        "ACTIONS": {
+            "BUTTONS": {
+                "ACCEPT": "I accept all",
+                "MORE": "Learn more"
+            }
+        }
+    },
+    "LANGUAGE_SELECTOR": {
+        "LABELS": {
+            "CURRENCY": "Currency"
+        }
+    },
+    "DEPARTURE_SELECTOR":{
+        "PLACEHOLDER": "Search departure",
+        "GO_BACK": "Back"
+    },
+    "DESTINATION_SELECTOR":{
+        "PLACEHOLDER": "Search destination",
+        "GO_BACK": "Back"
+    },
+    "PICK_DATE":{
+        "TITLE": "Choose departure date"
+    },
+    "SELECT_NO_PERSONS":{
+        "TITLE": "Passengers and luggage",
+        "FLIGHT": "Flight type",
+        "PERSONS_SUBTITLE": "Passengers",
+        "LUGGAGE_SUBTITLE": "Luggage",
+        "ROUNDTRIP": "Round trip",
+        "ONEWAY": "One way",
+        "ECONOMY": "Economy",
+        "BUSINESS": "Business",
+        "ADULTS_LABEL": "Adults",
+        "CHILDS_LABEL": "Children",
+        "INFANTS_LABEL": "Infants",
+        "ADULTS_INFO": "Above age 11",
+        "CHILDS_INFO": "Between 2 - 11 years",
+        "INFANTS_INFO": "Below age 2",
+        "HAND_LUGGAGE": "Hand luggage",
+        "LUGGAGE": "Hold luggage",
+        "SELECT_DATE": "Select departure date"
+    },
+    "FLIGHT_TYPE": {
+        "ROUNDTRIP": "Round trip",
+        "ONEWAY": "Oneway"
+    }
+}

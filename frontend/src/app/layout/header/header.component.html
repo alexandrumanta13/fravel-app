@@ -1,0 +1,35 @@
+<header class="header">
+  <a routerlink="/" class="header__logo-container">
+    <img src="assets/logo/logo-white.svg" alt="" />
+  </a>
+  <div
+    class="lang__container"
+    [class.menu-open]="state"
+    (click)="toggleLanguage()"
+  >
+    <div class="lang__default-lang">
+      <img [src]="selectedLanguage.flag" [alt]="selectedLanguage.language" />
+    </div>
+  </div>
+  <div class="header__menu">
+    <div class="hamburger" (click)="toggleMenuState()">
+      <a class="line_container" [ngClass]="toggleMenu ? 'open' : 'closed'"></a>
+    </div>
+  </div>
+</header>
+
+<app-stepper #stepper [ngClass]="{ show: toggleStepper }" class="stepper">
+  <app-step (click)="stepper.setStep(1)"> </app-step>
+  <app-step (click)="stepper.setStep(2)">
+    <div step-title i18n>Pasageri si bagaje</div>
+  </app-step>
+  <app-step (click)="stepper.setStep(3)">
+    <div step-title i18n>Alege data</div>
+  </app-step>
+  <app-step (click)="stepper.setStep(4)">
+    <div step-title i18n>Alege zbor</div>
+  </app-step>
+  <app-step (click)="stepper.setStep(5)">
+    <div step-title i18n>Finalizeaza</div>
+  </app-step>
+</app-stepper>

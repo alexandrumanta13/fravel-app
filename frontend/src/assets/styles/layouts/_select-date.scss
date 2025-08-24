@@ -1,0 +1,161 @@
+.select-date {
+  &__container {
+    @include respond(phone) {
+      background-color: $color-sky-blue-light;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+  }
+
+  &__inner {
+    @include respond(phone) {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      box-shadow: rgb(166 197 205 / 15%) 0px 15px 25px,
+        rgb(166 197 205 / 5%) 0px 5px 10px;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+      clip-path: inset(0 round 0 0 0 0);
+      transform: translate3d(0, 0, 0) scale(1);
+      transition: transform 1200ms ease, clip-path 1800ms;
+      background-color: $color-white;
+      display: flex;
+      flex-direction: column;
+
+      &.open {
+        pointer-events: none;
+        clip-path: inset(10px round 60px 60px 60px 60px);
+        transform: translate3d(60%, 0, 0) scale(0.8);
+        transition: transform 1200ms ease, clip-path 1800ms;
+      }
+    }
+
+    .date-select-actions {
+      position: fixed;
+      bottom: 0;
+      padding: 16px;
+      z-index: 0;
+      width: 100%;
+      transform: translate3d(0, 100%, 0);
+
+      transition: 0.8s 10ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      background-color: transparent;
+
+      &.open {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+
+  &__header {
+    background-color: #a6c5cd;
+    border-bottom-left-radius: 6rem;
+    border-bottom-right-radius: 6rem;
+    padding: 0 1.6rem 4.8rem;
+    position: relative;
+    z-index: 10;
+    height: 15rem;
+
+    h1 {
+      color: #fff;
+      font-size: 2.8rem;
+      font-family: "SFProDisplay-Bold";
+      padding: 1.6rem 1.6rem 0;
+    }
+
+    .go-back {
+      display: flex;
+      width: 100%;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 6.4rem;
+
+      &__action {
+        width: 4.4rem;
+        height: 4.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.4rem;
+        color: $color-white;
+      }
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
+// header {
+
+//     background-color: #A6C5CD;
+//     border-bottom-left-radius: 6rem;
+//     border-bottom-right-radius: 6rem;
+//     padding: 0 1.6rem 4.8rem;
+//     position: relative;
+//     z-index: 10;
+
+//     h1 {
+//       color: #fff;
+//       font-size: 2.8rem;
+//       font-family: "SFProDisplay-Bold";
+//       padding: 1.6rem 1.6rem 0;
+//     }
+
+//     .go-back {
+//       display: flex;
+//       width: 100%;
+//       justify-content: flex-start;
+//       align-items: center;
+//       padding-top: 6.4rem;
+
+//       &__action {
+//         width: 4.4rem;
+//         height: 4.4rem;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         font-size: 2.4rem;
+//       }
+//     }
+//   }
+
+.calendar {
+  &__container {
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    background-color: $color-white;
+    flex: 1;
+    margin-top: 6rem;
+  }
+}
+
+.flight-type-toggle {
+  position: fixed;
+  bottom: 10%;
+  width: 100%;
+  height: 6.4rem;
+  align-items: center;
+  padding: 0 3.2rem;
+  justify-content: flex-end;
+  gap: 3.2rem;
+  display: flex;
+  flex-direction: row;
+  transform: translate3d(0, 100%, 0);
+  transition: 0.8s 10ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  &.open {
+    bottom: 15%;
+    transform: translate3d(0, 0, 0);
+  }
+}

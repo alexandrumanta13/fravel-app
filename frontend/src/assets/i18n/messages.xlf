@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="ro">
+  <file id="ngi18n" original="ng.template">
+    <unit id="1124800413050230614">
+      <segment>
+        <source>Destinatii populare</source>
+      </segment>
+    </unit>
+    <unit id="1167172179854069599">
+      <segment>
+        <source>Bagaj de cala</source>
+      </segment>
+    </unit>
+    <unit id="1185691156721276499">
+      <segment>
+        <source>Bagaje</source>
+      </segment>
+    </unit>
+    <unit id="1227960496540664113">
+      <segment>
+        <source>Pasageri</source>
+      </segment>
+    </unit>
+    <unit id="1355509313442478331">
+      <segment>
+        <source>Copii</source>
+      </segment>
+    </unit>
+    <unit id="187187500641108332">
+      <segment>
+        <source>
+          <ph id="0" equiv="INTERPOLATION" disp="{{ destination.city_name }}"/>
+        </source>
+      </segment>
+    </unit>
+    <unit id="1878128290587277625">
+      <segment>
+        <source>Sub 2 ani</source>
+      </segment>
+    </unit>
+    <unit id="227070324774892227">
+      <segment>
+        <source>Cauta plecare</source>
+      </segment>
+    </unit>
+    <unit id="2578302103876479145">
+      <segment>
+        <source>Aflați mai multe</source>
+      </segment>
+    </unit>
+    <unit id="3646100130584538547">
+      <segment>
+        <source>Bagaj de mana</source>
+      </segment>
+    </unit>
+    <unit id="4127526841478989645">
+      <segment>
+        <source>Alege zbor</source>
+      </segment>
+    </unit>
+    <unit id="4498084173051276530">
+      <segment>
+        <source>Monedă:</source>
+      </segment>
+    </unit>
+    <unit id="4701958206285162322">
+      <segment>
+        <source>2 - 11 ani</source>
+      </segment>
+    </unit>
+    <unit id="5759932085938715150">
+      <segment>
+        <source>Close language selector</source>
+      </segment>
+    </unit>
+    <unit id="6028752814069688925">
+      <segment>
+        <source>Inainte de a continua pe Fravel...</source>
+      </segment>
+    </unit>
+    <unit id="6404504496130768258">
+      <segment>
+        <source>Peste 11 ani</source>
+      </segment>
+    </unit>
+    <unit id="6512829087684121252">
+      <segment>
+        <source>Finalizeaza</source>
+      </segment>
+    </unit>
+    <unit id="6876818284119987642">
+      <segment>
+        <source>Infanti</source>
+      </segment>
+    </unit>
+    <unit id="7008494275246438430">
+      <segment>
+        <source>Urmatoarea destinatie alaturi de noi va fi...</source>
+      </segment>
+    </unit>
+    <unit id="7285391195485739381">
+      <segment>
+        <source> Selecteaza </source>
+      </segment>
+    </unit>
+    <unit id="761710626681124982">
+      <segment>
+        <source>Cauta destinatie</source>
+      </segment>
+    </unit>
+    <unit id="7640828990442303520">
+      <segment>
+        <source>Accept toate</source>
+      </segment>
+    </unit>
+    <unit id="7821050395834097840">
+      <segment>
+        <source>Pasageri si bagaje</source>
+      </segment>
+    </unit>
+    <unit id="8691102085116340953">
+      <segment>
+        <source>Alege data</source>
+      </segment>
+    </unit>
+    <unit id="8925293723756665356">
+      <segment>
+        <source>Adulti</source>
+      </segment>
+    </unit>
+    <unit id="9085057666045464273">
+      <segment>
+        <source> Prin selectarea opțiunii &quot;Acceptă toate&quot;, vă exprimați acordul pentru stocarea cookie-urilor pe dispozitivul dumneavoastră. Acest lucru ne ajută să îmbunătățim experiența de navigare pe site, să analizăm modul în care este utilizat și să eficientizăm strategiile noastre de marketing. </source>
+      </segment>
+    </unit>
+    <unit id="929982345111189156">
+      <segment>
+        <source> Selecteaza data plecarii </source>
+      </segment>
+    </unit>
+    <unit id="ngb.alert.close">
+      <segment>
+        <source>Close</source>
+      </segment>
+    </unit>
+    <unit id="ngb.carousel.next">
+      <segment>
+        <source>Next</source>
+      </segment>
+    </unit>
+    <unit id="ngb.carousel.previous">
+      <segment>
+        <source>Previous</source>
+      </segment>
+    </unit>
+    <unit id="ngb.carousel.slide-number">
+      <segment>
+        <source> Slide <ph id="0" equiv="INTERPOLATION" disp="l$.next(value);"/> of <ph id="1" equiv="INTERPOLATION_1" disp="return this."/> </source>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.next-month">
+      <segment>
+        <source>Next month</source>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.previous-month">
+      <segment>
+        <source>Previous month</source>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.select-month">
+      <segment>
+        <source>Select month</source>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.select-year">
+      <segment>
+        <source>Select year</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.first">
+      <segment>
+        <source>««</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.first-aria">
+      <segment>
+        <source>First</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.last">
+      <segment>
+        <source>»»</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.last-aria">
+      <segment>
+        <source>Last</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.next">
+      <segment>
+        <source>»</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.next-aria">
+      <segment>
+        <source>Next</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.previous">
+      <segment>
+        <source>«</source>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.previous-aria">
+      <segment>
+        <source>Previous</source>
+      </segment>
+    </unit>
+    <unit id="ngb.progressbar.value">
+      <segment>
+        <source>
+          <ph id="0" equiv="INTERPOLATION" disp="e. * * @sin"/>
+        </source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.decrement-hours">
+      <segment>
+        <source>Decrement hours</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.decrement-minutes">
+      <segment>
+        <source>Decrement minutes</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.decrement-seconds">
+      <segment>
+        <source>Decrement seconds</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.HH">
+      <segment>
+        <source>HH</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.hours">
+      <segment>
+        <source>Hours</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.increment-hours">
+      <segment>
+        <source>Increment hours</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.increment-minutes">
+      <segment>
+        <source>Increment minutes</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.increment-seconds">
+      <segment>
+        <source>Increment seconds</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.minutes">
+      <segment>
+        <source>Minutes</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.MM">
+      <segment>
+        <source>MM</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.PM">
+      <segment>
+        <source>
+          <ph id="0" equiv="INTERPOLATION"/>
+        </source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.seconds">
+      <segment>
+        <source>Seconds</source>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.SS">
+      <segment>
+        <source>SS</source>
+      </segment>
+    </unit>
+    <unit id="ngb.toast.close-aria">
+      <segment>
+        <source>Close</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

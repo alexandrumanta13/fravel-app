@@ -1,0 +1,184 @@
+.btn-custom {
+  outline: none;
+  border: none;
+  font-family: $sf-bold;
+  font-size: 1.9rem;
+
+
+  &.btn-primary {
+    box-shadow: 0 1.2rem 2.4rem 0 $color-grey-3;
+    background-color: $color-dark;
+    color: $color-white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .8rem 1.6rem;
+    border-radius: 1.2rem;
+    height: 6.4rem;
+    font-size: 1.9rem;
+    border: none;
+
+    &:focus,
+    &:hover,
+    &:active {
+      border: none;
+      outline: none;
+      color: $color-white;
+      background-color: $color-dark;
+      box-shadow: none;
+    }
+
+    &:not(:disabled):not(.disabled):active {
+      border: none;
+      outline: none;
+      color: $color-white;
+      background-color: $color-dark;
+      box-shadow: none;
+    }
+  }
+
+  &.btn-full-width {
+    width: 100%;
+  }
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+
+  &.btn-square-icon {
+    box-shadow: 0 1.2rem 2.4rem 0 $color-grey-3;
+    background-color: $color-dark;
+    color: $color-white;
+    width: 5.6rem;
+    height: 5.6rem;
+    border-radius: 1.6rem;
+    font-size: 1.9rem;
+    color: $color-white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      font-size: 1.9rem;
+    }
+
+    &.qnt-minus {
+      position: relative;
+      left: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      z-index: 2;
+    }
+
+    &.qnt-plus {
+      position: relative;
+      right: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      z-index: 2;
+    }
+
+    &:focus,
+    &:hover {
+      border: none;
+      outline: none;
+      color: $color-white;
+      background-color: $color-dark;
+      box-shadow: none;
+    }
+  }
+
+  &.btn-secondary {
+    background-color: transparent;
+    border: none;
+    color: $color-white;
+
+    &:focus,
+    &:hover,
+    &:active {
+      border: none;
+      outline: none;
+      box-shadow: none;
+      background-color: transparent;
+    }
+
+    &:not(:disabled):not(.disabled):active {
+      border: none;
+      outline: none;
+      box-shadow: none !important;
+      background-color: transparent;
+    }
+  }
+
+  &.btn-details {
+    background-color: $color-grey-4;
+    border: none;
+    border-radius: 2.4rem;
+    color: $color-grey-1;
+    padding: 0 1.6rem;
+    height: 2.8rem;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $sf-regular;
+
+    i {
+      margin-left: .8rem;
+      &:before {
+        color: $color-grey-1;
+      }
+    }
+  }
+  &.btn-buy {
+    background-color: $color-green;
+    border: none;
+    border-radius: .8rem;
+    color: $color-dark;
+    padding: 2.4rem 3.2rem;
+    height: 2.8rem;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $sf-regular;
+
+    // i {
+    //   margin-left: .8rem;
+    //   &:before {
+    //     color: $color-grey-1;
+    //   }
+    // }
+  }
+
+  &.btn-shadow {
+    box-shadow: 0 1.2rem 2.4rem 0 rgba($color-dark, .5);
+    //box-shadow: 0px 12px 24px #D9DEE4;
+  }
+}
+
+
+.btn-grad {
+  background-image: linear-gradient(to right, #283048 0%, #859398 51%, #283048 100%)
+}
+
+.btn-grad {
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}

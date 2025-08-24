@@ -1,0 +1,137 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$fravel-primary: mat.define-palette(mat.$indigo-palette);
+$fravel-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$fravel-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$fravel-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $fravel-primary,
+      accent: $fravel-accent,
+      warn: $fravel-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($fravel-theme);
+
+/* You can add global styles to this file, and also import other style files */
+@import "assets/scss/abstracts/functions";
+@import "assets/scss/abstracts/mixins";
+@import "assets/scss/abstracts/variables";
+
+@import "assets/scss/base/base";
+@import "assets/scss/base/font-face";
+
+@import "assets/scss/layout/header";
+@import "assets/scss/layout/footer";
+@import "assets/scss/layout/sidebar";
+@import "assets/scss/layout/buttons";
+@import "assets/scss/layout/loader";
+@import "assets/scss/layout/gdpr";
+@import "assets/scss/layout/toggle";
+@import "assets/scss/layout/form";
+@import "assets/scss/layout/checkbox";
+
+@import "assets/scss/components/hamburger";
+@import "assets/scss/components/destination-selector";
+@import "assets/scss/components/top-destinations";
+@import "assets/scss/components/language-selected-flag";
+@import "assets/scss/components/language-selector";
+@import "assets/scss/components/calendar";
+@import "assets/scss/components/filters";
+@import "assets/scss/components/stepper";
+@import "assets/scss/components/quick-login";
+@import "assets/scss/components/input-tel";
+@import "assets/scss/components/form-control";
+
+@import "assets/scss/pages/book-flight";
+@import "assets/scss/pages/select-departure";
+@import "assets/scss/pages/select-destination";
+@import "assets/scss/pages/select-persons";
+@import "assets/scss/pages/select-date";
+@import "assets/scss/pages/search-flights";
+@import "assets/scss/pages/flights";
+@import "assets/scss/pages/complete-book-flight";
+
+// /* Importing Bootstrap SCSS file. */
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// /* Importing Datepicker SCSS file. */
+@import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.drop-calendar {
+  width: 30rem;
+}
+:host {
+  background-color: grey;
+}
+date-picker-range {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.date-picker-range .mat-icon-button {
+  float: rigth;
+  line-height: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+.date-picker-range span {
+  line-height: 1.5rem;
+}
+.date-picker-range input {
+  flex-grow: 1;
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  font: inherit;
+  width: 45%;
+  text-align: left;
+}
+.date-picker-range input:first-child {
+  text-align: left;
+}
+.date-picker-range input::placeholder {
+  font-size: 0.9rem;
+}
+.from {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.to {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+.mat-calendar-body-cell.inside {
+  background-color: red;
+}

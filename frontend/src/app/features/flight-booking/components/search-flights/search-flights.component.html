@@ -1,0 +1,56 @@
+<div class="search__container">
+  <div class="search__info">
+    <div class="trip">
+      <div class="departure" *ngIf="(departureCity | json) !== '{}'">
+        <span>{{ departureCity.city.name }}</span>
+        <span></span>
+      </div>
+      <div class="gap">
+        <i class="icon-plane-filled"></i>
+      </div>
+      <div class="destination" *ngIf="(destinationCity | json) !== '{}'">
+        <span>{{ destinationCity.city.name }}</span>
+        <span></span>
+      </div>
+    </div>
+    <div class="date-trip">
+      <div class="date-from">
+        {{ dateFrom | date : "dd.MM.YYYY" }}
+      </div>
+      <div class="date-to" *ngIf="!isFlightTypeOneWay">
+        {{ dateTo | date : "dd.MM.YYYY" }}
+      </div>
+    </div>
+    <div class="persons-and-luggage">
+      <ul class="persons-list">
+        <li>
+          <i class="icon-adult-filled" alt="Persons"></i>
+          <span> {{ persons.selectedAdults }}</span>
+        </li>
+        <li>
+          <i class="icon-child-filled" alt="Children"></i>
+          <span> {{ persons.selectedChildren }}</span>
+        </li>
+        <li>
+          <i class="icon-infant-filled" alt="Infant"></i>
+          <span> {{ persons.selectedInfants }}</span>
+        </li>
+      </ul>
+      <ul class="luggages-list">
+        <li>
+          <i class="icon-hand-luggage-filled" alt="Hand luggage"></i>
+          <span> {{ bags.handBagsSelected }}</span>
+        </li>
+        <li>
+          <i class="icon-luggage-filled" alt="Hold luggage"></i>
+          <span> {{ bags.holdBagsSelected }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="search__actions">
+    <button class="btn-custom btn-secondary" (click)="searchFlights()">
+      <i class="icon-search"></i>
+    </button>
+  </div>
+</div>

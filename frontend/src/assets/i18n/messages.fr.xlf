@@ -1,0 +1,364 @@
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="ro" trgLang="fr">
+  <file id="ngi18n" original="ng.template">
+    <unit id="ngb.alert.close">
+      <segment state="initial">
+        <source>Close</source>
+        <target>Close</target>
+      </segment>
+    </unit>
+    <unit id="ngb.carousel.slide-number">
+      <segment state="initial">
+        <source> Slide <ph id="0" equiv="INTERPOLATION" disp="l$.next(value);"/> of <ph id="1" equiv="INTERPOLATION_1" disp="return this."/> </source>
+        <target> Slide <ph id="0" equiv="INTERPOLATION" disp="l$.next(value);"/> of <ph id="1" equiv="INTERPOLATION_1" disp="return this."/> </target>
+      </segment>
+    </unit>
+    <unit id="ngb.carousel.previous">
+      <segment state="initial">
+        <source>Previous</source>
+        <target>Previous</target>
+      </segment>
+    </unit>
+    <unit id="ngb.carousel.next">
+      <segment state="initial">
+        <source>Next</source>
+        <target>Next</target>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.select-month">
+      <segment state="initial">
+        <source>Select month</source>
+        <target>Select month</target>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.select-year">
+      <segment state="initial">
+        <source>Select year</source>
+        <target>Select year</target>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.previous-month">
+      <segment state="initial">
+        <source>Previous month</source>
+        <target>Previous month</target>
+      </segment>
+    </unit>
+    <unit id="ngb.datepicker.next-month">
+      <segment state="initial">
+        <source>Next month</source>
+        <target>Next month</target>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.first">
+      <segment state="initial">
+        <source>««</source>
+        <target>««</target>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.previous">
+      <segment state="initial">
+        <source>«</source>
+        <target>«</target>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.next">
+      <segment state="initial">
+        <source>»</source>
+        <target>»</target>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.last">
+      <segment state="initial">
+        <source>»»</source>
+        <target>»»</target>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.first-aria">
+      <segment state="initial">
+        <source>First</source>
+        <target>First</target>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.previous-aria">
+      <segment state="initial">
+        <source>Previous</source>
+        <target>Previous</target>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.next-aria">
+      <segment state="initial">
+        <source>Next</source>
+        <target>Next</target>
+      </segment>
+    </unit>
+    <unit id="ngb.pagination.last-aria">
+      <segment state="initial">
+        <source>Last</source>
+        <target>Last</target>
+      </segment>
+    </unit>
+    <unit id="ngb.progressbar.value">
+      <segment state="initial">
+        <source>
+          <ph id="0" equiv="INTERPOLATION" disp="e. * * @sin"/>
+        </source>
+        <target>
+          <ph id="0" equiv="INTERPOLATION" disp="e. * * @sin"/>
+        </target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.HH">
+      <segment state="initial">
+        <source>HH</source>
+        <target>HH</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.hours">
+      <segment state="initial">
+        <source>Hours</source>
+        <target>Hours</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.MM">
+      <segment state="initial">
+        <source>MM</source>
+        <target>MM</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.minutes">
+      <segment state="initial">
+        <source>Minutes</source>
+        <target>Minutes</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.increment-hours">
+      <segment state="initial">
+        <source>Increment hours</source>
+        <target>Increment hours</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.decrement-hours">
+      <segment state="initial">
+        <source>Decrement hours</source>
+        <target>Decrement hours</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.increment-minutes">
+      <segment state="initial">
+        <source>Increment minutes</source>
+        <target>Increment minutes</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.decrement-minutes">
+      <segment state="initial">
+        <source>Decrement minutes</source>
+        <target>Decrement minutes</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.SS">
+      <segment state="initial">
+        <source>SS</source>
+        <target>SS</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.seconds">
+      <segment state="initial">
+        <source>Seconds</source>
+        <target>Seconds</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.increment-seconds">
+      <segment state="initial">
+        <source>Increment seconds</source>
+        <target>Increment seconds</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.decrement-seconds">
+      <segment state="initial">
+        <source>Decrement seconds</source>
+        <target>Decrement seconds</target>
+      </segment>
+    </unit>
+    <unit id="ngb.timepicker.PM">
+      <segment state="initial">
+        <source>
+          <ph id="0" equiv="INTERPOLATION"/>
+        </source>
+        <target>
+          <ph id="0" equiv="INTERPOLATION"/>
+        </target>
+      </segment>
+    </unit>
+    <unit id="ngb.toast.close-aria">
+      <segment state="initial">
+        <source>Close</source>
+        <target>Close</target>
+      </segment>
+    </unit>
+    <unit id="7008494275246438430">
+      <segment state="initial">
+        <source>Urmatoarea destinatie alaturi de noi va fi...</source>
+        <target>Urmatoarea destinatie alaturi de noi va fi...</target>
+      </segment>
+    </unit>
+    <unit id="187187500641108332">
+      <segment state="initial">
+        <source>
+          <ph id="0" equiv="INTERPOLATION" disp="{{ destination.city_name }}"/>
+        </source>
+        <target>
+          <ph id="0" equiv="INTERPOLATION" disp="{{ destination.city_name }}"/>
+        </target>
+      </segment>
+    </unit>
+    <unit id="1124800413050230614">
+      <segment state="initial">
+        <source>Destinatii populare</source>
+        <target>Destinatii populare</target>
+      </segment>
+    </unit>
+    <unit id="227070324774892227">
+      <segment state="initial">
+        <source>Cauta plecare</source>
+        <target>Cauta plecare</target>
+      </segment>
+    </unit>
+    <unit id="761710626681124982">
+      <segment state="initial">
+        <source>Cauta destinatie</source>
+        <target>Cauta destinatie</target>
+      </segment>
+    </unit>
+    <unit id="1227960496540664113">
+      <segment state="initial">
+        <source>Pasageri</source>
+        <target>Pasageri</target>
+      </segment>
+    </unit>
+    <unit id="8925293723756665356">
+      <segment state="initial">
+        <source>Adulti</source>
+        <target>Adulti</target>
+      </segment>
+    </unit>
+    <unit id="6404504496130768258">
+      <segment state="initial">
+        <source>Peste 11 ani</source>
+        <target>Peste 11 ani</target>
+      </segment>
+    </unit>
+    <unit id="1355509313442478331">
+      <segment state="initial">
+        <source>Copii</source>
+        <target>Copii</target>
+      </segment>
+    </unit>
+    <unit id="4701958206285162322">
+      <segment state="initial">
+        <source>2 - 11 ani</source>
+        <target>2 - 11 ani</target>
+      </segment>
+    </unit>
+    <unit id="6876818284119987642">
+      <segment state="initial">
+        <source>Infanti</source>
+        <target>Infanti</target>
+      </segment>
+    </unit>
+    <unit id="1878128290587277625">
+      <segment state="initial">
+        <source>Sub 2 ani</source>
+        <target>Sub 2 ani</target>
+      </segment>
+    </unit>
+    <unit id="1185691156721276499">
+      <segment state="initial">
+        <source>Bagaje</source>
+        <target>Bagaje</target>
+      </segment>
+    </unit>
+    <unit id="3646100130584538547">
+      <segment state="initial">
+        <source>Bagaj de mana</source>
+        <target>Bagaj de mana</target>
+      </segment>
+    </unit>
+    <unit id="1167172179854069599">
+      <segment state="initial">
+        <source>Bagaj de cala</source>
+        <target>Bagaj de cala</target>
+      </segment>
+    </unit>
+    <unit id="929982345111189156">
+      <segment state="initial">
+        <source> Selecteaza data plecarii </source>
+        <target> Selecteaza data plecarii </target>
+      </segment>
+    </unit>
+    <unit id="7285391195485739381">
+      <segment state="initial">
+        <source> Selecteaza </source>
+        <target> Selecteaza </target>
+      </segment>
+    </unit>
+    <unit id="6028752814069688925">
+      <segment state="initial">
+        <source>Inainte de a continua pe Fravel...</source>
+        <target>Inainte de a continua pe Fravel...</target>
+      </segment>
+    </unit>
+    <unit id="9085057666045464273">
+      <segment state="initial">
+        <source> Prin selectarea opțiunii &quot;Acceptă toate&quot;, vă exprimați acordul pentru stocarea cookie-urilor pe dispozitivul dumneavoastră. Acest lucru ne ajută să îmbunătățim experiența de navigare pe site, să analizăm modul în care este utilizat și să eficientizăm strategiile noastre de marketing. </source>
+        <target> Prin selectarea opțiunii &quot;Acceptă toate&quot;, vă exprimați acordul pentru stocarea cookie-urilor pe dispozitivul dumneavoastră. Acest lucru ne ajută să îmbunătățim experiența de navigare pe site, să analizăm modul în care este utilizat și să eficientizăm strategiile noastre de marketing. </target>
+      </segment>
+    </unit>
+    <unit id="7640828990442303520">
+      <segment state="initial">
+        <source>Accept toate</source>
+        <target>Accept toate</target>
+      </segment>
+    </unit>
+    <unit id="2578302103876479145">
+      <segment state="initial">
+        <source>Aflați mai multe</source>
+        <target>Aflați mai multe</target>
+      </segment>
+    </unit>
+    <unit id="7821050395834097840">
+      <segment state="initial">
+        <source>Pasageri si bagaje</source>
+        <target>Pasageri si bagaje</target>
+      </segment>
+    </unit>
+    <unit id="8691102085116340953">
+      <segment state="initial">
+        <source>Alege data</source>
+        <target>Alege data</target>
+      </segment>
+    </unit>
+    <unit id="4127526841478989645">
+      <segment state="initial">
+        <source>Alege zbor</source>
+        <target>Alege zbor</target>
+      </segment>
+    </unit>
+    <unit id="6512829087684121252">
+      <segment state="initial">
+        <source>Finalizeaza</source>
+        <target>Finalizeaza</target>
+      </segment>
+    </unit>
+    <unit id="4498084173051276530">
+      <segment state="initial">
+        <source>Monedă:</source>
+        <target>Monedă:</target>
+      </segment>
+    </unit>
+    <unit id="5759932085938715150">
+      <segment state="initial">
+        <source>Close language selector</source>
+        <target>Close language selector</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

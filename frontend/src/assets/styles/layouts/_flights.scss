@@ -1,0 +1,924 @@
+.flights {
+  &__container {
+    @include respond(phone) {
+      background-color: $color-sky-blue-light;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+  }
+
+  &__inner {
+    @include respond(phone) {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      box-shadow: rgb(166 197 205 / 15%) 0 1.5rem 2.5rem,
+        rgb(166 197 205 / 5%) 0 0.5rem 1rem;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+      clip-path: inset(0 round 0 0 0 0);
+      transform: translate3d(0, 0, 0) scale(1);
+      transition: transform 1200ms ease, clip-path 1800ms;
+      z-index: 1;
+
+      &.open {
+        pointer-events: none;
+        clip-path: inset(1rem round 6rem 6rem 6rem 6rem);
+        transform: translate3d(60%, 0, 0) scale(0.8);
+        transition: transform 1200ms ease, clip-path 1800ms;
+      }
+    }
+  }
+
+  &__wrapper {
+    height: 100%;
+
+    background-color: $color-white;
+    position: relative;
+    padding: 6rem 0 0;
+    top: -16rem;
+    height: calc(70% + 16rem);
+    transition: all 1s;
+
+    .inner {
+      height: 100%;
+      margin: 14rem 0;
+      transition: all 1s;
+
+      &.overflow-hidden {
+        overflow: hidden;
+      }
+
+      &.overflow-auto {
+        overflow: auto;
+      }
+    }
+
+    .gradient-bg {
+      position: absolute;
+      height: 14rem;
+      width: 100%;
+      background: rgb(255, 255, 255);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 1) 80%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      top: 2rem;
+    }
+
+    &.scroll {
+      height: calc(100% - 13rem);
+      padding: 1.5rem 0 0 0;
+
+      .inner {
+        height: 100%;
+        margin: 0;
+      }
+
+      .gradient-bg {
+        height: 6.5rem;
+        background: linear-gradient(
+          180deg,
+          rgb(255, 255, 255) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        top: 1.5rem;
+        z-index: 9;
+      }
+    }
+  }
+
+  &__header {
+    background-color: #a6c5cd;
+    clip-path: inset(0 round 0 0 6rem 6rem);
+    padding: 0 1.6rem 4.8rem;
+    position: relative;
+    z-index: 10;
+    height: 35%;
+    max-height: 35%;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+    transition: transform 1200ms ease, clip-path 1800ms;
+
+    .header-info {
+      display: flex;
+      padding: 12.4rem 0 0;
+      margin-left: 1.6rem;
+      position: relative;
+      transform: translate3d(0, 0, 0);
+      transition: transform 1200ms ease;
+      width: 100%;
+      opacity: 1;
+      visibility: visible;
+
+      .departure,
+      .destination {
+        flex: 1;
+        margin-left: 1.6rem;
+        transition: all 1200ms ease;
+      }
+
+      .departure {
+        //margin-bottom: 3.2rem;
+      }
+
+      .destination {
+        margin-top: 0;
+        transition: all 1200ms ease;
+      }
+
+      .border-dash {
+        position: absolute;
+        top: 5rem;
+        height: 60%;
+        margin: auto 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 0.2rem;
+        background-image: linear-gradient(
+          180deg,
+          #fff 25%,
+          transparent 5%,
+          transparent 50%,
+          #fff 50%,
+          #fff 75%,
+          transparent 75%,
+          transparent
+        );
+        background-size: 1rem 1rem;
+        transform: translate3d(-1.6rem, 15%, 0);
+        transition: height 1200ms ease, transform 1200ms ease;
+
+        .icon-plane-filled {
+          font-size: 3.5rem;
+          transition: all 1200ms ease;
+          color: $color-white;
+        }
+      }
+
+      .select-departure,
+      .select-arrival {
+        display: flex;
+        flex: 1;
+      }
+
+      h1 {
+        color: $color-white;
+        font-size: 2.8rem;
+        font-family: "SFProDisplay-Bold";
+        padding: 1.6rem 1.6rem 0;
+      }
+
+      h2 {
+        color: $color-white;
+        font-family: "SFProDisplay-Bold";
+      }
+
+      h5 {
+        color: $color-grey-4;
+        font-family: $sf-regular;
+        margin: 0;
+        font-size: 1.6rem;
+        opacity: 1;
+        visibility: visible;
+        transition: all 1200ms ease;
+      }
+    }
+
+    .btn-custom {
+      position: absolute;
+      top: 35%;
+      right: 10%;
+      z-index: 10;
+    }
+
+    .go-back {
+      display: flex;
+      width: 100%;
+      justify-content: flex-start;
+      // align-items: center;
+      padding-top: 6.4rem;
+      position: relative;
+      z-index: 9;
+      transform: translate3d(0, 0, 0);
+      transition: transform 1200ms ease;
+      height: 100%;
+
+      &__action {
+        width: 4.4rem;
+        height: 4.4rem;
+        display: flex;
+        // align-items: center;
+        justify-content: center;
+        font-size: 2.4rem;
+        text-decoration: none;
+        transform: translate3d(0, 30%, 0);
+        transition: transform 1200ms ease;
+
+        &:hover,
+        &:focus,
+        &:active {
+          text-decoration: none;
+        }
+      }
+    }
+
+    &.scroll {
+      transform: translate3d(0, -50%, 0);
+      clip-path: inset(0 round 0 0 2rem 2rem);
+
+      .go-back {
+        transform: translate3d(0, 60%, 0);
+
+        &__action {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+
+      .header-info {
+        opacity: 0;
+        visibility: hidden;
+        transform: translate3d(25%, 0, 0);
+
+        .border-dash {
+          height: 35%;
+          transform: translate3d(-1.6rem, 5%, 0);
+
+          .icon-plane-filled {
+            font-size: 2.4rem;
+            color: $color-white;
+          }
+        }
+
+        // .departure,
+        // .destination {
+        //   flex: unset;
+        // }
+
+        .destination {
+          margin-top: 0.4rem;
+        }
+
+        h5 {
+          opacity: 0;
+          visibility: hidden;
+          position: absolute;
+        }
+      }
+    }
+  }
+
+  &__info {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translate3d(13rem, -16.5rem, 10px);
+
+    &.scroll {
+      opacity: 1;
+      visibility: visible;
+      transform: translate3d(15rem, -16.5rem, 10px);
+      display: flex;
+      gap: 4rem;
+      height: 3.2rem;
+      align-items: center;
+      background: $color-sky-blue;
+      padding: 0 1.6rem;
+      border-radius: 1.6rem;
+      box-shadow: rgba(166, 197, 205, 0.4) 0 0.8rem 2.4rem;
+
+      .border-dash {
+        top: -1.2rem;
+        height: 48px;
+        margin: auto 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 0.2rem;
+        background-image: linear-gradient(
+          180deg,
+          #fff 25%,
+          transparent 5%,
+          transparent 50%,
+          #fff 50%,
+          #fff 75%,
+          transparent 75%,
+          transparent
+        );
+        background-size: 1rem 1rem;
+        transform: rotate(-90deg);
+        font-size: 2.4rem;
+        position: relative;
+
+        i {
+          color: $color-white;
+        }
+      }
+
+      .departure h2,
+      .destination h2 {
+        margin: 0;
+        color: $color-white;
+      }
+    }
+  }
+
+  &__before-after {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    top: -3rem;
+    width: 100%;
+
+    .departureArrival-flights {
+      width: 100%;
+      display: flex;
+    }
+
+    ul {
+      display: flex;
+      list-style-type: none;
+      padding: 0;
+      width: 100%;
+      position: relative;
+      justify-content: space-between;
+      margin: 0 auto;
+      transition: all 1s;
+
+      li {
+        // margin: 0 .4rem;
+        transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transform: translate3d(0, 0, 0);
+        width: 6.5rem;
+        position: absolute;
+
+        button {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          background-color: rgba($color-white, 0.7);
+          backdrop-filter: blur(2rem);
+          -webkit-backdrop-filter: blur(2rem);
+          color: $color-dark;
+          border: none;
+          border-radius: 0.8rem;
+          padding: 0.8rem 1rem;
+          align-items: center;
+          transition: all 280ms;
+          font-size: 1.4rem;
+          box-shadow: rgb(149 157 165 / 20%) 0 0.8rem 2.4rem;
+
+          .date-flight {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+
+            span {
+              &:first-child {
+                font-size: 2.4rem;
+              }
+
+              margin: 0 0.2rem 0 0;
+              font-size: 1.1rem;
+              text-transform: uppercase;
+            }
+          }
+
+          .price {
+            margin-top: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            color: $color-grey-1;
+            align-items: center;
+            font-size: 1.6rem;
+            line-height: 1;
+
+            small {
+              font-size: 1rem;
+            }
+          }
+
+          &.active {
+            margin-top: 0.4rem;
+            background-color: $color-dark;
+            color: $color-white;
+            transition: all 280ms;
+
+            .price {
+              color: $color-white;
+            }
+          }
+        }
+      }
+    }
+
+    &.scroll {
+      top: -5rem;
+
+      ul {
+        position: relative;
+        transform: translate3d(4rem, -12rem, 10px);
+
+        li {
+          transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          width: 6.5rem;
+          opacity: 0;
+          visibility: hidden;
+
+          &.active {
+            z-index: 1;
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+}
+
+.flight-item {
+  &__container {
+    position: relative;
+    perspective: 150rem;
+    margin: 3.2rem;
+    transition: 1s;
+
+    &--departure,
+    &--arrival {
+      padding: 3.2rem;
+      box-shadow: rgba($color-sky-blue, 0.4) 0 0.8rem 2.4rem;
+      box-shadow: 2rem 2rem 6rem $color-grey-3, -2rem -2rem 6rem $color-white;
+      border-radius: 1.6rem;
+      transition: 1s;
+
+      top: 0;
+      left: 0;
+      backface-visibility: hidden;
+      overflow: hidden;
+
+      .date {
+        position: absolute;
+        width: 4.2rem;
+        height: 4.2rem;
+        left: -2.1rem;
+        background: $color-dark;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: $color-white;
+        border-radius: 0.4rem;
+        font-size: 1.6rem;
+        line-height: 1.2;
+        .month {
+          font-size: 1.2rem;
+        }
+
+        &:before,
+        &:after {
+          content: "";
+          position: absolute;
+        }
+      }
+    }
+
+    &--departure {
+      background-color: $color-white;
+    }
+
+    &--arrival {
+      transform: rotateY(180deg);
+      background-color: $color-dark;
+      position: absolute;
+      width: 100%;
+      height: 0;
+      .flight-item__header,
+      .price {
+        color: $color-white;
+      }
+
+      .flight-item__header .gap i,
+      .flight-item--has-stops .routes .gap i {
+        background: $color-dark;
+      }
+
+      .flight-item__header .gap i:before,
+      .flight-item--has-stops .routes .gap i:before {
+        color: $color-white;
+      }
+
+      .flight-item--has-stops .routes {
+        background: transparent;
+      }
+
+      .departure {
+        &__header,
+        &__footer {
+          color: $color-white;
+          font-size: 1.4rem;
+
+          h1 {
+            margin-bottom: 1.6rem;
+          }
+
+          .date {
+            margin-left: 18%;
+            margin-bottom: 0.8rem;
+            position: relative;
+            font-size: 1.6rem;
+          }
+        }
+
+        &__footer {
+          .date {
+            margin-bottom: 0;
+            margin-top: 0.8rem;
+          }
+        }
+
+        &__steps {
+          margin: 0;
+          padding: 0;
+          position: relative;
+
+          &:before {
+            content: "";
+            width: 0.2rem;
+            height: 100%;
+            position: absolute;
+            border-left: 0.2rem dashed #d9dee4;
+            left: 20%;
+          }
+
+          li {
+            color: $color-white;
+            font-size: 1.6rem;
+            display: grid;
+            grid-template-columns: 20% 80%;
+            gap: 0.8rem 0;
+
+            .hour {
+              position: relative;
+              display: flex;
+              align-items: center;
+              &:before {
+                content: "";
+                position: absolute;
+                right: -0.6rem;
+                width: 1rem;
+                height: 1rem;
+                border-radius: 100%;
+                background-color: $color-white;
+              }
+            }
+
+            .details {
+              margin-left: 3.2rem;
+              p {
+                margin: 0;
+              }
+            }
+
+            .carrier {
+              display: flex;
+              align-items: center;
+
+              &__details {
+                margin-bottom: 1.6rem;
+              }
+
+              &__flight {
+                display: flex;
+                flex-direction: column;
+              }
+            }
+
+            .carrier__details,
+            .flight-class,
+            .carrier__flight {
+              margin-left: 3.2rem;
+            }
+
+            .connection {
+              margin: 1.6rem 0 1.6rem 3.2rem;
+              padding: 1.6rem;
+              display: flex;
+              flex-direction: column;
+              gap: 0.8rem 0;
+              background-color: $color-red;
+
+              &__item {
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.flip {
+      height: calc(100vh - 14.2rem);
+      position: fixed;
+      z-index: 99;
+      top: 11rem;
+      width: 90%;
+      margin: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    &.flip & {
+      &--departure {
+        transform: rotateY(-180deg);
+        background-color: $color-white;
+        transition: 1s;
+      }
+
+      &--arrival {
+        transform: rotateY(0);
+        background-color: $color-dark;
+        height: 100%;
+        overflow: hidden;
+        transition: 1s;
+        .flight-item__footer {
+          position: sticky;
+          bottom: -3.2rem;
+          background: #fff;
+          padding: 3.2rem;
+          margin: -3.2rem;
+
+          .price {
+            color: $color-dark;
+          }
+        }
+        .close-itinerary {
+          position: fixed;
+          top: 1.8rem;
+          right: 1.8rem;
+          color: $color-white;
+          font-size: 1.6rem;
+          width: 1.6rem;
+          display: flex;
+          margin-left: auto;
+        }
+
+        .flight-item__inner {
+          margin-bottom: 6.4rem;
+          position: relative;
+          overflow-y: auto;
+          overflow-x: hidden;
+          height: calc(100% - 9rem);
+        }
+      }
+    }
+
+    hr {
+      border-style: dashed;
+      margin: 3.2rem 0;
+      border-color: $color-grey-1;
+    }
+  }
+
+  &__header {
+    display: flex;
+
+    & > * {
+      flex: 1;
+      text-align: center;
+      font-size: 1.6rem;
+    }
+
+    .time-and-carrier {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        height: 1.6rem;
+        margin-right: 0.4rem;
+      }
+    }
+
+    .gap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      i {
+        position: absolute;
+        font-size: 1.9rem;
+        transform: rotate(-90deg);
+        background: $color-white;
+        padding: 0.4rem;
+
+        &:before {
+          color: $color-grey-1;
+        }
+      }
+
+      &:before {
+        content: "";
+        width: 70%;
+        height: 0.2rem;
+        position: absolute;
+        border-top: 0.2rem dashed $color-grey-3;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ul {
+      list-style: none;
+      margin-top: 1.6rem;
+      display: flex;
+      margin: 1.6rem -0.8rem;
+
+      li {
+        margin: 0 0.8rem;
+      }
+    }
+
+    span {
+      color: $color-grey-1;
+      align-self: center;
+      font-size: 1.6rem;
+    }
+
+    .flight-summary {
+      display: flex;
+      gap: 1.6rem;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.8rem;
+      background-color: $color-white;
+      border-radius: 1.6rem;
+      padding: 0.8rem 1.6rem;
+      width: 100%;
+
+      .carrier {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+
+        img {
+          height: 2.4rem;
+        }
+      }
+
+      .connecting {
+        top: 4.8rem;
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    margin-top: 3.2rem;
+
+    & > * {
+      flex: 1;
+    }
+
+    .price {
+      font-size: 1.6rem;
+      font-family: $sf-bold;
+    }
+
+    .details {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
+  &--has-stops {
+    &__header {
+      flex-wrap: wrap;
+
+      .gap {
+        span {
+          top: 1.6rem;
+        }
+      }
+    }
+
+    .routes {
+      flex-basis: 100%;
+      padding: 0.8rem 1.6rem;
+      background: $color-grey-4;
+      margin: 3.2rem -3.2rem;
+      position: relative;
+      border-bottom: 0.1rem solid $color-grey-2;
+      border-top: 0.1rem solid $color-grey-2;
+
+      span.connecting {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0 0.8rem;
+        background-color: $color-grey-3;
+        border-radius: 0.8rem;
+        border: 0.1rem solid $color-grey-2;
+        color: $color-grey-1;
+      }
+
+      ul {
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 0.4rem;
+      }
+
+      .flight-item__header > * {
+        font-size: 1.2rem;
+      }
+
+      .gap {
+        i {
+          background: $color-grey-4;
+        }
+      }
+
+      .time-and-carrier {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          height: 1.6rem;
+          margin-right: 0.4rem;
+        }
+      }
+    }
+  }
+}
+
+.filter {
+  &__sidebar {
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    background: $color-white;
+    transform: translate3d(-100%, 0, 0);
+    transition: 0.8s 10ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    &.open {
+      transform: translate3d(-30%, 0, 0);
+    }
+  }
+
+  &__sidebar-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    button.filter {
+      position: absolute;
+      top: 38%;
+      right: -4.8rem;
+      width: 4.8rem;
+      height: 4.8rem;
+      border: none;
+      box-shadow: 0 1.2rem 2.4rem 0 rgba(217, 222, 228, 1);
+      background: $color-blue;
+      border-bottom-right-radius: 0.8rem;
+      border-top-right-radius: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        font-size: 2.4rem;
+        color: $color-white;
+      }
+    }
+  }
+}
+
+.roundtrip {
+  margin-top: 4.8rem;
+  padding-top: 3.2rem;
+  border-top: 1px dashed $color-white;
+}

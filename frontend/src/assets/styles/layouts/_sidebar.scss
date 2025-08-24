@@ -1,0 +1,37 @@
+.navigation {
+  &__list {
+    @include respond(phone) {
+        position: absolute;
+        top: 0;
+        list-style: none;
+        width: 100%;
+        height: calc(100% - 7.2rem);
+        display: flex;
+        flex-direction: column;
+        margin-top: 7.2rem;
+        padding: 0 0 0 3.6rem;
+        overflow: auto;
+    }
+  }
+
+  &__item {
+    @include respond(phone) {
+      padding: 2.4rem 0;
+      font-size: 1.9rem;
+      display: flex;
+      align-items: center;
+
+      i {
+        margin-right: 1.6rem;
+        font-size: 2.4rem;
+      }
+    }
+  }
+
+  &__nav {
+    @include respond(phone) {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "EMAIL": {
+    "EMAIL_REQUIRED": "Email-ul este necesar!",
+    "EMAIL_INVAILD": "Formatul email-ului este invalid"
+  },
+  "PHONE": {
+    "PHONE_REQUIRED": "Este necesar un numar de telefon!",
+    "PHONE_INVAILD": "Format nevalid al numărului de telefon!"
+  }
+}

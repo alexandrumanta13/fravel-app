@@ -1,0 +1,149 @@
+.book-flight {
+  &__container {
+    width: 100%;
+    height: 100%;
+    @include respond(desktop) {
+      padding-top: 6.4rem;
+    }
+
+    @include respond(phone) {
+      background-color: $color-sky-blue-light;
+      padding-top: 0;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+  }
+
+  &__inner {
+    @include respond(desktop) {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    @include respond(phone) {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      box-shadow: rgb(166 197 205 / 15%) 0px 15px 25px,
+        rgb(166 197 205 / 5%) 0px 5px 10px;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+      clip-path: inset(0 round 0 0 0 0);
+      transform: translate3d(0, 0, 0) scale(1);
+      transition: transform 1200ms ease, clip-path 1800ms;
+      display: flex;
+      flex-direction: column;
+
+      &.open {
+        pointer-events: none;
+        clip-path: inset(10px round 60px 60px 60px 60px);
+        transform: translate3d(60%, 0, 0) scale(0.8);
+        transition: transform 1200ms ease, clip-path 1800ms;
+      }
+
+      .class-select {
+        &__container {
+          position: absolute;
+          top: 15%;
+          right: 0;
+          z-index: 11;
+
+          .toggle {
+            position: relative;
+            margin-top: 32px;
+
+            .tooltip {
+              top: 38px;
+            }
+          }
+        }
+
+        &__list {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-gap: 8px;
+          list-style-type: none;
+        }
+
+        &__class {
+          position: relative;
+
+          .tooltip {
+            position: absolute;
+            top: 0;
+            font-size: 14px;
+            background: $color-white;
+            color: $color-dark;
+            padding: 5px 8px;
+            border-radius: 5px;
+            box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            left: -16px;
+            display: flex;
+            min-width: 85px;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+
+            &:before {
+              position: absolute;
+              content: "";
+              height: 8px;
+              width: 8px;
+              background: #ffffff;
+              bottom: -3px;
+              left: 50%;
+              transform: translate(-50%) rotate(45deg);
+              transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+          }
+
+          &.active {
+            .tooltip {
+              top: -45px;
+              opacity: 1;
+              visibility: visible;
+              pointer-events: auto;
+            }
+
+            &.first-class {
+              .tooltip {
+                top: 60px;
+
+                &:before {
+                  top: -3px;
+                }
+              }
+            }
+
+            &.business {
+              .tooltip {
+                top: 0;
+                left: -95px;
+
+                &:before {
+                  top: 40%;
+                  left: 100%;
+                }
+              }
+            }
+
+            .btn-custom {
+              background-color: $color-blue;
+              box-shadow: none;
+
+              i {
+                &:before {
+                  color: $color-white;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

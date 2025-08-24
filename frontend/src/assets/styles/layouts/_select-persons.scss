@@ -1,0 +1,224 @@
+.select-persons {
+  &__container {
+    @include respond(phone) {
+      background-color: $color-sky-blue-light;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+  }
+
+  &__inner {
+    @include respond(phone) {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      box-shadow: rgb(166 197 205 / 15%) 0px 15px 25px, rgb(166 197 205 / 5%) 0px 5px 10px;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+      clip-path: inset(0 round 0 0 0 0);
+      transform: translate3d(0, 0, 0) scale(1);
+      transition: transform 1200ms ease, clip-path 1800ms;
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+
+      &.open {
+        pointer-events: none;
+        clip-path: inset(10px round 60px 60px 60px 60px);
+        transform: translate3d(60%, 0, 0) scale(.8);
+        transition: transform 1200ms ease, clip-path 1800ms;
+      }
+    }
+  }
+
+  &__wrapper {
+    height: 100%;
+    background-color: $color-white;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    overflow: auto;
+  }
+
+  &__header {
+
+    background-color: #A6C5CD;
+    border-bottom-left-radius: 6rem;
+    border-bottom-right-radius: 6rem;
+    padding: 0 1.6rem 4.8rem;
+    position: relative;
+    height: 15rem;
+
+    &:after {
+      content: '';
+      background-color: $color-white;
+      width: 100%;
+      height: 6rem;
+      position: absolute;
+      left: 0;
+      z-index: -1;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 2.8rem;
+      font-family: "SFProDisplay-Bold";
+      padding: 1.6rem 1.6rem 0;
+    }
+
+    .go-back {
+      display: flex;
+      width: 100%;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 6.4rem 0 3.2rem;
+
+      &__action {
+        width: 4.4rem;
+        height: 4.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.4rem;
+        color: $color-white;
+      }
+    }
+  }
+
+}
+
+
+.persons,
+.luggage,
+.extra-info {
+  &__container {
+    padding: 3.2rem 3.2rem 0;
+
+
+    .list {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      flex-direction: column;
+      padding: 0;
+
+      li {
+        height: 24px;
+        margin: 16px 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+
+
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        i {
+          font-size: 24px;
+        }
+      }
+
+
+    }
+  }
+}
+
+.persons,
+.luggage {
+  &__container {
+    .list {
+      li {
+        height: 5.6rem;
+      }
+
+
+      .persons {
+
+        &__list {
+          display: flex;
+          align-items: center;
+          flex: 1;
+
+          .info {
+            display: flex;
+            flex-direction: column;
+          }
+
+          small {
+            font-size: 1.6rem;
+            margin: 2px 0 0 16px;
+          }
+
+        }
+
+        &__qnt {
+          margin-left: auto;
+
+          i {
+            font-size: 1.9rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// .extra-info__container {
+//   h2 {
+//     margin-bottom: 32px;
+//   }
+
+//   .list {
+//     display: flex;
+//     margin: 0;
+//     flex-direction: column;
+
+//     li {
+//       height: 24px;
+//       margin: 16px 0;
+//       position: relative;
+//       display: flex;
+//       align-items: center;
+
+
+
+//       &:last-child {
+//         margin-bottom: 0;
+//       }
+
+//       i {
+//         font-size: 24px;
+//       }
+//     }
+//   }
+// }
+
+.spacer {
+  padding: 0 32px;
+
+  hr {
+    margin: 0;
+    border-top: 1px solid #F1F3F6;
+  }
+}
+
+.actions {
+  padding: 3.2rem;
+  margin-top: auto;
+
+  @include respond(ultra-small-phone) {
+    padding: 2rem 3.2rem;
+  }
+}
+
+
+.select-persons__wrapper .inner {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}

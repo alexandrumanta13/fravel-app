@@ -1,0 +1,44 @@
+<div class="complete__container">
+  <div class="complete__inner" [class.open]="toggleMenuState === 'open'">
+    <header class="complete__header scroll">
+      <div class="go-back">
+        <div class="header-info">
+          <aside class="border-dash"><i class="icon-plane-filled"></i></aside>
+          <div class="departure">
+            <h2>{{ (selectedDeparture$ | async).city.name }}</h2>
+            <h5>{{ (selectedDeparture$ | async).name }}</h5>
+          </div>
+
+          <div class="destination">
+            <h2>{{ (selectedDestination$ | async)?.city?.name }}</h2>
+            <h5>{{ (selectedDestination$ | async)?.name }}</h5>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="flights__info scroll">
+      <div class="departure">
+        <h2>{{ (selectedDeparture$ | async).city.name }}</h2>
+      </div>
+      <aside class="border-dash"><i class="icon-plane-filled"></i></aside>
+      <div class="destination">
+        <h2>{{ (selectedDestination$ | async)?.city?.name }}</h2>
+      </div>
+    </div>
+    <div class="complete__booking-info">
+      <h3>
+        Informatii generale {{ (selectedDeparture$ | async).city.name }} -
+        {{ (selectedDestination$ | async)?.city?.name
+        }}{{ !(oneWay$ | async) ? " si inapoi" : "" }}
+      </h3>
+      <app-flight-info [flight]="selectedFlight$ | async"></app-flight-info>
+      <form action="">
+        <app-contact-details
+          [checkoutForm]="checkoutForm"
+        ></app-contact-details>
+        <app-quick-login></app-quick-login>
+        <app-passangers></app-passangers>
+      </form>
+    </div>
+  </div>
+</div>

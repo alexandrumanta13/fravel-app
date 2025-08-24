@@ -1,0 +1,167 @@
+<div class="flight-item__container--arrival" [id]="flightIndex">
+  <div class="close-itinerary" (click)="toggleRoute()">
+    <i class="icon-close"></i>
+  </div>
+  <div class="flight-item__inner">
+    <div class="departure__header">
+      <h1>Plecare din {{ flight.cityFrom }}</h1>
+      <div class="date">
+        <i class="icon-calendar--filled"></i>
+        {{ flight._frvlDateConverted?.departure.time.day }}
+        {{ flight._frvlDateConverted?.departure.time.month }}
+      </div>
+    </div>
+
+    <ul class="departure__steps">
+      <li
+        *ngFor="
+          let departure of flight._frvlDateConverted?.departure.route;
+          let isLast = last
+        "
+      >
+        <span class="hour">{{ departure.hoursFrom }}</span>
+        <div class="details">
+          <p>{{ departure.cityFrom }}</p>
+          <p>{{ departure.flyFrom }}</p>
+        </div>
+        <div class="carrier">
+          <img
+            src="//images.kiwi.com/airlines/32x32/{{
+              departure.airline
+            }}.png?default=airline.png"
+            alt=""
+          />
+        </div>
+        <div class="carrier__details">
+          <div class="flight-class">
+            <span>Clasa de zbor:</span>
+            <span>{{ departure.fare_category }}</span>
+          </div>
+
+          <div class="carrier__flight">
+            <div class="flight-company">
+              <span>Companie aeriana:</span>
+              <span>{{ departure.airline }}</span>
+            </div>
+            <div class="flight-number">
+              <span>Nr. zbor:</span>
+              <span>{{ departure.airline }} {{ departure.flight_no }}</span>
+            </div>
+          </div>
+        </div>
+        <span class="hour">{{ departure.hoursTo }}</span>
+        <div class="details">
+          <p>{{ departure.cityTo }}</p>
+          <p>{{ departure.flyTo }}</p>
+        </div>
+        <span></span>
+        <div class="connection" *ngIf="!isLast">
+          <div class="connection__item">
+            <i class="icon-clock--filled"></i> escala:
+            {{ departure.waitTime }}
+          </div>
+          <div class="connection__item">
+            <i class="icon-luggage-filled"></i>Trebuie să refaceți check-inul
+            pentru bagaj
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="departure__footer">
+      <div class="date">
+        <i class="icon-location--filled"></i>
+        Sosire la {{ flight.cityTo }}
+      </div>
+    </div>
+
+    <!-- round trip -->
+
+    <div class="roundtrip" *ngIf="!(oneWay$ | async)">
+      <div class="departure__header">
+        <h1>Plecare din {{ flight.cityTo }}</h1>
+        <div class="date">
+          <i class="icon-calendar--filled"></i>
+          {{ flight._frvlDateConverted?.arrival.time.day }}
+          {{ flight._frvlDateConverted?.arrival.time.month }}
+        </div>
+      </div>
+
+      <ul class="departure__steps">
+        <li
+          *ngFor="
+            let departure of flight._frvlDateConverted?.arrival.route;
+            let isLast = last
+          "
+        >
+          <span class="hour">{{ departure.hoursFrom }}</span>
+          <div class="details">
+            <p>{{ departure.cityFrom }}</p>
+            <p>{{ departure.flyFrom }}</p>
+          </div>
+          <div class="carrier">
+            <img
+              src="//images.kiwi.com/airlines/32x32/{{
+                departure.airline
+              }}.png?default=airline.png"
+              alt=""
+            />
+          </div>
+          <div class="carrier__details">
+            <div class="flight-class">
+              <span>Clasa de zbor:</span>
+              <span>{{ departure.fare_category }}</span>
+            </div>
+
+            <div class="carrier__flight">
+              <div class="flight-company">
+                <span>Companie aeriana:</span>
+                <span>{{ departure.airline }}</span>
+              </div>
+              <div class="flight-number">
+                <span>Nr. zbor:</span>
+                <span>{{ departure.airline }} {{ departure.flight_no }}</span>
+              </div>
+            </div>
+          </div>
+          <span class="hour">{{ departure.hoursTo }}</span>
+          <div class="details">
+            <p>{{ departure.cityTo }}</p>
+            <p>{{ departure.flyTo }}</p>
+          </div>
+          <span></span>
+          <div class="connection" *ngIf="!isLast">
+            <div class="connection__item">
+              <i class="icon-clock--filled"></i> escala:
+              {{ departure.waitTime }}
+            </div>
+            <div class="connection__item">
+              <i class="icon-luggage-filled"></i>Trebuie să refaceți check-inul
+              pentru bagaj
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="departure__footer">
+        <div class="date">
+          <i class="icon-location--filled"></i>
+          Sosire la {{ flight.cityFrom }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flight-item__footer">
+    <div class="price">{{ flight.price }} {{ flight.curr }}</div>
+    <div
+      class="details"
+      *ngIf="flight._frvlDateConverted?.arrival.route.length > 0"
+    >
+      <button class="btn-custom btn-buy" (click)="bookFlight(flight)">
+        {{ "FLIGHTS_RESULTS.BUY" }}
+        <!-- <i class="icon-arrow-right"></i> -->
+      </button>
+    </div>
+  </div>
+</div>

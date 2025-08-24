@@ -1,0 +1,10 @@
+<div class="calendar-container">
+  <mat-calendar
+    class="calendar"
+    #calendar
+    (selectedChange)="select($event)"
+    [dateClass]="setClass()"
+    [headerComponent]="customHeader"
+  >
+  </mat-calendar>
+</div>

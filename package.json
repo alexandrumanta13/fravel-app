@@ -1,0 +1,27 @@
+{
+  "name": "fravel-app",
+  "version": "1.0.0",
+  "description": "Flight booking platform with Angular + NestJS",
+  "private": true,
+  "scripts": {
+    "dev": "docker-compose up -d",
+    "dev:logs": "docker-compose logs -f",
+    "dev:stop": "docker-compose down",
+    "dev:clean": "docker-compose down -v",
+    "build:shared": "cd shared && npm run build",
+    "frontend:dev": "cd frontend && npm start",
+    "backend:dev": "cd backend && npm run start:dev",
+    "install:all": "npm run install:frontend && npm run install:backend && npm run install:shared",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
+    "install:shared": "cd shared && npm install"
+  },
+  "workspaces": [
+    "frontend",
+    "backend", 
+    "shared"
+  ],
+  "keywords": ["flight", "booking", "angular", "nestjs", "travel"],
+  "author": "Fravel Team",
+  "license": "MIT"
+}

@@ -1,0 +1,66 @@
+.gdpr {
+  &__container {
+    position: fixed;
+    @include background-opacity($color-dark, 0.8);
+    -webkit-backdrop-filter: blur(.8rem);
+    backdrop-filter: blur(.8rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100vh;
+  }
+
+  &__card {
+    border-radius: 1.6rem;
+    width: 90%;
+    background: $color-white;
+    padding: 6rem;
+    opacity: 0;
+
+    h2.title {
+      font-family: $sf-bold;
+      font-size: 2.4rem;
+      color: $color-dark;
+      margin-bottom: 3.2rem;
+    }
+
+    p.content {
+      font-family: $sf-regular;
+      color: $color-grey-1;
+      font-size: 1.9rem;
+    }
+
+    .actions {
+      display: flex;
+      margin-top: 4rem;
+      padding: 3.2rem 0;
+
+      a {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        font-size: 1.8rem;
+        text-transform: uppercase;
+      }
+
+      &--accept {
+        font-family: $sf-bold;
+        justify-content: flex-start;
+      }
+
+      &--more {
+        font-family: $sf-regular;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
+
+.show {
+  .gdpr__card{
+     opacity: 1;
+  }
+}

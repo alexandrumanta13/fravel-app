@@ -1,0 +1,10 @@
+{
+  "EMAIL": {
+    "EMAIL_REQUIRED": "Email is required!",
+    "EMAIL_INVAILD": "Invalid email format!"
+  },
+  "PHONE": {
+    "PHONE_REQUIRED": "Phone number is required!",
+    "PHONE_INVAILD": "Invalid phone number format!"
+  }
+}

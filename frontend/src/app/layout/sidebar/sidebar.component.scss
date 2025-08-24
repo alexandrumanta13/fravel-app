@@ -1,0 +1,15 @@
+:host {
+
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 60%;
+  transform: translate3d(-100%, 0, 0);
+  transition: .8s 10ms cubic-bezier(.68, -.55, .265, 1.55);
+
+  &.open {
+    transform: translate3d(0, 0, 0);
+  }
+
+}

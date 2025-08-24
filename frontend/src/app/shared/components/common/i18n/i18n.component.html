@@ -1,0 +1,61 @@
+<div class="language-selector__container">
+  <div
+    class="language-selector__overlay"
+    [ngClass]="toggleLanguageMenu ? 'show' : 'hide'"
+  >
+    <div
+      class="language-selector__slider"
+      [ngClass]="toggleLanguageMenu ? 'open' : 'closed'"
+    >
+      <div class="language-selector__slider-inner">
+        <div class="language-select">
+          <ng-container *ngFor="let language of languages">
+            <div
+              class="language-select__language"
+              [class.selected]="selectedLanguage.key === language.key"
+            >
+              <img
+                (click)="changeLanguage(language)"
+                [src]="language.flag"
+                [alt]="language.language"
+              />
+            </div>
+          </ng-container>
+        </div>
+        <div class="currency-select">
+          <label i18n>Monedă:</label>
+          <ul class="currency-select__list">
+            <ng-container *ngFor="let currency of selectedLanguage.currency">
+              <li
+                (click)="changeCurrency(currency.value)"
+                [class.selected]="
+                  currency.value === selectedLanguage.defaultCurrency
+                "
+              >
+                {{ currency.value }}
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+        <div class="confirm">
+          <button
+            (click)="setLanguage(selectedLanguage)"
+            class="btn-custom btn-primary btn-full-width"
+          >
+            {{ selectedLanguage.language }} ({{
+              selectedLanguage.defaultCurrency
+            }})
+          </button>
+        </div>
+        <div class="language-selector__close" (click)="toggleLanguage()">
+          <img
+            src="assets/images/icons/close.svg"
+            [class.close]="toggleLanguageMenu"
+            alt="Close language selector"
+            i18n-alt
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

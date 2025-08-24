@@ -1,0 +1,47 @@
+<ng-content></ng-content>
+<div class="select-date__container">
+  <div class="select-date__inner" [ngClass]="toggleMenu ? 'open' : 'closed'">
+    <header class="select-date__header">
+      <div class="go-back">
+        <!-- <div class="go-back__action" (click)="toggleSelectDate()">
+          <i class="icon-arrow-left"></i>
+        </div> -->
+      </div>
+      <!-- <h1>{{ 'PICK_DATE.TITLE'
+        }}</h1> -->
+    </header>
+
+    <div class="calendar__container">
+      <app-range-date-picker
+        *ngIf="!isFlightTypeOneWay"
+      ></app-range-date-picker>
+      <mat-calendar
+        *ngIf="isFlightTypeOneWay"
+        [(selected)]="selected"
+        (selectedChange)="onSelect($event)"
+        [headerComponent]="customHeader"
+      ></mat-calendar>
+    </div>
+    <div *ngIf="toggleFilter" class="date-select-actions">
+      <button
+        (click)="toggleSelectDate()"
+        class="btn-custom btn-primary btn-full-width"
+      >
+        {{ "BUTTONS.SELECT" }}
+      </button>
+    </div>
+    <div class="flight-type-toggle toggle" [class.open]="toggleSearchFlight">
+      <span class="tooltip" i18n>{{
+        isFlightTypeOneWay ? "Doar dus" : "Dus-intors"
+      }}</span>
+      <input
+        type="checkbox"
+        name="flightType"
+        id="flightType"
+        [checked]="!isFlightTypeOneWay"
+        (change)="flightTypeChanged()"
+      />
+      <label for="flightType"></label>
+    </div>
+  </div>
+</div>

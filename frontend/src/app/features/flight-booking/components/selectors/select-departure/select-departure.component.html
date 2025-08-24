@@ -1,0 +1,57 @@
+<div class="select-departure__container">
+  <div
+    class="select-departure__inner"
+    [ngClass]="toggleMenu ? 'open' : 'closed'"
+  >
+    <div class="go-back">
+      <div class="go-back__action" (click)="toggleDeparture()">
+        <i class="icon-arrow-left"></i>
+      </div>
+    </div>
+    <div class="select-departure__form">
+      <i class="icon-search"></i>
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Large"
+        placeholder="Cauta plecare"
+        [(ngModel)]="departure"
+        aria-describedby="inputGroup-sizing-sm"
+        (keyup)="searchDeparture()"
+        i18n-placeholder
+      />
+    </div>
+
+    <div class="select-departure__list" *ngIf="airports.length > 0">
+      <ul *ngFor="let group of airports">
+        <ng-container *ngFor="let airport of group.locations">
+          <li class="country">
+            <span class="line-left"></span>
+            <span>{{ airport.city.country.name }}</span>
+            <span class="line-right"></span>
+          </li>
+          <li>
+            <a
+              (click)="selectDeparture(airport)"
+              [class.selected]="
+                (departureCity | json) !== '{}' &&
+                airport.airport_int_id === departureCity.airport_int_id
+              "
+            >
+              {{ airport.city.name }}
+              <small>{{ airport.name }}</small>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+    <img
+      class="bg"
+      *ngIf="(departureCity | json) !== '{}'"
+      src="https://images.skypicker.com/?image=https://images.kiwi.com/photos/385x320/{{
+        departureCity.city.id
+      }}.jpg&fit=cover&width={{ screenWidth }}&height={{ screenHeight }}&dpr=1"
+      alt=""
+    />
+  </div>
+</div>

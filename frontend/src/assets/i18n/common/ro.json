@@ -1,0 +1,63 @@
+{
+  "BUTTONS": {
+    "CURRENCY": "Moneda",
+    "APPLY_FILTERS": "Aplica filtre",
+    "SELECT": "Selecteaza"
+  },
+  "TITLES": {
+    "BOOK_FLIGHT": "Bilete de avion",
+    "PICK_DATE": "Alege data",
+    "SELECT_PASSANGERS_AND_LUGGAGE": "Pasageri si bagaje",
+    "PICK_FLIGHT": "Alege zbor",
+    "COMPLETE_BOOKING": "Finalizeaza"
+  },
+  "GDPR": {
+    "TITLE": "Inainte de a continua pe Fravel...",
+    "CONTENT": "Făcând clic pe \"Acceptă toate\", sunteți de acord cu stocarea cookie-urilor pe dispozitivul dvs. pentru a îmbunătăți navigarea pe site, pentru a analiza utilizarea site-ului și pentru a ne ajuta in activitatea noastră de marketing.",
+    "ACTIONS": {
+      "BUTTONS": {
+        "ACCEPT": "Accept toate",
+        "MORE": "Aflați mai multe"
+      }
+    }
+  },
+  "LANGUAGE_SELECTOR": {
+    "LABELS": {
+      "CURRENCY": "Monedă"
+    }
+  },
+  "DEPARTURE_SELECTOR": {
+    "PLACEHOLDER": "Cauta plecare",
+    "GO_BACK": "Inapoi"
+  },
+  "DESTINATION_SELECTOR": {
+    "PLACEHOLDER": "Cauta destinatie",
+    "GO_BACK": "Inapoi"
+  },
+  "PICK_DATE": {
+    "TITLE": "Alege data de plecare"
+  },
+  "SELECT_NO_PERSONS": {
+    "TITLE": "Pasageri si bagaje",
+    "FLIGHT": "Tip de zbor",
+    "PERSONS_SUBTITLE": "Pasageri",
+    "LUGGAGE_SUBTITLE": "Bagaje",
+    "ROUNDTRIP": "Dus-intors",
+    "ONEWAY": "Doar dus",
+    "ECONOMY": "Economie",
+    "BUSINESS": "Business",
+    "ADULTS_LABEL": "Adulti",
+    "CHILDS_LABEL": "Copii",
+    "INFANTS_LABEL": "Infanti",
+    "ADULTS_INFO": "Peste 11 ani",
+    "CHILDS_INFO": "2 - 11 ani",
+    "INFANTS_INFO": "Sub 2 ani",
+    "HAND_LUGGAGE": "Bagaj de mana",
+    "LUGGAGE": "Bagaj de cala",
+    "SELECT_DATE": "Selecteaza data plecarii"
+  },
+  "FLIGHT_TYPE": {
+    "ROUNDTRIP": "Dus-intors",
+    "ONEWAY": "Doar dus"
+  }
+}

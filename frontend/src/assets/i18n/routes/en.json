@@ -1,0 +1,9 @@
+{
+    "TITLES": {
+        "BOOK_FLIGHT": "Plane tickets"
+    },
+
+    "routes": {
+        "book-flight": "book-flight"
+    }
+}

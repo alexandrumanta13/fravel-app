@@ -1,0 +1,117 @@
+.search {
+  &__container {
+    background-color: $color-dark;
+    display: flex;
+    width: 100%;
+
+    border-radius: 2rem;
+    box-shadow: 0 1.2rem 2.4rem 0 $color-grey-2;
+  }
+
+  &__actions {
+    display: flex;
+    margin-left: auto;
+
+    align-items: center;
+    border-left: 1px solid $color-grey-1;
+
+    .btn-custom {
+      font-size: 24px;
+
+      padding: 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+
+      i {
+        color: $color-white
+      }
+    }
+  }
+
+  &__info {
+    padding: 8px;
+    flex: 1;
+    justify-content: space-between;
+
+    .trip {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      font-size: 11px;
+
+      .departure {
+        color: $color-white;
+        flex: 1;
+        text-align: center;
+      }
+
+      .destination {
+        color: $color-white;
+        flex: 1;
+        text-align: center;
+      }
+
+      .gap {
+        border-top: 1px dashed #fff;
+        flex: 1;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      i {
+        position: absolute;
+        transform: rotate(-90deg);
+        font-size: 19px;
+        color: $color-white;
+        padding: .2rem;
+        background-color: $color-dark;
+      }
+    }
+
+    .date-trip {
+      display: flex;
+      color: $color-white;
+      padding: 8px;
+      font-size: 11px;
+
+      .date-from,
+      .date-to {
+        flex: 1;
+        text-align: center;
+      }
+
+    }
+
+    .persons-and-luggage {
+      display: flex;
+      margin: 0;
+      color: $color-white;
+      padding: 0 8px;
+
+      ul {
+        display: flex;
+        margin: 0;
+
+        li {
+          display: flex;
+          font-size: 12px;
+          align-items: center;
+          margin-right: 8px;
+
+          i {
+            opacity: .8;
+            margin-right: 4px;
+          }
+        }
+
+        &:last-child {
+          margin-left: auto;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

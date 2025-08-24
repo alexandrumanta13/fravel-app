@@ -1,0 +1,119 @@
+.step-container {
+    display: flex;
+    position: relative;
+    align-items: center;
+
+    &.current {
+        .indicator {
+            animation: pulse-animation 2s infinite;
+            position: relative;
+
+            &:before {
+                content: '';
+                border-radius: 50px;
+                background: $color-sky-blue;
+                box-shadow: 2px 2px 5px #8da7ae,
+                    -2px -2px 5px #bfe3ec;
+                width: 100%;
+                height: 100%;
+                display: flex;
+            }
+
+        }
+
+        .title {
+            display: flex;
+        }
+    }
+
+    &.previous {
+        .indicator {
+            border-radius: 50px;
+            background: $color-sky-blue;
+            box-shadow: inset 2px 2px 5px #8da7ae,
+                inset -2px -2px 5px #bfe3ec;
+        }
+    }
+
+    &.last {
+        .divider {
+            display: none;
+        }
+    }
+
+    .indicator {
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1.2rem;
+        background: $color-sky-blue;
+        box-shadow: 2px 2px 5px #8da7ae,
+            -2px -2px 5px #bfe3ec;
+    }
+
+    .title {
+        display: none;
+        font-weight: bold;
+        margin-left: 0.8rem;
+        font-size: 1.6rem;
+        color: $color-white;
+        display: none;
+    }
+
+    .content {
+        margin-bottom: 10px;
+    }
+
+    .divider {
+        position: absolute;
+        top: 50%;
+        left: 2.8rem;
+        transform: translateY(-50%);
+        height: .2rem;
+        background-color: $color-sky-blue-light;
+
+        @include respond(phone) {
+            width: 2.2rem;
+        }
+
+        @include respond(small-phone) {
+            width: 2rem;
+        }
+
+        @include respond(ultra-small-phone) {
+            width: .8rem;
+        }
+    }
+
+    .line {
+        position: absolute;
+        top: 0px;
+        bottom: 5px;
+        width: 1px;
+        background-color: lightblue;
+        box-sizing: border-box;
+        left: 50%;
+    }
+
+    .check {
+        border-right: 2px solid $color-sky-blue-light;
+        border-bottom: 2px solid $color-sky-blue-light;
+        height: 10px;
+        width: 5px;
+        transform: rotate(45deg);
+        display: inline-block;
+        margin-top: 3px;
+        margin-left: 1px;
+    }
+}
+
+@keyframes pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+    }
+}

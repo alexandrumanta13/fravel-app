@@ -1,0 +1,14 @@
+:host {
+    position: absolute;
+    top: 6rem;
+    left: 0;
+    height: calc(100% - 6rem);
+    width: 100%;
+}
+
+#chartdiv {
+    height: calc(100% + 8rem);
+    top: -6rem;
+    position: relative;
+    z-index: 8;
+}

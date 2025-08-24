@@ -1,0 +1,11 @@
+{
+    "FLIGHTS_RESULTS": {
+        "FLIGHT_TYPE": {
+            "FLIGHT_DIRECT": "Zbor direct",
+            "FLIGHT_STOP": "Zbor cu escala"
+        },
+        "RETURN_DETAILS": "Detalii retur",
+        "BUY": "Cumpara",
+        "DEPARTURE_DETAILS": "Detalii plecare"
+    }
+}

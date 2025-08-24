@@ -1,0 +1,109 @@
+<div class="contact-details-container" [formGroup]="checkoutForm">
+  <div class="custom-group-container">
+    <div
+      class="custom-form-group"
+      [class.invalid]="
+        checkoutForm.get('email') &&
+        checkoutForm.get('email')?.touched &&
+        checkoutForm.get('email')?.errors
+      "
+    >
+      <label for="passagerEmail">Email</label>
+      <input
+        class="custom-form-control"
+        type="email"
+        name="passagerEmail"
+        id="passagerEmail"
+        formControlName="email"
+        placeholder="E-mail"
+      />
+    </div>
+
+    <div
+      *ngIf="checkoutForm.get('email') && checkoutForm.get('email')?.touched"
+    >
+      <small
+        class="text-danger"
+        *ngIf="checkoutForm.get('email')?.errors?.required"
+        >{{ "EMAIL.EMAIL_REQUIRED" }}</small
+      >
+      <small
+        class="text-danger"
+        *ngIf="checkoutForm.get('email')?.errors?.email"
+        >{{ "EMAIL.EMAIL_INVAILD" }}</small
+      >
+    </div>
+  </div>
+  <div class="custom-group-container">
+    <div
+      class="custom-form-group"
+      [class.invalid]="
+        checkoutForm.get('phoneNumber') &&
+        checkoutForm.get('phoneNumber')?.touched &&
+        checkoutForm.get('phoneNumber')?.errors
+      "
+    >
+      <label for="phoneNumber">Phone</label>
+      <!-- <ngx-intl-tel-input
+        [cssClass]="'custom'"
+        [preferredCountries]="preferredCountries"
+        [enableAutoCountrySelect]="true"
+        [enablePlaceholder]="true"
+        [searchCountryFlag]="true"
+        [searchCountryField]="[
+          SearchCountryField.Iso2,
+          SearchCountryField.Name
+        ]"
+        [selectFirstCountry]="false"
+        [selectedCountryISO]="CountryISO.Romania"
+        [maxLength]="15"
+        [phoneValidation]="true"
+        [separateDialCode]="separateDialCode"
+        [numberFormat]="PhoneNumberFormat.National"
+        name="phoneNumber"
+        formControlName="phoneNumber"
+        customPlaceholder="Mobile Number"
+      >
+      </ngx-intl-tel-input> -->
+    </div>
+
+    <div
+      *ngIf="
+        checkoutForm.get('phoneNumber') &&
+        checkoutForm.get('phoneNumber')?.touched
+      "
+    >
+      <small
+        class="text-danger"
+        *ngIf="checkoutForm.get('phoneNumber')?.errors?.required"
+        >Phone number is required.</small
+      >
+      <small
+        class="text-danger"
+        *ngIf="checkoutForm.get('phoneNumber')?.errors?.phoneNumber"
+        >Invalid phone number format.</small
+      >
+    </div>
+  </div>
+  <div>
+    <strong>Is input valid:</strong>
+    <pre>{{ !checkoutForm.get("phoneNumber")?.invalid }}</pre>
+  </div>
+  <div>
+    <strong>Is input touched:</strong>
+    <pre>{{ checkoutForm.get("phoneNumber")?.touched }}</pre>
+  </div>
+  <div>
+    <strong>Is form valid:</strong>
+    <pre>{{ checkoutForm.valid }}</pre>
+  </div>
+  <div>
+    <strong>Form value:</strong>
+    <pre>{{ checkoutForm.value | json }}</pre>
+  </div>
+  <div>
+    <strong>Form validation errors:</strong>
+    <pre>{{ checkoutForm.get("phoneNumber")?.errors | json }}</pre>
+  </div>
+</div>
+{{ "SELECT_NO_PERSONS.LUGGAGE" }}

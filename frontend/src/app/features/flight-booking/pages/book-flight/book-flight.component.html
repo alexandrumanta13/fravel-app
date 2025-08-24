@@ -1,0 +1,109 @@
+<div class="book-flight__container">
+  <div class="book-flight__inner" [ngClass]="toggleMenu ? 'open' : 'closed'">
+    <div class="destination-selector">
+      <div class="blurry-overlay" *ngIf="isMobile"></div>
+      <div class="destination-selector__inner" *ngIf="isMobile">
+        <div class="departure-city" (click)="toggleDepartureFn()">
+          <h3>
+            {{
+              (departureCity | json) !== "{}"
+                ? departureCity.city.name
+                : "De unde pleci?"
+            }}
+            <i class="icon-edit"></i>
+          </h3>
+        </div>
+        <aside class="border-dash"><i class="icon-plane-filled"></i></aside>
+        <div class="class-select__container"></div>
+
+        <div class="destination-city">
+          <h1 i18n>Urmatoarea destinatie alaturi de noi va fi...</h1>
+          <div class="vwrap" *ngIf="(destinationCity | json) === '{}'">
+            <div class="vmove" (click)="toggleDestination()">
+              <div class="vslide" *ngFor="let destination of topDestinations">
+                <h2 i18n>
+                  {{ destination.city_name }}
+                </h2>
+                <h3 i18n>{{ destination.country }}</h3>
+              </div>
+            </div>
+
+            <div class="destination-city__actions">
+              <div
+                class="next-search"
+                (click)="toggleDestination()"
+                *ngIf="destinationCity"
+              >
+                <i class="icon-search"></i>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="selected-destination"
+            *ngIf="
+              (departureCity | json) !== '{}' &&
+              (destinationCity | json) !== '{}'
+            "
+          >
+            <div
+              class="selected-destination__remove"
+              (click)="removeSelectedDestination()"
+            >
+              <i class="icon-close"></i>
+            </div>
+            <div class="selected-destination__info">
+              <h2>{{ destinationCity.city.name }}</h2>
+              <h3>
+                {{
+                  destinationCity.city.country.name ||
+                    destinationCity.country.name
+                }}
+              </h3>
+            </div>
+
+            <div class="destination-city__actions">
+              <div class="next-step" (click)="goToSelectPersons()">
+                <i class="icon-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="destination-selector__desktop-options" *ngIf="!isMobile">
+      <div class="destination-selector__desktop-options--inner">
+        <app-select-departure></app-select-departure>
+        <app-select-destination></app-select-destination>
+        <app-select-date></app-select-date>
+        <app-select-persons></app-select-persons>
+      </div>
+    </div>
+
+    <div class="top-destinations">
+      <h4 class="top-destinations__title" i18n>Destinatii populare</h4>
+      <div class="top-destinations__inner">
+        <ul class="top-destinations__list">
+          <li
+            class="top-destinations__item"
+            *ngFor="let destination of topDestinations"
+          >
+            <div
+              (click)="selectDestination(destination.iata_id)"
+              class="item__clip"
+            >
+              <img
+                src="https://images.skypicker.com/?image=https://images.kiwi.com/photos/385x320/{{
+                  destination.city_id
+                }}.jpg&fit=cover&width=180&height=230&dpr=1"
+                alt=""
+              />
+              <h4>{{ destination.city_name }}</h4>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

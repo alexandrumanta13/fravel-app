@@ -1,0 +1,243 @@
+<div class="select-persons__container">
+  <div class="select-persons__inner" [ngClass]="toggleMenu ? 'open' : 'closed'">
+    <header class="select-persons__header">
+      <div class="go-back"></div>
+    </header>
+    <div class="select-persons__wrapper">
+      <div #scrollTop class="inner">
+        <div class="persons__container">
+          <h2 i18n>Pasageri</h2>
+          <ul class="list">
+            <li>
+              <div class="persons__list">
+                <i class="icon-adult" alt="Persons"></i>
+                <div class="info">
+                  <small i18n>Adulti</small>
+                  <small i18n>Peste 11 ani</small>
+                </div>
+              </div>
+              <div class="persons__qnt">
+                <div class="input-group">
+                  <button
+                    (click)="removeOneAdult()"
+                    class="btn-custom btn-square-icon qnt-minus"
+                    type="button"
+                  >
+                    <i class="icon-minus"></i>
+                  </button>
+
+                  <input
+                    [disabled]="disabledAdd()"
+                    class="qnt"
+                    min="1"
+                    max="9"
+                    [(ngModel)]="noOfAdults"
+                    value="1"
+                    type="number"
+                    name="noOfAdults"
+                  />
+
+                  <button
+                    [disabled]="disabledAdd()"
+                    (click)="addOneAdult()"
+                    class="btn-custom btn-square-icon qnt-plus"
+                    type="button"
+                  >
+                    <i class="icon-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="persons__list">
+                <i class="icon-child" alt="Children"></i>
+                <div class="info">
+                  <small i18n>Copii</small>
+                  <small i18n>2 - 11 ani</small>
+                </div>
+              </div>
+              <div class="persons__qnt">
+                <div class="input-group">
+                  <button
+                    (click)="removeOneChild()"
+                    class="btn-custom btn-square-icon qnt-minus"
+                    type="button"
+                  >
+                    <i class="icon-minus"></i>
+                  </button>
+
+                  <input
+                    [disabled]="disabledAdd()"
+                    class="qnt"
+                    min="1"
+                    max="11"
+                    [(ngModel)]="noOfChilds"
+                    value="1"
+                    type="number"
+                    name="noOfChilds"
+                  />
+
+                  <button
+                    [disabled]="disabledAdd()"
+                    (click)="addOneChild()"
+                    class="btn-custom btn-square-icon qnt-plus"
+                    type="button"
+                  >
+                    <i class="icon-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="persons__list">
+                <i class="icon-infant" alt="Infant"></i>
+                <div class="info">
+                  <small i18n>Infanti</small>
+                  <small i18n>Sub 2 ani</small>
+                </div>
+              </div>
+              <div class="persons__qnt">
+                <div class="input-group">
+                  <button
+                    (click)="removeOneInfant()"
+                    class="btn-custom btn-square-icon qnt-minus"
+                    type="button"
+                  >
+                    <i class="icon-minus"></i>
+                  </button>
+
+                  <input
+                    [disabled]="disabledAdd()"
+                    class="qnt"
+                    min="1"
+                    max="11"
+                    [(ngModel)]="noOfInfants"
+                    value="1"
+                    type="number"
+                    name="noOfInfants"
+                  />
+
+                  <button
+                    [disabled]="disabledAdd() || disabledAddInfant()"
+                    (click)="addOneInfant()"
+                    class="btn-custom btn-square-icon qnt-plus"
+                    type="button"
+                  >
+                    <i class="icon-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="spacer">
+          <hr />
+        </div>
+        <div class="luggage__container">
+          <h2 i18n>Bagaje</h2>
+          <ul class="list">
+            <li>
+              <div class="persons__list">
+                <i class="icon-hand-luggage" alt="Hand luggage"></i>
+                <div class="info">
+                  <small i18n>Bagaj de mana</small>
+                  <small>40 x 20 x 30 cm</small>
+                </div>
+              </div>
+              <div class="persons__qnt">
+                <div class="input-group">
+                  <button
+                    (click)="removeOneHandLuggage()"
+                    class="btn-custom btn-square-icon qnt-minus"
+                    type="button"
+                  >
+                    <i class="icon-minus"></i>
+                  </button>
+
+                  <input
+                    [disabled]="disabledAddHandLuggage()"
+                    class="qnt"
+                    min="1"
+                    max="11"
+                    [(ngModel)]="noOfTotalHandLuggage"
+                    value="1"
+                    type="number"
+                    name="noOfTotalHandLuggage"
+                  />
+
+                  <button
+                    [disabled]="disabledAddHandLuggage()"
+                    (click)="addOneHandLuggage()"
+                    class="btn-custom btn-square-icon qnt-plus"
+                    type="button"
+                  >
+                    <i class="icon-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="persons__list">
+                <i class="icon-luggage" alt="Hold luggage"></i>
+                <div class="info">
+                  <small i18n>Bagaj de cala</small>
+                  <small>55 x 23 x 40 cm</small>
+                </div>
+              </div>
+              <div class="persons__qnt">
+                <div class="input-group">
+                  <button
+                    (click)="removeOneLuggage()"
+                    class="btn-custom btn-square-icon qnt-minus"
+                    type="button"
+                  >
+                    <i class="icon-minus"></i>
+                  </button>
+
+                  <input
+                    [disabled]="disabledAddLuggage()"
+                    class="qnt"
+                    min="1"
+                    max="11"
+                    [(ngModel)]="noOfTotalHoldLuggage"
+                    value="1"
+                    type="number"
+                    name="noOfTotalHoldLuggage"
+                  />
+
+                  <button
+                    [disabled]="disabledAddLuggage()"
+                    (click)="addOneLuggage()"
+                    class="btn-custom btn-square-icon qnt-plus"
+                    type="button"
+                  >
+                    <i class="icon-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="actions">
+          <button
+            *ngIf="!toggleFilter"
+            (click)="selectDate()"
+            class="btn-custom btn-primary btn-full-width"
+            i18n
+          >
+            Selecteaza data plecarii
+          </button>
+          <button
+            *ngIf="toggleFilter"
+            (click)="toggleSelectPersons()"
+            class="btn-custom btn-primary btn-full-width"
+            i18n
+          >
+            Selecteaza
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

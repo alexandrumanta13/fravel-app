@@ -1,0 +1,8 @@
+:host {
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 1;
+}

@@ -1,0 +1,39 @@
+<div
+  class="step-container"
+  [ngClass]="{
+    current: currentStep === stepNumber,
+    previous: currentStep > stepNumber,
+    last: isLast
+  }"
+>
+  <div class="indicator">
+    <ng-container
+      *ngIf="
+        currentStep <= stepNumber || (currentStep > stepNumber && isLast);
+        then stepOngoing;
+        else stepDone
+      "
+    >
+    </ng-container>
+    <ng-template #stepOngoing></ng-template>
+    <ng-template #stepDone>
+      <div class="check"></div>
+    </ng-template>
+  </div>
+  <div class="title">
+    <ng-content select="[step-title]"></ng-content>
+  </div>
+  <ng-container
+    *ngIf="
+      currentStep != stepNumber ||
+      (currentStep > stepNumber && isLast) ||
+      (currentStep < stepNumber && isFirst)
+    "
+  >
+    <div class="divider"></div>
+    <div class="content">
+      <ng-content select="[step-content]"></ng-content>
+      <ng-content select="[step-action]"></ng-content>
+    </div>
+  </ng-container>
+</div>

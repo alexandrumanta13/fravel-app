@@ -1,0 +1,343 @@
+.filters {
+  &__overlay {
+    @include respond(phone) {
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      @include background-opacity($color-dark, 0.8);
+      -webkit-backdrop-filter: blur(.8rem);
+      backdrop-filter: blur(.8rem);
+      top: 0;
+      left: 0;
+      z-index: 999;
+    }
+  }
+
+  &__slider {
+    @include respond(phone) {
+      position: fixed;
+      transition: .8s 10ms cubic-bezier(.68, -.55, .265, 1.55);
+      left: 0;
+      bottom: 0;
+      background: $color-grey-4;
+      width: 100%;
+      height: 92vh;
+      border-top-left-radius: 4rem;
+      border-top-right-radius: 4rem;
+      padding: 3.2rem;
+      z-index: 1000;
+      transform: translate3d(0, 100vh, 0);
+    }
+
+    &.open {
+      transform: translate3d(0, 0, 0);
+    }
+
+    &:after {
+      content: '';
+      background: $color-grey-4;
+      height: 10rem;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: -10rem;
+    }
+  }
+
+  &__slider-inner {
+    @include respond(phone) {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      .trip {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        font-size: 16px;
+        padding: 32px 0 16px;
+
+        .departure {
+          color: $color-dark;
+          flex: 1;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .destination {
+          color: $color-dark;
+          flex: 1;
+          text-align: center;
+        }
+
+        .departure,
+        .destination {
+          i {
+            &:before {
+              color: $color-dark;
+            }
+
+            margin-left: 8px;
+            font-size: 19px;
+          }
+        }
+
+        .gap {
+          border-top: 1px dashed $color-grey-2;
+          flex: 1;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 8px;
+
+          i {
+            position: absolute;
+            transform: rotate(-90deg);
+            font-size: 19px;
+
+            &:before {
+              color: $color-grey-2;
+            }
+          }
+        }
+
+
+      }
+
+      .trip-details {
+        display: flex;
+        font-size: 12px;
+
+        div {
+          flex: 1;
+          padding: 0 4px;
+          text-align: center;
+
+          span {
+            color: $color-grey-1;
+          }
+        }
+      }
+
+      .flight-type {
+        display: flex;
+        padding: 32px 0;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+
+        span {
+          font-size: 16px;
+        }
+
+        .toggle {
+          position: relative;
+
+          input[type=checkbox]+label {
+            position: relative;
+          }
+        }
+      }
+
+      .class-select {
+        &__container {
+          position: absolute;
+          top: 15%;
+          right: 0;
+          z-index: 11;
+
+          .toggle {
+            position: relative;
+            margin-top: 32px;
+
+            .tooltip {
+              top: 38px;
+            }
+          }
+        }
+
+        &__list {
+          display: flex;
+          grid-template-columns: repeat(2, 1fr);
+          grid-gap: 8px;
+          list-style-type: none;
+          padding: 32px 0;
+          margin-bottom: 0;
+          justify-content: space-between;
+        }
+
+        &__class {
+          position: relative;
+
+          .tooltip {
+            position: absolute;
+            top: 0;
+            font-size: 14px;
+            background: $color-white;
+            color: $color-dark;
+            padding: 5px 8px;
+            border-radius: 5px;
+            box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            left: -16px;
+            display: flex;
+            min-width: 85px;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+
+            &:before {
+              position: absolute;
+              content: "";
+              height: 8px;
+              width: 8px;
+              background: $color-white;
+              bottom: -3px;
+              left: 50%;
+              transform: translate(-50%) rotate(45deg);
+              transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+          }
+
+
+
+          &.active {
+            .tooltip {
+              top: -45px;
+              opacity: 1;
+              visibility: visible;
+              pointer-events: auto;
+            }
+
+            // &.first-class,
+            // &.business {
+            //   .tooltip {
+            //     top: 60px;
+
+            //     &:before {
+            //       top: -3px;
+            //     }
+            //   }
+            // }
+
+            .btn-custom {
+              background-color: $color-blue;
+              box-shadow: none;
+
+              i {
+                &::before {
+                  color: $color-white;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .persons-and-luggage {
+        span {
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 16px;
+
+          i {
+            font-size: 19px;
+            margin-left: 8px;
+
+            &:before {
+              color: $color-dark;
+            }
+          }
+        }
+        &__list {
+          display: flex;
+          list-style: none;
+          justify-content: space-between;
+
+          li {
+            font-size: 16px;
+            display: flex;
+
+            i {
+              font-size: 24px;
+              margin-right: 4px;
+            }
+          }
+        }
+      }
+
+      .date-trip {
+        display: flex;
+        flex-direction: column;
+
+        &__title {
+          span {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+  
+            i {
+              font-size: 19px;
+              margin-left: 8px;
+  
+              &:before {
+                color: $color-dark;
+              }
+            }
+          }
+        }
+
+        &__dates {
+          display: flex;
+          justify-content: space-around;
+          font-size: 16px;
+
+          div {
+            display: flex;
+            align-items: center;
+          }
+
+          i {
+            font-size: 24px;
+            margin-right: 8px;
+          }
+        }
+        
+      }
+
+      .btn-full-width {
+        position: absolute;
+        bottom: 0;
+      }
+    }
+  }
+
+  &__close {
+    @include respond(phone) {
+      position: absolute;
+      top: 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      right: 0;
+
+      img {
+        transition: transform .25s, opacity .25s;
+      }
+
+      &:hover {
+        img {
+          transform: rotate(360deg);
+        }
+
+      }
+    }
+  }
+}

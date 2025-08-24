@@ -1,0 +1,325 @@
+.destination-selector {
+  @include respond(desktop) {
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: $color-sky-blue;
+    &__inner {
+      display: none;
+    }
+
+    &__desktop-options {
+      position: absolute;
+      background: #fff;
+      border-radius: 0.8rem;
+      width: 70%;
+      height: 8rem;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+      &--inner {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        padding: 3.2rem;
+      }
+    }
+  }
+
+  @include respond(phone) {
+    height: 50%;
+    background-color: $color-sky-blue;
+    border-bottom-left-radius: 6rem;
+    border-bottom-right-radius: 6rem;
+    padding: 12rem 3.2rem 6rem;
+    position: relative;
+    z-index: 0;
+
+    &__inner {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+
+      .departure-city {
+        h3 {
+          color: $color-white;
+          font-size: 19px;
+          font-family: $sf-bold;
+          display: flex;
+          align-items: center;
+
+          i {
+            margin-left: 1.6rem;
+          }
+        }
+      }
+
+      .destination-city {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        h1 {
+          width: 60%;
+          color: rgba($color-white, 0.7);
+          font-size: 2.8rem;
+          font-family: $sf-bold;
+        }
+
+        h2 {
+          font-size: 6rem;
+          color: $color-white;
+        }
+
+        h3 {
+          font-size: 1.9rem;
+          color: rgba($color-white, 0.7);
+        }
+
+        &__actions {
+          right: 0;
+          position: absolute;
+          top: 0;
+          width: 11rem;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          bottom: 0;
+          margin: auto;
+
+          i {
+            font-size: 5rem;
+            color: $color-white;
+          }
+
+          span {
+            font-size: 14px;
+            margin-top: 4rem;
+          }
+
+          .next-step {
+            display: flex;
+            align-items: center;
+            // padding: 1.8rem;
+            // margin-left: auto;
+          }
+        }
+
+        .selected-destination {
+          padding: 10px 0;
+          height: 100%;
+          position: relative;
+          display: flex;
+          align-items: center;
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 3.2rem;
+          margin: 10px 0;
+
+          &__remove {
+            margin: 0 3.2rem;
+            font-size: 1.6rem;
+            color: $color-white;
+          }
+        }
+      }
+
+      .border-dash {
+        border-left: 2px dashed $color-white;
+        position: relative;
+        top: 0;
+        height: 30%;
+        left: 1.5rem;
+        margin: auto 0;
+        display: flex;
+        align-items: center;
+
+        .icon-plane-filled {
+          position: absolute;
+          left: -17px;
+          font-size: 32px;
+          color: $color-white;
+        }
+      }
+    }
+  }
+
+  @include respond(small-phone) {
+    padding: 8rem 3.2rem 2rem;
+
+    &__inner {
+      .departure-city {
+        h3 {
+          font-size: 2.4;
+        }
+      }
+
+      .destination-city {
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        h2 {
+          font-size: 3.4rem;
+        }
+
+        h3 {
+          font-size: 1.9rem;
+        }
+
+        &__actions {
+          i {
+            font-size: 3.8rem;
+          }
+        }
+      }
+
+      .border-dash {
+        border-left: 2px dashed $color-white;
+        height: 24%;
+
+        .icon-plane-filled {
+          left: -15px;
+          font-size: 28px;
+        }
+      }
+    }
+  }
+}
+
+.blurry-overlay {
+  border-radius: 100%;
+  position: absolute;
+  z-index: -1;
+  display: flex;
+  background: $color-sky-blue-light;
+  filter: blur(92px);
+  width: 329px;
+  height: 329px;
+  transform: translate3d(60px, -50%, 0);
+  // right: -99px;
+  // top: -92px;
+}
+
+.vwrap,
+.vslide {
+  width: 100%;
+  height: 90px;
+}
+
+.vwrap {
+  overflow: hidden;
+  position: relative;
+  -webkit-backface-visibility: hidden;
+}
+
+.vmove {
+  position: relative;
+  bottom: 0%;
+}
+
+.vslide {
+  padding: 10px 0;
+}
+
+/* (E) SLIDE ANIMATION */
+@keyframes slidev {
+  /* (E0) THE IDEA - USE KEYFRAMES TO SHIFT SLIDES *
+  0% { bottom: 0; }
+  33% { bottom: 100%; }
+  66% { bottom: 200%; }
+  100% { right: 0; }
+ 
+  /* (E1) BUT THE ABOVE WILL SHIFT NON-STOP */
+  /* SO WE ADD PAUSES BETWEEN EACH SLIDE */
+  // 0% {
+  //   bottom: 0;
+  // }
+
+  // 30% {
+  //   bottom: 0;
+  // }
+
+  // 33% {
+  //   bottom: 100%;
+  // }
+
+  // 63% {
+  //   bottom: 100%;
+  // }
+
+  // 66% {
+  //   bottom: 200%;
+  // }
+
+  // 97% {
+  //   bottom: 200%;
+  // }
+
+  // 100% {
+  //   right: 0;
+  // }
+  0% {
+    bottom: 0;
+  }
+
+  8% {
+    bottom: 0;
+  }
+
+  16% {
+    bottom: 100%;
+  }
+
+  24% {
+    bottom: 100%;
+  }
+
+  32% {
+    bottom: 200%;
+  }
+
+  40% {
+    bottom: 200%;
+  }
+
+  48% {
+    bottom: 300%;
+  }
+
+  56% {
+    bottom: 300%;
+  }
+
+  64% {
+    bottom: 400%;
+  }
+
+  72% {
+    bottom: 400%;
+  }
+
+  80% {
+    bottom: 500%;
+  }
+
+  88% {
+    bottom: 500%;
+  }
+
+  // 96% { bottom: 500%; }
+  100% {
+    right: 0;
+  }
+}
+
+.vmove {
+  animation: slidev linear 15s infinite;
+}
+
+.vmove:hover {
+  animation-play-state: paused;
+}

@@ -1,0 +1,113 @@
+<div
+  class="flight-item__container--departure"
+  [id]="flight._frvlDateConverted?.data._frvl_data_id"
+>
+  <div class="flight-item__inner" (click)="toggleRoute()">
+    <div class="flight-item__departure">
+      <div class="date date__departure">
+        <div class="day">
+          {{ flight._frvlDateConverted?.departure.time.day }}
+        </div>
+        <div class="month">
+          {{ flight._frvlDateConverted?.departure.time.month }}
+        </div>
+      </div>
+      <div class="flight-item__header">
+        <div class="departure">
+          {{ flight.cityFrom }}
+          {{ flight.flyFrom }}
+          {{ flight._frvlDateConverted?.departure.time.hoursDepartureFrom }}
+        </div>
+        <div class="gap">
+          <i class="icon-plane-filled"></i>
+        </div>
+
+        <div class="destination">
+          {{ flight.cityTo }}
+          {{ flight.flyTo }}
+          {{ flight._frvlDateConverted?.departure.time.hoursDepartureTo }}
+        </div>
+      </div>
+      <div class="flight-item__body">
+        <div class="flight-summary">
+          <span>{{ flight._frvlDateConverted?.departure.time.duration }}</span>
+          <div
+            class="carrier"
+            *ngFor="let departure of flight._frvlDateConverted?.departure.route"
+          >
+            <img
+              src="//images.kiwi.com/airlines/32x32/{{
+                departure.airline
+              }}.png?default=airline.png"
+              alt=""
+            />
+          </div>
+          <span class="connecting"
+            >{{
+              flight._frvlDateConverted?.departure.route.length > 1
+                ? "FLIGHTS_RESULTS.FLIGHT_TYPE.FLIGHT_STOP"
+                : "FLIGHTS_RESULTS.FLIGHT_TYPE.FLIGHT_DIRECT"
+            }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="flight-item__arrival" *ngIf="!(oneWay$ | async)">
+      <div class="date date__arrival">
+        <div class="day">
+          {{ flight._frvlDateConverted?.arrival.time.day }}
+        </div>
+        <div class="month">
+          {{ flight._frvlDateConverted?.arrival.time.month }}
+        </div>
+      </div>
+      <div class="flight-item__header">
+        <div class="departure">
+          {{ flight.cityTo }}
+          {{ flight.flyTo }}
+          {{ flight._frvlDateConverted?.arrival.time.hoursDepartureFrom }}
+        </div>
+        <div class="gap">
+          <i class="icon-plane-filled"></i>
+        </div>
+
+        <div class="destination">
+          {{ flight.cityFrom }}
+          {{ flight.flyFrom }}
+          {{ flight._frvlDateConverted?.arrival.time.hoursDepartureTo }}
+        </div>
+      </div>
+      <div class="flight-item__body">
+        <div class="flight-summary">
+          <span>{{ flight._frvlDateConverted?.arrival.time.duration }}</span>
+          <div
+            class="carrier"
+            *ngFor="let arrival of flight._frvlDateConverted?.arrival.route"
+          >
+            <img
+              src="//images.kiwi.com/airlines/32x32/{{
+                arrival.airline
+              }}.png?default=airline.png"
+              alt=""
+            />
+          </div>
+          <span class="connecting">{{
+            flight._frvlDateConverted?.arrival.route.length > 1
+              ? "FLIGHTS_RESULTS.FLIGHT_TYPE.FLIGHT_STOP"
+              : "FLIGHTS_RESULTS.FLIGHT_TYPE.FLIGHT_DIRECT"
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flight-item__footer">
+    <div class="price">{{ flight.price }} {{ flight.curr }}</div>
+    <div class="details">
+      <button class="btn-custom btn-buy" (click)="bookFlight(flight)">
+        {{ "FLIGHTS_RESULTS.BUY" }}
+        <!-- <i class="icon-arrow-right"></i> -->
+      </button>
+    </div>
+  </div>
+</div>
