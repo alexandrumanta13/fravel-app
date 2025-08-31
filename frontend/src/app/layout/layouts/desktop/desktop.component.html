@@ -1,0 +1,25 @@
+<div class="desktop-layout">
+  <!-- Header -->
+  <header class="layout-header">
+    <app-header></app-header>
+  </header>
+
+  <!-- Main Content Area -->
+  <div class="layout-body">
+    <!-- Sidebar -->
+    <aside class="layout-sidebar" [class.collapsed]="layoutState.toggleMenu">
+      <app-sidebar></app-sidebar>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="layout-content">
+      <router-outlet></router-outlet>
+      <ng-content></ng-content>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="layout-footer">
+    <app-footer></app-footer>
+  </footer>
+</div>

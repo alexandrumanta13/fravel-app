@@ -1,16 +1,221 @@
+<!-- GDPR Cookie Consent Banner - SEO Optimized -->
 <ng-content></ng-content>
-<div class="gdpr__container">
-  <div class="gdpr__card">
-    <h2 class="title" i18n>Inainte de a continua pe Fravel...</h2>
-    <p class="content" i18n>
-      Prin selectarea opțiunii "Acceptă toate", vă exprimați acordul pentru
-      stocarea cookie-urilor pe dispozitivul dumneavoastră. Acest lucru ne ajută
-      să îmbunătățim experiența de navigare pe site, să analizăm modul în care
-      este utilizat și să eficientizăm strategiile noastre de marketing.
-    </p>
-    <div class="actions">
-      <a class="actions--accept" (click)="acceptAll()" i18n>Accept toate</a>
-      <a class="actions--more" i18n>Aflați mai multe</a>
-    </div>
+
+<aside 
+  *ngIf="isVisible()" 
+  class="gdpr-banner" 
+  role="dialog" 
+  aria-modal="false"
+  aria-labelledby="gdpr-title"
+  aria-describedby="gdpr-description"
+  [attr.aria-busy]="isProcessing()"
+  [attr.dir]="isRTL() ? 'rtl' : 'ltr'"
+  [attr.lang]="currentLanguage().locale || 'en-US'"
+  itemscope 
+  itemtype="https://schema.org/ConsentForm">
+
+  <div class="gdpr-banner__overlay" 
+       [class.processing]="isProcessing()"
+       aria-hidden="true">
   </div>
-</div>
+
+  <section class="gdpr-banner__container" role="main">
+    <article class="gdpr-banner__card" itemprop="mainEntity">
+      
+      <!-- Header Section -->
+      <header class="gdpr-banner__header">
+        <h1 id="gdpr-title" 
+            class="gdpr-banner__title" 
+            itemprop="name">
+          {{ translations().title }}
+        </h1>
+        
+        <div class="gdpr-banner__compliance-badges" 
+             role="img" 
+             [attr.aria-label]="'GDPR compliant'">
+          <span class="compliance-badge" 
+                [attr.aria-label]="'GDPR Compliant'">
+            🔒 GDPR
+          </span>
+          <span class="compliance-badge" 
+                [attr.aria-label]="'Privacy Protected'">
+            🛡️ Privacy
+          </span>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="gdpr-banner__content">
+        <div id="gdpr-description" 
+             class="gdpr-banner__description" 
+             itemprop="description"
+             role="region"
+             [attr.aria-label]="'Cookie consent information'">
+          
+          <p class="gdpr-text gdpr-text--primary">
+            {{ translations().description.primary }}
+          </p>
+          
+          <p class="gdpr-text gdpr-text--secondary">
+            {{ translations().description.secondary }}
+          </p>
+
+          <!-- Cookie Categories Details -->
+          <details class="cookie-categories" 
+                   role="group" 
+                   aria-labelledby="cookie-categories-summary">
+            <summary id="cookie-categories-summary" 
+                     class="cookie-categories__summary"
+                     role="button"
+                     aria-expanded="false">
+              {{ translations().cookieCategories.title }}
+            </summary>
+            
+            <div class="cookie-categories__content" 
+                 role="region"
+                 [attr.aria-label]="'Detailed cookie information'">
+              <dl class="cookie-categories__list">
+                <div class="cookie-category">
+                  <dt class="cookie-category__name">{{ translations().cookieCategories.categories.essential.name }}</dt>
+                  <dd class="cookie-category__desc">{{ translations().cookieCategories.categories.essential.description }}</dd>
+                </div>
+                <div class="cookie-category">
+                  <dt class="cookie-category__name">{{ translations().cookieCategories.categories.analytics.name }}</dt>
+                  <dd class="cookie-category__desc">{{ translations().cookieCategories.categories.analytics.description }}</dd>
+                </div>
+                <div class="cookie-category">
+                  <dt class="cookie-category__name">{{ translations().cookieCategories.categories.marketing.name }}</dt>
+                  <dd class="cookie-category__desc">{{ translations().cookieCategories.categories.marketing.description }}</dd>
+                </div>
+                <div class="cookie-category">
+                  <dt class="cookie-category__name">{{ translations().cookieCategories.categories.preferences.name }}</dt>
+                  <dd class="cookie-category__desc">{{ translations().cookieCategories.categories.preferences.description }}</dd>
+                </div>
+              </dl>
+            </div>
+          </details>
+        </div>
+
+        <!-- Legal Information -->
+        <div class="gdpr-banner__legal" 
+             role="complementary"
+             [attr.aria-label]="'Legal information and links'">
+          <p class="legal-text">
+            {{ translations().legal.text }} 
+            <a href="/privacy-policy" 
+               class="legal-link" 
+               rel="privacy-policy"
+               itemprop="privacyPolicy"
+               aria-describedby="privacy-policy-desc">{{ translations().legal.privacyPolicy }}</a>
+            <span id="privacy-policy-desc" class="sr-only">{{ 'Opens privacy policy in same window' }}</span>
+            and 
+            <a href="/cookie-policy" 
+               class="legal-link" 
+               rel="cookie-policy"
+               itemprop="cookiePolicy"
+               aria-describedby="cookie-policy-desc">{{ translations().legal.cookiePolicy }}</a>.
+            <span id="cookie-policy-desc" class="sr-only">{{ 'Opens cookie policy in same window' }}</span>
+          </p>
+        </div>
+      </main>
+
+      <!-- Action Buttons -->
+      <footer class="gdpr-banner__actions" 
+              role="group" 
+              [attr.aria-labelledby]="'gdpr-actions-label'">
+        
+        <span id="gdpr-actions-label" class="sr-only">{{ 'Cookie consent actions' }}</span>
+        
+        <div class="action-buttons">
+          <!-- Accept All Button -->
+          <button type="button"
+                  class="btn btn--primary btn--accept"
+                  [disabled]="!canInteract()"
+                  [attr.aria-busy]="isProcessing()"
+                  (click)="onAcceptAll()"
+                  itemprop="acceptAction"
+                  [attr.aria-describedby]="'accept-all-desc'">
+            <span *ngIf="!isProcessing()">{{ translations().buttons.acceptAll }}</span>
+            <span *ngIf="isProcessing()">{{ translations().buttons.processing }}</span>
+          </button>
+          <span id="accept-all-desc" class="sr-only">
+            {{ translations().aria.acceptAllDesc }}
+          </span>
+
+          <!-- Reject All Button -->
+          <button type="button"
+                  class="btn btn--secondary btn--reject"
+                  [disabled]="!canInteract()"
+                  [attr.aria-busy]="isProcessing()"
+                  (click)="onRejectAll()"
+                  itemprop="rejectAction"
+                  [attr.aria-describedby]="'reject-all-desc'">
+            <span *ngIf="!isProcessing()">{{ translations().buttons.rejectAll }}</span>
+            <span *ngIf="isProcessing()">{{ translations().buttons.processing }}</span>
+          </button>
+          <span id="reject-all-desc" class="sr-only">
+            {{ translations().aria.rejectAllDesc }}
+          </span>
+
+          <!-- Customize Button -->
+          <button type="button"
+                  class="btn btn--outline btn--customize"
+                  [disabled]="!canInteract()"
+                  (click)="onCustomize()"
+                  itemprop="customizeAction"
+                  [attr.aria-describedby]="'customize-desc'">
+            {{ translations().buttons.customize }}
+          </button>
+          <span id="customize-desc" class="sr-only">
+            {{ translations().aria.customizeDesc }}
+          </span>
+        </div>
+
+        <!-- Additional Legal Text -->
+        <div class="gdpr-banner__footer-text" 
+             role="contentinfo"
+             [attr.aria-label]="'Additional consent information'">
+          <small class="footer-legal-text">
+            {{ translations().footer.text }}
+          </small>
+        </div>
+      </footer>
+
+    </article>
+  </section>
+
+  <!-- Screen Reader Loading State -->
+  <div class="sr-only" 
+       role="status" 
+       aria-live="polite" 
+       aria-atomic="true"
+       *ngIf="isProcessing()">
+    <span>{{ translations().aria.processing }}</span>
+  </div>
+
+</aside>
+
+<!-- Structured Data for SEO -->
+<script type="application/ld+json" *ngIf="isVisible()">
+{
+  "@context": "https://schema.org",
+  "@type": "ConsentForm",
+  "name": "{{ translations().title }}",
+  "description": "{{ translations().meta.description }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "Fravel",
+    "legalName": "Fravel Travel Services"
+  },
+  "applicationCategory": "Privacy",
+  "operatingSystem": "Any",
+  "browserRequirements": "Modern web browser with JavaScript enabled",
+  "softwareVersion": "1.0",
+  "datePublished": "2024-01-01",
+  "inLanguage": "{{ currentLanguage().locale || 'en-US' }}",
+  "isAccessibleForFree": true,
+  "accessibilityFeature": ["alternativeText", "readingOrder", "structuralNavigation"],
+  "accessibilityControl": ["fullKeyboardControl", "fullMouseControl"],
+  "accessibilityHazard": "none"
+}
+</script>

@@ -9,6 +9,9 @@ export const environment = {
   KIWI_KEY: 'p_Ci425mWNeLLqFRtMUdji27Osjl5opy',
   travelFusionLoginId: 'MSRB7P7FM78HR97L',
   apiUrl: 'https://fravel.ro/fravel-api/v2/',
+  // Backend configuration
+  backendUrl: 'http://localhost:3000',
+  useBackendAirports: true, // Toggle between backend and legacy (Kiwi) service
   //https://images.skypicker.com/?image=https://images.kiwi.com/photos/385x320/milan_it.jpg&fit=cover&width=340&height=740&dpr=5
 };
 

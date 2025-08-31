@@ -19,6 +19,10 @@ export interface StartRoutingRequest {
     TravellerList: TravelerList;
     // Required and must be true.
     IncrementalResults: boolean;
+    // Language code (e.g., 'en', 'ro', 'fr')
+    Language?: string;
+    // Currency code (e.g., 'EUR', 'RON', 'USD')
+    Currency?: string;
 }
 
 export interface BlaRequest {

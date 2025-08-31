@@ -9,6 +9,7 @@ import {
 } from 'src/app/shared/types';
 import { SharedService } from 'src/app/shared/shared.service';
 import { environment } from 'src/environments/environment.prod';
+import { BackendAirportsService } from './backend-airports.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,13 +20,24 @@ export class AirportsService {
     apikey: environment.KIWI_KEY,
   });
 
+  // Feature flag to toggle between legacy (Kiwi) and new backend
+  private useBackendService = environment.useBackendAirports || false;
+
   constructor(
     private http: HttpClient,
-    private _SharedService: SharedService
+    private _SharedService: SharedService,
+    private backendAirportsService: BackendAirportsService
   ) {}
 
   async getNearbyAirports() {
     try {
+      // Use new backend service if enabled
+      if (this.useBackendService) {
+        await this.backendAirportsService.getNearbyLocations();
+        return;
+      }
+
+      // Legacy Kiwi implementation
       const location = await firstValueFrom(
         this.http.get<GeoLocation>('https://geoip-api.skypicker.com/')
       );
@@ -61,18 +73,27 @@ export class AirportsService {
         this.getAirportWithLowestRank(airports)
       );
 
-      // this._SharedService.flightSearch.update((obj) => {
-      //   obj.departureCity = this.getAirportWithLowestRank(airports);
-      //   return obj;
-      // });
     } catch (err) {
       console.log(err);
-      //TODO: implement error message service
+      // If backend fails, try to fall back to legacy service
+      if (this.useBackendService) {
+        console.warn('Backend service failed, falling back to legacy Kiwi API');
+        this.useBackendService = false;
+        await this.getNearbyAirports();
+      }
     }
   }
 
   async getAirportsByCity(city_id: string, action: string) {
     try {
+      // Use new backend service if enabled
+      if (this.useBackendService) {
+        const searchType = action as 'departure' | 'destination';
+        await this.backendAirportsService.getLocationsByQuery(city_id, searchType);
+        return;
+      }
+
+      // Legacy Kiwi implementation
       const params = new HttpParams()
         .set('term', city_id)
         .set(
@@ -104,7 +125,12 @@ export class AirportsService {
         : this._SharedService.setSearchDestinationAirportsFn(groupeAirports);
     } catch (err) {
       console.log(err);
-      //TODO: implement error message service
+      // If backend fails, try to fall back to legacy service
+      if (this.useBackendService) {
+        console.warn('Backend search failed, falling back to legacy Kiwi API');
+        this.useBackendService = false;
+        await this.getAirportsByCity(city_id, action);
+      }
     }
   }
 
@@ -164,5 +190,46 @@ export class AirportsService {
     );
 
     return airportWithLowestGlobalRank;
+  }
+
+  /**
+   * Toggle between backend and legacy (Kiwi) service
+   */
+  toggleServiceMode(useBackend: boolean) {
+    this.useBackendService = useBackend;
+    console.log(`Airports service switched to: ${useBackend ? 'Backend' : 'Legacy (Kiwi)'} mode`);
+  }
+
+  /**
+   * Check if backend service is available
+   */
+  async checkBackendAvailability(): Promise<boolean> {
+    try {
+      return await this.backendAirportsService.checkBackendHealth();
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Get current service mode
+   */
+  getCurrentServiceMode(): 'backend' | 'legacy' {
+    return this.useBackendService ? 'backend' : 'legacy';
+  }
+
+  /**
+   * Auto-detect and configure best available service
+   */
+  async autoConfigureService(): Promise<void> {
+    const backendAvailable = await this.checkBackendAvailability();
+    
+    if (backendAvailable && !this.useBackendService) {
+      console.log('Backend service available, switching to backend mode');
+      this.toggleServiceMode(true);
+    } else if (!backendAvailable && this.useBackendService) {
+      console.log('Backend service unavailable, switching to legacy mode');
+      this.toggleServiceMode(false);
+    }
   }
 }

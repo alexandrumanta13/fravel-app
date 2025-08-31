@@ -1,14 +1,449 @@
-:host {
+.flight-map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+  // Loading State
+  .map-loading {
     position: absolute;
-    top: 6rem;
-    left: 0;
-    height: calc(100% - 6rem);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: white;
+    z-index: 100;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+  }
+
+  // Error State
+  .map-error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: white;
+    text-align: center;
+    z-index: 100;
+    padding: 24px;
+
+    mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.8;
+      max-width: 300px;
+    }
+
+    button {
+      margin-top: 8px;
+    }
+  }
+
+  // Map Controls
+  .map-controls {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      padding: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+      .control-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        &.active {
+          background-color: #1976d2;
+          color: white;
+        }
+
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    // Route Information Panel
+    .route-info {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      padding: 16px;
+      min-width: 250px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+      .route-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+
+        h4 {
+          margin: 0;
+          font-size: 14px;
+          font-weight: 600;
+          color: #333;
+        }
+
+        button {
+          width: 24px;
+          height: 24px;
+          line-height: 1;
+
+          mat-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
+
+      .route-details {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .detail-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 12px;
+          color: #666;
+
+          mat-icon {
+            font-size: 16px;
+            width: 16px;
+            height: 16px;
+            color: #888;
+          }
+        }
+      }
+    }
+  }
+
+  // Statistics Panel
+  .map-stats {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 50;
+    display: flex;
+    gap: 16px;
+
+    .stats-item {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-align: center;
+
+      .stats-value {
+        display: block;
+        font-size: 20px;
+        font-weight: 600;
+        color: #1976d2;
+        line-height: 1;
+      }
+
+      .stats-label {
+        display: block;
+        font-size: 11px;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 4px;
+      }
+    }
+  }
+
+  // Main Map Container
+  .map-container {
     width: 100%;
+    height: 100%;
+    min-height: 400px;
+    transition: opacity 0.3s ease;
+
+    &.loading {
+      opacity: 0.3;
+    }
+
+    &.error {
+      opacity: 0.1;
+    }
+  }
+
+  // Route List (Mobile)
+  .route-list {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    z-index: 40;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-height: 200px;
+    overflow-y: auto;
+
+    h4 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .route-items {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .route-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        background: none;
+        width: 100%;
+        text-align: left;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        &.selected {
+          background-color: rgba(25, 118, 210, 0.1);
+          border-color: #1976d2;
+        }
+
+        .route-cities {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 4px;
+
+          .from-city,
+          .to-city {
+            font-size: 12px;
+            font-weight: 500;
+            color: #333;
+          }
+
+          mat-icon {
+            font-size: 14px;
+            width: 14px;
+            height: 14px;
+            color: #666;
+          }
+        }
+
+        .route-meta {
+          display: flex;
+          gap: 12px;
+          font-size: 10px;
+          color: #666;
+
+          .flight-count {
+            font-weight: 500;
+          }
+
+          .price {
+            color: #1976d2;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
 }
 
-#chartdiv {
-    height: calc(100% + 8rem);
-    top: -6rem;
-    position: relative;
-    z-index: 8;
+// Responsive Design
+@media (max-width: 768px) {
+  .flight-map-container {
+    .map-controls {
+      top: 12px;
+      right: 12px;
+
+      .route-info {
+        min-width: 200px;
+        padding: 12px;
+
+        .route-header h4 {
+          font-size: 12px;
+        }
+
+        .route-details .detail-item {
+          font-size: 11px;
+        }
+      }
+    }
+
+    .map-stats {
+      bottom: 12px;
+      left: 12px;
+
+      .stats-item {
+        padding: 8px 12px;
+
+        .stats-value {
+          font-size: 16px;
+        }
+
+        .stats-label {
+          font-size: 10px;
+        }
+      }
+    }
+
+    .route-list {
+      top: 12px;
+      left: 12px;
+      right: 60px; // Leave space for controls
+      padding: 12px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .flight-map-container {
+    min-height: 300px;
+
+    .map-controls {
+      .control-group {
+        flex-direction: row;
+        
+        .control-button {
+          width: 36px;
+          height: 36px;
+        }
+      }
+
+      .route-info {
+        min-width: 180px;
+        padding: 10px;
+      }
+    }
+
+    .map-stats {
+      flex-direction: column;
+      gap: 8px;
+
+      .stats-item {
+        padding: 6px 10px;
+
+        .stats-value {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+// High contrast mode
+@media (prefers-contrast: high) {
+  .flight-map-container {
+    .map-controls .control-group,
+    .route-info,
+    .map-stats .stats-item,
+    .route-list {
+      background: white;
+      border: 2px solid #333;
+    }
+
+    .control-button.active {
+      background-color: #000;
+      border: 2px solid #fff;
+    }
+  }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .flight-map-container {
+    .map-container,
+    .control-button {
+      transition: none;
+    }
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  .flight-map-container {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+
+    .map-controls .control-group,
+    .route-info,
+    .map-stats .stats-item,
+    .route-list {
+      background: rgba(45, 55, 72, 0.95);
+      color: #e2e8f0;
+    }
+
+    .route-info .route-header h4,
+    .route-list h4 {
+      color: #e2e8f0;
+    }
+
+    .route-info .route-details .detail-item,
+    .route-list .route-items .route-item {
+      color: #cbd5e0;
+    }
+
+    .map-stats .stats-value {
+      color: #63b3ed;
+    }
+  }
 }

@@ -1,2 +1,123 @@
 
-<div id="chartdiv"></div>
+<div class="flight-map-container">
+  <!-- Loading State -->
+  <div class="map-loading" *ngIf="isLoading()">
+    <mat-spinner diameter="60"></mat-spinner>
+    <p>Loading flight map...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="map-error" *ngIf="error()">
+    <mat-icon color="warn">error_outline</mat-icon>
+    <h3>Map Loading Failed</h3>
+    <p>{{ error() }}</p>
+    <button mat-raised-button color="primary" (click)="initializeMap()">
+      <mat-icon>refresh</mat-icon>
+      Retry
+    </button>
+  </div>
+
+  <!-- Map Controls -->
+  <div class="map-controls" *ngIf="showControls && !isLoading() && !error()">
+    <div class="control-group">
+      <!-- Map Type Toggle -->
+      <button 
+        mat-icon-button 
+        [matTooltip]="mapType() === 'flat' ? 'Switch to Globe View' : 'Switch to Flat View'"
+        (click)="toggleMapType()"
+        class="control-button"
+      >
+        <mat-icon>{{ mapType() === 'flat' ? 'public' : 'map' }}</mat-icon>
+      </button>
+
+      <!-- Flight Paths Toggle -->
+      <button 
+        mat-icon-button 
+        [matTooltip]="showFlightPaths() ? 'Hide Flight Paths' : 'Show Flight Paths'"
+        (click)="toggleFlightPaths()"
+        class="control-button"
+        [class.active]="showFlightPaths()"
+      >
+        <mat-icon>flight_takeoff</mat-icon>
+      </button>
+
+      <!-- Reset Zoom -->
+      <button 
+        mat-icon-button 
+        matTooltip="Reset Zoom"
+        (click)="resetZoom()"
+        class="control-button"
+      >
+        <mat-icon>zoom_out_map</mat-icon>
+      </button>
+    </div>
+
+    <!-- Route Information -->
+    <div class="route-info" *ngIf="selectedRoute()">
+      <div class="route-header">
+        <h4>{{ selectedRoute()!.from.title }} → {{ selectedRoute()!.to.title }}</h4>
+        <button mat-icon-button (click)="_selectedRoute.set(null)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="route-details">
+        <div class="detail-item">
+          <mat-icon>flight</mat-icon>
+          <span>{{ selectedRoute()!.flightCount }} {{ selectedRoute()!.flightCount === 1 ? 'flight' : 'flights' }}</span>
+        </div>
+        <div class="detail-item" *ngIf="selectedRoute()!.minPrice">
+          <mat-icon>euro</mat-icon>
+          <span>From €{{ selectedRoute()!.minPrice }}</span>
+        </div>
+        <div class="detail-item">
+          <mat-icon>business</mat-icon>
+          <span>{{ selectedRoute()!.airlines.slice(0, 2).join(', ') }}{{ selectedRoute()!.airlines.length > 2 ? ' +' + (selectedRoute()!.airlines.length - 2) : '' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistics Panel -->
+  <div class="map-stats" *ngIf="flightRoutes().length > 0 && !isLoading() && !error()">
+    <div class="stats-item">
+      <span class="stats-value">{{ mapCities().length }}</span>
+      <span class="stats-label">Cities</span>
+    </div>
+    <div class="stats-item">
+      <span class="stats-value">{{ flightRoutes().length }}</span>
+      <span class="stats-label">Routes</span>
+    </div>
+  </div>
+
+  <!-- Map Container -->
+  <div 
+    #mapDiv 
+    class="map-container"
+    [class.loading]="isLoading()"
+    [class.error]="error()"
+  ></div>
+
+  <!-- Route List (for mobile) -->
+  <div class="route-list" *ngIf="flightRoutes().length > 0 && !isLoading() && !error()">
+    <h4>Flight Routes</h4>
+    <div class="route-items">
+      <button 
+        *ngFor="let route of flightRoutes()"
+        mat-button
+        class="route-item"
+        (click)="zoomToRoute(route)"
+        [class.selected]="selectedRoute() === route"
+      >
+        <div class="route-cities">
+          <span class="from-city">{{ route.from.title }}</span>
+          <mat-icon>arrow_forward</mat-icon>
+          <span class="to-city">{{ route.to.title }}</span>
+        </div>
+        <div class="route-meta">
+          <span class="flight-count">{{ route.flightCount }} flights</span>
+          <span class="price" *ngIf="route.minPrice">from €{{ route.minPrice }}</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

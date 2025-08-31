@@ -1,17 +1,37 @@
 import { NgModule } from '@angular/core';
-import { LayoutComponent } from './layout.component';
 
-import { AdminModule } from './layouts/admin/admin.module';
-import { SharedModule } from '../shared/shared.module';
-import { DesktopModule } from './layouts/desktop/desktop.module';
-import { MobileModule } from './layouts/mobile/mobile.module';
-import { CommonModule } from '@angular/common';
+// Services that need to be provided at module level
+import { LayoutResolver } from './resolvers/layout.resolver';
+import { LayoutStrategyService } from './services/layout-strategy.service';
+import { LocaleLayoutService } from './services/locale-layout.service';
+import { LayoutLoggerService } from './services/layout-logger.service';
 
-const layoutModules: any = [MobileModule, AdminModule, DesktopModule];
-
+/**
+ * Layout Module for providing layout-related services
+ * Note: Components are now standalone and don't need to be declared here
+ */
 @NgModule({
-  declarations: [LayoutComponent],
-  imports: [CommonModule, ...layoutModules],
-  exports: [LayoutComponent, ...layoutModules],
+  providers: [
+    LayoutResolver,
+    LayoutStrategyService,
+    LocaleLayoutService,
+    LayoutLoggerService
+  ],
+  // No declarations needed - components are standalone
+  // No imports needed - components handle their own imports
+  // Export services for potential external use
 })
-export class LayoutModule {}
+export class LayoutModule {
+  // Optional: Add static forRoot() method for configuration
+  static forRoot() {
+    return {
+      ngModule: LayoutModule,
+      providers: [
+        LayoutResolver,
+        LayoutStrategyService,
+        LocaleLayoutService,
+        LayoutLoggerService
+      ]
+    };
+  }
+}

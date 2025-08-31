@@ -1,43 +1,243 @@
-<router-outlet></router-outlet>
-<ng-content></ng-content>
+<!-- Mobile Layout - Touch-Optimized & Accessible -->
+<div 
+  #mobileContainer
+  [class]="mobileLayoutClasses()"
+  [style]="getContainerStyle()"
+  role="main"
+  [attr.aria-label]="getMobileAriaLabel()"
+  [attr.aria-describedby]="getLayoutAriaDescribedBy()"
+  [attr.data-orientation]="layoutDimensions().orientation">
 
-<app-sidebar [class.open]="toggleMenu"></app-sidebar>
+  <!-- Background Overlay for Active Components -->
+  <div 
+    *ngIf="hasActiveOverlay()"
+    class="mobile-layout__overlay"
+    role="presentation"
+    [style.opacity]="overlayOpacity()"
+    (click)="onOverlayClick()"
+    aria-hidden="true">
+  </div>
 
-<app-select-departure
-  [ngClass]="{
-    open: toggleDeparture,
-    closed: !toggleDeparture,
-    onTop: toggleFilter
-  }"
-></app-select-departure>
+  <!-- Main Content Area -->
+  <main 
+    class="mobile-layout__main"
+    role="main"
+    [attr.aria-hidden]="hasActiveOverlay()"
+    [attr.inert]="hasActiveOverlay() ? '' : null">
+    
+    <!-- Router Outlet for Page Content -->
+    <section class="mobile-layout__content" role="region" aria-label="Main content">
+      <router-outlet></router-outlet>
+      <ng-content></ng-content>
+    </section>
+    
+  </main>
 
-<app-select-destination
-  [ngClass]="{
-    open: toggleDestination,
-    closed: !toggleDestination,
-    onTop: toggleFilter
-  }"
-></app-select-destination>
+  <!-- Mobile Navigation Sidebar -->
+  <aside 
+    *ngIf="shouldShowSidebar()"
+    class="mobile-layout__sidebar"
+    role="navigation"
+    [attr.aria-label]="'Mobile navigation menu'"
+    [attr.aria-hidden]="!layoutState().toggleMenu"
+    [attr.aria-modal]="layoutState().toggleMenu"
+    [attr.tabindex]="layoutState().toggleMenu ? '0' : '-1'">
+    
+    <app-sidebar 
+      [class.open]="layoutState().toggleMenu"
+      [attr.aria-expanded]="layoutState().toggleMenu">
+    </app-sidebar>
+    
+  </aside>
 
-<app-select-persons
-  [ngClass]="{
-    open: toggleSelectPersons,
-    closed: !toggleSelectPersons,
-    onTop: toggleFilter
-  }"
-></app-select-persons>
-<app-select-date
-  [ngClass]="{
-    open: toggleSelectDate,
-    closed: !toggleSelectDate,
-    onTop: toggleFilter
-  }"
-></app-select-date>
-<app-search-flights
-  [ngClass]="{
-  open: toggleSearchFlight,
-  closed: !toggleSearchFlight || toggleFilter,
+  <!-- Flight Booking Modal Overlays -->
+  <!-- Each component is conditionally rendered and properly labeled for accessibility -->
   
-}"
-></app-search-flights>
-<!-- <app-footer></app-footer> -->
+  <!-- Departure Selection Modal -->
+  <div 
+    *ngIf="showDeparture()"
+    class="mobile-layout__modal mobile-layout__modal--departure"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'Select departure location'"
+    [attr.aria-describedby]="'departure-instructions'"
+    tabindex="0">
+    
+    <div id="departure-instructions" class="sr-only">
+      Select your departure city or airport. Use swipe left or tap outside to close.
+    </div>
+    
+    <app-select-departure
+      [ngClass]="{
+        open: layoutState().toggleDeparture,
+        closed: !layoutState().toggleDeparture,
+        onTop: layoutState().toggleFilter
+      }"
+      role="form"
+      [attr.aria-label]="'Departure location selection form'">
+    </app-select-departure>
+    
+  </div>
+
+  <!-- Destination Selection Modal -->
+  <div 
+    *ngIf="showDestination()"
+    class="mobile-layout__modal mobile-layout__modal--destination"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'Select destination location'"
+    [attr.aria-describedby]="'destination-instructions'"
+    tabindex="0">
+    
+    <div id="destination-instructions" class="sr-only">
+      Select your destination city or airport. Use swipe left or tap outside to close.
+    </div>
+    
+    <app-select-destination
+      [ngClass]="{
+        open: layoutState().toggleDestination,
+        closed: !layoutState().toggleDestination,
+        onTop: layoutState().toggleFilter
+      }"
+      role="form"
+      [attr.aria-label]="'Destination location selection form'">
+    </app-select-destination>
+    
+  </div>
+
+  <!-- Passenger Selection Modal -->
+  <div 
+    *ngIf="showPersons()"
+    class="mobile-layout__modal mobile-layout__modal--persons"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'Select number of passengers'"
+    [attr.aria-describedby]="'persons-instructions'"
+    tabindex="0">
+    
+    <div id="persons-instructions" class="sr-only">
+      Select the number of adult and child passengers. Use swipe left or tap outside to close.
+    </div>
+    
+    <app-select-persons
+      [ngClass]="{
+        open: layoutState().toggleSelectPersons,
+        closed: !layoutState().toggleSelectPersons,
+        onTop: layoutState().toggleFilter
+      }"
+      role="form"
+      [attr.aria-label]="'Passenger selection form'">
+    </app-select-persons>
+    
+  </div>
+
+  <!-- Date Selection Modal -->
+  <div 
+    *ngIf="showDate()"
+    class="mobile-layout__modal mobile-layout__modal--date"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'Select travel dates'"
+    [attr.aria-describedby]="'date-instructions'"
+    tabindex="0">
+    
+    <div id="date-instructions" class="sr-only">
+      Select your departure and return dates using the calendar. Use swipe left or tap outside to close.
+    </div>
+    
+    <app-select-date
+      [ngClass]="{
+        open: layoutState().toggleSelectDate,
+        closed: !layoutState().toggleSelectDate,
+        onTop: layoutState().toggleFilter
+      }"
+      role="form"
+      [attr.aria-label]="'Date selection form'">
+    </app-select-date>
+    
+  </div>
+
+  <!-- Flight Search Results Modal -->
+  <div 
+    *ngIf="showSearchFlight()"
+    class="mobile-layout__modal mobile-layout__modal--search-results"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'Flight search results'"
+    [attr.aria-describedby]="'search-instructions'"
+    tabindex="0">
+    
+    <div id="search-instructions" class="sr-only">
+      Browse available flights matching your criteria. Use swipe left or tap outside to close.
+    </div>
+    
+    <app-search-flights
+      [ngClass]="{
+        open: layoutState().toggleSearchFlight,
+        closed: !layoutState().toggleSearchFlight || layoutState().toggleFilter
+      }"
+      role="main"
+      [attr.aria-label]="'Flight search results and booking interface'">
+    </app-search-flights>
+    
+  </div>
+
+  <!-- Touch Gesture Indicators (for user education) -->
+  <div 
+    *ngIf="mobileLayoutConfig().touchGestures && !hasActiveOverlay()"
+    class="mobile-layout__gesture-hints"
+    role="status"
+    aria-live="polite"
+    aria-label="Touch gesture hints">
+    
+    <div class="gesture-hint gesture-hint--swipe-right" aria-hidden="true">
+      <span class="gesture-icon">👆</span>
+      <span class="gesture-text">Swipe right to open menu</span>
+    </div>
+    
+  </div>
+
+  <!-- Screen Reader Status Updates -->
+  <div 
+    class="sr-only" 
+    role="status" 
+    aria-live="polite" 
+    aria-atomic="true">
+    
+    <span *ngIf="layoutState().toggleMenu">
+      Navigation menu opened. Swipe left or tap to close.
+    </span>
+    
+    <span *ngIf="showDeparture()">
+      Departure selection opened
+    </span>
+    
+    <span *ngIf="showDestination()">
+      Destination selection opened
+    </span>
+    
+    <span *ngIf="showPersons()">
+      Passenger selection opened
+    </span>
+    
+    <span *ngIf="showDate()">
+      Date selection opened
+    </span>
+    
+    <span *ngIf="showSearchFlight()">
+      Flight search results opened
+    </span>
+    
+    <span *ngIf="!hasActiveOverlay()">
+      All overlays closed. Main content is active.
+    </span>
+    
+  </div>
+
+</div>
+
+<!-- Skip Links for Accessibility -->
+<nav class="skip-links" aria-label="Skip navigation">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#mobile-menu" class="skip-link" *ngIf="layoutState().toggleMenu">Skip to mobile menu</a>
+</nav>

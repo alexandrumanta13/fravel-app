@@ -1,0 +1,440 @@
+<!-- Flight Results Container -->
+<div class="flights-results" 
+     [class.map-view]="viewState().viewMode === 'map'"
+     [class.scrolled]="isScrolled()">
+
+  <!-- Header Section -->
+  <header class="flights-header" [class.sticky]="isScrolled()">
+    <div class="header-content">
+      
+      <!-- Search Summary -->
+      <div class="search-summary" *ngIf="flightStats()">
+        <h1 class="results-title">
+          {{ 'FLIGHTS.RESULTS_TITLE' | translate: { count: flights().length } }}
+        </h1>
+        <div class="search-info">
+          <span class="route-info">
+            {{ selectedDates().departure?.day }} {{ 'COMMON.MONTHS.' + selectedDates().departure?.month | translate }}
+          </span>
+          <span class="passengers-info" *ngIf="flightStats()">
+            {{ 'FLIGHTS.TOTAL_FLIGHTS' | translate: { count: flightStats()!.totalFlights } }}
+          </span>
+        </div>
+      </div>
+
+      <!-- View Controls -->
+      <div class="view-controls">
+        <!-- View Mode Toggle -->
+        <div class="view-mode-toggle" role="tablist" [attr.aria-label]="'FLIGHTS.VIEW_MODE' | translate">
+          <button 
+            mat-icon-button
+            [class.active]="viewState().viewMode === 'list'"
+            (click)="changeViewMode('list')"
+            [attr.aria-label]="'FLIGHTS.LIST_VIEW' | translate"
+            role="tab"
+            [attr.aria-selected]="viewState().viewMode === 'list'">
+            <mat-icon>view_list</mat-icon>
+          </button>
+          <button 
+            mat-icon-button
+            [class.active]="viewState().viewMode === 'grid'"
+            (click)="changeViewMode('grid')"
+            [attr.aria-label]="'FLIGHTS.GRID_VIEW' | translate"
+            role="tab"
+            [attr.aria-selected]="viewState().viewMode === 'grid'">
+            <mat-icon>view_module</mat-icon>
+          </button>
+          <button 
+            mat-icon-button
+            [class.active]="viewState().viewMode === 'map'"
+            (click)="changeViewMode('map')"
+            [attr.aria-label]="'FLIGHTS.MAP_VIEW' | translate"
+            role="tab"
+            [attr.aria-selected]="viewState().viewMode === 'map'">
+            <mat-icon>map</mat-icon>
+          </button>
+        </div>
+
+        <!-- Filters Toggle -->
+        <button 
+          mat-button
+          (click)="toggleFilters()"
+          [class.active]="viewState().showFilters"
+          [attr.aria-label]="'FLIGHTS.TOGGLE_FILTERS' | translate"
+          [attr.aria-expanded]="viewState().showFilters">
+          <mat-icon>filter_list</mat-icon>
+          {{ 'FLIGHTS.FILTERS' | translate }}
+          <mat-badge 
+            *ngIf="activeFiltersCount() > 0"
+            [content]="activeFiltersCount()"
+            color="accent"
+            size="small">
+          </mat-badge>
+        </button>
+
+        <!-- Sort Options -->
+        <div class="sort-controls">
+          <button 
+            mat-button
+            [matMenuTriggerFor]="sortMenu"
+            [attr.aria-label]="'FLIGHTS.SORT_BY' | translate">
+            <mat-icon>sort</mat-icon>
+            {{ 'FLIGHTS.SORT_' + viewState().sortBy.toUpperCase() | translate }}
+            <mat-icon>{{ viewState().sortDirection === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+          </button>
+          <mat-menu #sortMenu="matMenu">
+            <button mat-menu-item (click)="updateSort('price')">
+              <mat-icon>euro_symbol</mat-icon>
+              {{ 'FLIGHTS.SORT_PRICE' | translate }}
+            </button>
+            <button mat-menu-item (click)="updateSort('duration')">
+              <mat-icon>schedule</mat-icon>
+              {{ 'FLIGHTS.SORT_DURATION' | translate }}
+            </button>
+            <button mat-menu-item (click)="updateSort('departure')">
+              <mat-icon>flight_takeoff</mat-icon>
+              {{ 'FLIGHTS.SORT_DEPARTURE' | translate }}
+            </button>
+            <button mat-menu-item (click)="updateSort('stops')">
+              <mat-icon>connecting_airports</mat-icon>
+              {{ 'FLIGHTS.SORT_STOPS' | translate }}
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filters Panel -->
+  <aside class="filters-panel" 
+         *ngIf="viewState().showFilters"
+         [@slideInOut]
+         role="region"
+         [attr.aria-label]="'FLIGHTS.FILTERS_PANEL' | translate">
+    
+    <div class="filters-header">
+      <h2>{{ 'FLIGHTS.FILTER_RESULTS' | translate }}</h2>
+      <button 
+        mat-icon-button
+        (click)="toggleFilters()"
+        [attr.aria-label]="'COMMON.CLOSE' | translate">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="filters-content">
+      <!-- Price Filter -->
+      <div class="filter-group">
+        <h3>{{ 'FLIGHTS.FILTER_PRICE' | translate }}</h3>
+        <div class="price-range">
+          <!-- Price range slider implementation -->
+          <div class="price-inputs">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'FLIGHTS.MIN_PRICE' | translate }}</mat-label>
+              <input 
+                matInput 
+                type="number"
+                [value]="filters().priceRange.min"
+                (input)="updatePriceFilter($any($event.target).value, filters().priceRange.max)"
+                [attr.aria-label]="'FLIGHTS.MIN_PRICE' | translate">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'FLIGHTS.MAX_PRICE' | translate }}</mat-label>
+              <input 
+                matInput 
+                type="number"
+                [value]="filters().priceRange.max"
+                (input)="updatePriceFilter(filters().priceRange.min, $any($event.target).value)"
+                [attr.aria-label]="'FLIGHTS.MAX_PRICE' | translate">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- Airlines Filter -->
+      <div class="filter-group" *ngIf="flightStats()?.airlines.length">
+        <h3>{{ 'FLIGHTS.FILTER_AIRLINES' | translate }}</h3>
+        <mat-chip-set multiple>
+          <mat-chip-option 
+            *ngFor="let airline of flightStats()!.airlines; trackBy: trackByAirline"
+            [selected]="filters().airlines.includes(airline)"
+            (selectionChange)="updateAirlineFilter(
+              $event.selected 
+                ? [...filters().airlines, airline]
+                : filters().airlines.filter(a => a !== airline)
+            )">
+            {{ airline }}
+          </mat-chip-option>
+        </mat-chip-set>
+      </div>
+
+      <!-- Stops Filter -->
+      <div class="filter-group">
+        <h3>{{ 'FLIGHTS.FILTER_STOPS' | translate }}</h3>
+        <mat-chip-set multiple>
+          <mat-chip-option 
+            [selected]="filters().stops.includes(0)"
+            (selectionChange)="updateStopsFilter(
+              $event.selected 
+                ? [...filters().stops, 0]
+                : filters().stops.filter(s => s !== 0)
+            )">
+            {{ 'FLIGHTS.DIRECT' | translate }}
+          </mat-chip-option>
+          <mat-chip-option 
+            [selected]="filters().stops.includes(1)"
+            (selectionChange)="updateStopsFilter(
+              $event.selected 
+                ? [...filters().stops, 1]
+                : filters().stops.filter(s => s !== 1)
+            )">
+            {{ 'FLIGHTS.ONE_STOP' | translate }}
+          </mat-chip-option>
+          <mat-chip-option 
+            [selected]="filters().stops.includes(2)"
+            (selectionChange)="updateStopsFilter(
+              $event.selected 
+                ? [...filters().stops, 2]
+                : filters().stops.filter(s => s !== 2)
+            )">
+            {{ 'FLIGHTS.TWO_STOPS' | translate }}
+          </mat-chip-option>
+        </mat-chip-set>
+      </div>
+
+      <!-- Clear Filters -->
+      <div class="filter-actions">
+        <button 
+          mat-button
+          color="warn"
+          (click)="clearFilters()"
+          *ngIf="activeFiltersCount() > 0">
+          <mat-icon>clear_all</mat-icon>
+          {{ 'FLIGHTS.CLEAR_FILTERS' | translate }}
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flights-content" role="main">
+    
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="isLoading()" [@fadeInOut]>
+      <div class="loading-content">
+        <mat-spinner diameter="60"></mat-spinner>
+        <h2>{{ 'FLIGHTS.SEARCHING' | translate }}</h2>
+        <p>{{ 'FLIGHTS.SEARCHING_DESCRIPTION' | translate }}</p>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" *ngIf="error()" [@fadeInOut] role="alert">
+      <div class="error-content">
+        <mat-icon color="warn">error_outline</mat-icon>
+        <h2>{{ 'FLIGHTS.SEARCH_ERROR' | translate }}</h2>
+        <p>{{ error() }}</p>
+        <div class="error-actions">
+          <button mat-raised-button color="primary" (click)="retrySearch()">
+            <mat-icon>refresh</mat-icon>
+            {{ 'FLIGHTS.RETRY_SEARCH' | translate }}
+          </button>
+          <button mat-button (click)="reportError()">
+            {{ 'FLIGHTS.REPORT_PROBLEM' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="showEmptyState()" [@fadeInOut]>
+      <div class="empty-content">
+        <mat-icon>flight_land</mat-icon>
+        <h2>{{ 'FLIGHTS.NO_RESULTS' | translate }}</h2>
+        <p>{{ 'FLIGHTS.NO_RESULTS_DESCRIPTION' | translate }}</p>
+        <button mat-raised-button color="primary" (click)="clearFilters()">
+          <mat-icon>filter_list_off</mat-icon>
+          {{ 'FLIGHTS.CLEAR_FILTERS_TO_SEE_MORE' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Map View -->
+    <div class="map-container" *ngIf="viewState().viewMode === 'map' && hasResults()">
+      <app-flight-map 
+        [showControls]="true"
+        [showAnimation]="true"
+        [darkMode]="false">
+      </app-flight-map>
+    </div>
+
+    <!-- Flight Results List -->
+    <div class="flights-list" 
+         *ngIf="viewState().viewMode !== 'map' && hasResults()"
+         [class.grid-view]="viewState().viewMode === 'grid'"
+         role="list"
+         [attr.aria-label]="'FLIGHTS.RESULTS_LIST' | translate">
+      
+      <!-- Flight Cards -->
+      <article 
+        *ngFor="let flight of flights(); trackBy: trackByFlightId; index as i"
+        class="flight-card"
+        [class.selected]="selectedFlight() === flight"
+        [attr.aria-label]="getFlightAriaLabel(flight)"
+        role="listitem"
+        tabindex="0"
+        (click)="selectFlight(flight)"
+        (keydown.enter)="selectFlight(flight)"
+        (keydown.space)="selectFlight(flight)">
+        
+        <div class="flight-header">
+          <div class="airline-info">
+            <img 
+              [src]="'assets/airlines/' + getAirlineName(flight).toLowerCase().replace(' ', '-') + '.png'"
+              [alt]="getAirlineName(flight)"
+              class="airline-logo"
+              loading="lazy"
+              onerror="this.src='assets/airlines/default.png'">
+            <span class="airline-name">{{ getAirlineName(flight) }}</span>
+          </div>
+          <div class="flight-price">
+            <span class="price-amount">{{ formatPrice(flight.price) }}</span>
+            <span class="price-per-person">{{ 'FLIGHTS.PER_PERSON' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="flight-details">
+          <div class="route-info">
+            <div class="departure">
+              <div class="time">{{ getDepartureTime(flight) }}</div>
+              <div class="airport">{{ flight.cityCodeFrom }}</div>
+              <div class="city">{{ flight.cityFrom }}</div>
+            </div>
+
+            <div class="flight-path">
+              <div class="duration">{{ formatDuration(flight._duration?.total || 0) }}</div>
+              <div class="route-line">
+                <div class="plane-icon">
+                  <mat-icon>flight</mat-icon>
+                </div>
+                <div class="stops-info">{{ getStopsText(flight) }}</div>
+              </div>
+            </div>
+
+            <div class="arrival">
+              <div class="time">
+                {{ getArrivalTime(flight) }}
+                <span class="next-day" *ngIf="isNextDay(flight)">+1</span>
+              </div>
+              <div class="airport">{{ flight.cityCodeTo }}</div>
+              <div class="city">{{ flight.cityTo }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flight-actions">
+          <button 
+            mat-icon-button
+            (click)="compareFlight(flight); $event.stopPropagation()"
+            [attr.aria-label]="'FLIGHTS.COMPARE_FLIGHT' | translate"
+            matTooltip="{{ 'FLIGHTS.COMPARE_FLIGHT' | translate }}">
+            <mat-icon>compare_arrows</mat-icon>
+          </button>
+          
+          <button 
+            mat-raised-button
+            color="primary"
+            (click)="bookFlight(flight); $event.stopPropagation()"
+            [attr.aria-label]="'FLIGHTS.BOOK_FLIGHT' | translate">
+            <mat-icon>flight_takeoff</mat-icon>
+            {{ 'FLIGHTS.SELECT' | translate }}
+          </button>
+        </div>
+      </article>
+    </div>
+
+    <!-- Alternative Dates Section (±3 days) -->
+    <section class="alternative-dates" 
+             *ngIf="hasResults() && viewState().viewMode !== 'map'"
+             [attr.aria-label]="'FLIGHTS.ALTERNATIVE_DATES' | translate">
+      
+      <!-- Departure Alternatives -->
+      <div class="date-alternatives departure-alternatives" 
+           *ngIf="flightsService.departureAlternatives().length > 0">
+        <h3>{{ 'FLIGHTS.ALTERNATIVE_DEPARTURE_DATES' | translate }}</h3>
+        <div class="dates-scroll">
+          <button 
+            *ngFor="let dateOption of flightsService.departureAlternatives()"
+            mat-button
+            class="date-option"
+            [class.selected]="dateOption.isSelected"
+            (click)="searchFlightsForDate(dateOption.fullDate, 'departure')"
+            [attr.aria-label]="'Flight on ' + dateOption.day + ' ' + dateOption.month + ' from ' + formatPrice(dateOption.minPrice)">
+            
+            <div class="date-info">
+              <span class="date-day">{{ dateOption.day }}</span>
+              <span class="date-month">{{ dateOption.month }}</span>
+            </div>
+            
+            <div class="price-info">
+              <span class="price">{{ formatPrice(dateOption.minPrice) }}</span>
+              <span class="flight-count">{{ dateOption.flightCount }} {{ 'FLIGHTS.FLIGHTS' | translate }}</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Return Alternatives (for round-trip) -->
+      <div class="date-alternatives return-alternatives" 
+           *ngIf="flightsService.returnAlternatives().length > 0">
+        <h3>{{ 'FLIGHTS.ALTERNATIVE_RETURN_DATES' | translate }}</h3>
+        <div class="dates-scroll">
+          <button 
+            *ngFor="let dateOption of flightsService.returnAlternatives()"
+            mat-button
+            class="date-option"
+            [class.selected]="dateOption.isSelected"
+            (click)="searchFlightsForDate(dateOption.fullDate, 'return')"
+            [attr.aria-label]="'Return flight on ' + dateOption.day + ' ' + dateOption.month + ' from ' + formatPrice(dateOption.minPrice)">
+            
+            <div class="date-info">
+              <span class="date-day">{{ dateOption.day }}</span>
+              <span class="date-month">{{ dateOption.month }}</span>
+            </div>
+            
+            <div class="price-info">
+              <span class="price">{{ formatPrice(dateOption.minPrice) }}</span>
+              <span class="flight-count">{{ dateOption.flightCount }} {{ 'FLIGHTS.FLIGHTS' | translate }}</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Load More Button (if needed) -->
+    <div class="load-more" *ngIf="hasResults() && viewState().viewMode !== 'map'">
+      <button mat-button>
+        <mat-icon>expand_more</mat-icon>
+        {{ 'FLIGHTS.LOAD_MORE' | translate }}
+      </button>
+    </div>
+  </main>
+
+  <!-- Stats Bar -->
+  <footer class="stats-bar" *ngIf="flightStats() && !isLoading()">
+    <div class="stats-content">
+      <div class="stat-item">
+        <span class="stat-value">{{ flights().length }}</span>
+        <span class="stat-label">{{ 'FLIGHTS.RESULTS' | translate }}</span>
+      </div>
+      <div class="stat-item" *ngIf="flightStats()">
+        <span class="stat-value">{{ formatPrice(flightStats()!.priceRange.min) }}</span>
+        <span class="stat-label">{{ 'FLIGHTS.FROM' | translate }}</span>
+      </div>
+      <div class="stat-item" *ngIf="flightStats()">
+        <span class="stat-value">{{ flightStats()!.airlines.length }}</span>
+        <span class="stat-label">{{ 'FLIGHTS.AIRLINES' | translate }}</span>
+      </div>
+    </div>
+  </footer>
+</div>

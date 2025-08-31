@@ -1,1 +1,44 @@
-<p>admin works!</p>
+<div class="admin-layout" [class.sidebar-collapsed]="sidebarCollapsed">
+  <!-- Admin Header -->
+  <header class="admin-header">
+    <div class="header-left">
+      <button class="sidebar-toggle" (click)="toggleSidebar()">
+        <span class="hamburger"></span>
+      </button>
+      <div class="logo">
+        <h2>Fravel Admin</h2>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="user-menu">
+        <span class="user-name">Admin User</span>
+        <button class="logout-btn">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Sidebar -->
+  <aside class="admin-sidebar" [class.collapsed]="sidebarCollapsed">
+    <nav class="sidebar-nav">
+      <ul class="nav-menu">
+        <li class="nav-item" *ngFor="let item of adminMenuItems">
+          <a 
+            class="nav-link" 
+            [routerLink]="item.route"
+            routerLinkActive="active">
+            <span class="nav-icon" [class]="item.icon + '-icon'"></span>
+            <span class="nav-label" *ngIf="!sidebarCollapsed">{{ item.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Admin Main Content -->
+  <main class="admin-main">
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+      <ng-content></ng-content>
+    </div>
+  </main>
+</div>

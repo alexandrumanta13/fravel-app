@@ -6,6 +6,9 @@ export const environment = {
   KIWI_KEY: 'p_Ci425mWNeLLqFRtMUdji27Osjl5opy',
   travelFusionLoginId: '',
   apiUrl: 'https://fravel.ro/fravel-api/v2/',
+  // Backend configuration
+  backendUrl: 'https://api.fravel.ro', // Production backend URL
+  useBackendAirports: false, // Use legacy service in production until backend is fully tested
   //https://images.skypicker.com/?image=https://images.kiwi.com/photos/385x320/milan_it.jpg&fit=cover&width=340&height=740&dpr=5
   i18n_files: [
     './assets/i18n/book-flight/',

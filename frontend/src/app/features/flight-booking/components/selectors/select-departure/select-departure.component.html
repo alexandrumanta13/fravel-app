@@ -18,10 +18,67 @@
         [(ngModel)]="departure"
         aria-describedby="inputGroup-sizing-sm"
         (keyup)="searchDeparture()"
+        [class.loading]="isLoading"
         i18n-placeholder
       />
+      <div class="loading-indicator" *ngIf="isLoading">
+        <div class="spinner"></div>
+      </div>
+      <div class="service-mode-indicator" [title]="'Current service: ' + serviceMode">
+        <span class="badge" [class.backend]="serviceMode === 'backend'" [class.legacy]="serviceMode === 'legacy'">
+          {{ serviceMode }}
+        </span>
+      </div>
     </div>
 
+    <!-- Error State -->
+    <div class="error-state" *ngIf="searchError">
+      <div class="error-message">
+        <i class="icon-alert-triangle"></i>
+        <span>{{ searchError }}</span>
+        <button class="retry-btn" (click)="retryLastSearch()">Retry</button>
+      </div>
+    </div>
+
+    <!-- Recent Searches -->
+    <div class="recent-searches" *ngIf="!departure && recentSearches.length > 0 && airports.length === 0">
+      <div class="section-header">
+        <h4>Recent Searches</h4>
+        <button class="clear-btn" (click)="clearRecentSearches()">Clear</button>
+      </div>
+      <div class="recent-list">
+        <button 
+          *ngFor="let search of recentSearches"
+          class="recent-item"
+          (click)="selectRecentSearch(search)"
+        >
+          <i class="icon-clock"></i>
+          {{ search }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Popular Destinations -->
+    <div class="popular-destinations" *ngIf="!departure && popularDestinations.length > 0 && airports.length === 0 && recentSearches.length === 0">
+      <div class="section-header">
+        <h4>Popular Destinations</h4>
+      </div>
+      <div class="popular-grid">
+        <button 
+          *ngFor="let destination of popularDestinations"
+          class="popular-item"
+          (click)="selectPopularDestination(destination)"
+        >
+          <div class="destination-info">
+            <span class="city">{{ destination.city.name }}</span>
+            <small class="airport">{{ destination.name }}</small>
+            <span class="code" *ngIf="destination.iataCode">{{ destination.iataCode }}</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search Results -->
     <div class="select-departure__list" *ngIf="airports.length > 0">
       <ul *ngFor="let group of airports">
         <ng-container *ngFor="let airport of group.locations">
@@ -38,12 +95,40 @@
                 airport.airport_int_id === departureCity.airport_int_id
               "
             >
-              {{ airport.city.name }}
-              <small>{{ airport.name }}</small>
+              <div class="airport-info">
+                <span class="city">{{ airport.city.name }}</span>
+                <small class="airport-name">{{ airport.name }}</small>
+                <span class="airport-code" *ngIf="airport.iataCode || airport.icaoCode">
+                  {{ airport.iataCode || airport.icaoCode }}
+                </span>
+              </div>
+              <div class="airport-meta" *ngIf="serviceMode === 'backend'">
+                <span class="distance" *ngIf="airport.latitude && airport.longitude">
+                  <!-- Distance calculation would go here -->
+                </span>
+                <span class="type" [class]="'type-' + airport.type">
+                  {{ airport.type?.replace('_', ' ') }}
+                </span>
+              </div>
             </a>
           </li>
         </ng-container>
       </ul>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="departure && airports.length === 0 && !isLoading && !searchError">
+      <div class="empty-message">
+        <i class="icon-search"></i>
+        <h4>No results found</h4>
+        <p>Try searching for a city or airport name</p>
+      </div>
+    </div>
+
+    <!-- Debug Panel (Development Only) -->
+    <div class="debug-panel" *ngIf="!environment?.production" style="position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.8); color: white; padding: 10px; border-radius: 5px; font-size: 12px;">
+      <div>Service Mode: {{ serviceMode }}</div>
+      <button (click)="toggleServiceMode()">Toggle Service</button>
     </div>
     <img
       class="bg"

@@ -7,6 +7,12 @@
       <div #scrollTop class="inner">
         <div class="persons__container">
           <h2 i18n>Pasageri</h2>
+          
+          <!-- Validation Message -->
+          <div class="validation-message" *ngIf="validationMessage()" [class.error]="true">
+            <i class="icon-alert-triangle"></i>
+            <span>{{ validationMessage() }}</span>
+          </div>
           <ul class="list">
             <li>
               <div class="persons__list">
@@ -19,6 +25,7 @@
               <div class="persons__qnt">
                 <div class="input-group">
                   <button
+                    [disabled]="disabledRemoveAdult()"
                     (click)="removeOneAdult()"
                     class="btn-custom btn-square-icon qnt-minus"
                     type="button"
@@ -27,18 +34,18 @@
                   </button>
 
                   <input
-                    [disabled]="disabledAdd()"
+                    [disabled]="true"
                     class="qnt"
                     min="1"
                     max="9"
                     [(ngModel)]="noOfAdults"
-                    value="1"
+                    readonly
                     type="number"
                     name="noOfAdults"
                   />
 
                   <button
-                    [disabled]="disabledAdd()"
+                    [disabled]="disabledAddAdult()"
                     (click)="addOneAdult()"
                     class="btn-custom btn-square-icon qnt-plus"
                     type="button"
@@ -59,6 +66,7 @@
               <div class="persons__qnt">
                 <div class="input-group">
                   <button
+                    [disabled]="disabledRemoveChild()"
                     (click)="removeOneChild()"
                     class="btn-custom btn-square-icon qnt-minus"
                     type="button"
@@ -67,18 +75,18 @@
                   </button>
 
                   <input
-                    [disabled]="disabledAdd()"
+                    [disabled]="true"
                     class="qnt"
-                    min="1"
-                    max="11"
+                    min="0"
+                    max="8"
                     [(ngModel)]="noOfChilds"
-                    value="1"
+                    readonly
                     type="number"
                     name="noOfChilds"
                   />
 
                   <button
-                    [disabled]="disabledAdd()"
+                    [disabled]="disabledAddChild()"
                     (click)="addOneChild()"
                     class="btn-custom btn-square-icon qnt-plus"
                     type="button"
@@ -99,6 +107,7 @@
               <div class="persons__qnt">
                 <div class="input-group">
                   <button
+                    [disabled]="disabledRemoveInfant()"
                     (click)="removeOneInfant()"
                     class="btn-custom btn-square-icon qnt-minus"
                     type="button"
@@ -107,18 +116,18 @@
                   </button>
 
                   <input
-                    [disabled]="disabledAdd()"
+                    [disabled]="true"
                     class="qnt"
-                    min="1"
-                    max="11"
+                    min="0"
+                    max="9"
                     [(ngModel)]="noOfInfants"
-                    value="1"
+                    readonly
                     type="number"
                     name="noOfInfants"
                   />
 
                   <button
-                    [disabled]="disabledAdd() || disabledAddInfant()"
+                    [disabled]="disabledAddInfant()"
                     (click)="addOneInfant()"
                     class="btn-custom btn-square-icon qnt-plus"
                     type="button"
@@ -155,12 +164,12 @@
                   </button>
 
                   <input
-                    [disabled]="disabledAddHandLuggage()"
+                    [disabled]="true"
                     class="qnt"
-                    min="1"
-                    max="11"
+                    min="0"
+                    max="9"
                     [(ngModel)]="noOfTotalHandLuggage"
-                    value="1"
+                    readonly
                     type="number"
                     name="noOfTotalHandLuggage"
                   />
@@ -195,12 +204,12 @@
                   </button>
 
                   <input
-                    [disabled]="disabledAddLuggage()"
+                    [disabled]="true"
                     class="qnt"
-                    min="1"
-                    max="11"
+                    min="0"
+                    max="18"
                     [(ngModel)]="noOfTotalHoldLuggage"
-                    value="1"
+                    readonly
                     type="number"
                     name="noOfTotalHoldLuggage"
                   />

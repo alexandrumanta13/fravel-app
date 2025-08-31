@@ -1,22 +1,56 @@
-<!-- ----------------------------------------------------------------------------------------------------- -->
-<!-- Classic layout -->
-<!-- ----------------------------------------------------------------------------------------------------- -->
-<app-mobile-layout>
-  <app-header></app-header>
-
-  <app-langauge></app-langauge>
+<!-- Dynamic Layout System with Locale Support -->
+<div class="app-layout" 
+     [attr.data-layout]="layout" 
+     [attr.data-app-type]="layoutConfig?.application"
+     [attr.data-locale]="localeId"
+     [attr.data-direction]="localeInfo?.direction"
+     [class]="localeInfo?.cssClass"
+     [class.rtl]="isRTL">
+  
+  <!-- Global Components -->
+  <app-header 
+    *ngIf="layoutConfig?.showHeader" 
+    class="app-header"
+    [attr.data-currency]="currentCurrency">
+  </app-header>
+  
+  <app-i18n class="app-i18n"></app-i18n>
+  
   <app-gdpr
     *ngIf="showGDPR"
     (acceptGDPR)="acceptGDPR()"
-    class="show"
-  ></app-gdpr>
-  <app-loader *ngIf="toggleLoader" class="loading"></app-loader>
-</app-mobile-layout>
-<!-- ----------------------------------------------------------------------------------------------------- -->
-<!-- Desktop layout -->
-<!-- ----------------------------------------------------------------------------------------------------- -->
-<desktop-layout *ngIf="layout === 'desktop'"></desktop-layout>
-<!-- ----------------------------------------------------------------------------------------------------- -->
-<!-- Admin layout -->
-<!-- ----------------------------------------------------------------------------------------------------- -->
-<admin-layout *ngIf="layout === 'admin'"></admin-layout>
+    class="app-gdpr show"
+    [attr.dir]="localeInfo?.direction">
+  </app-gdpr>
+  
+  <app-loader 
+    *ngIf="toggleLoader" 
+    class="app-loader loading"
+    [attr.dir]="localeInfo?.direction">
+  </app-loader>
+
+  <!-- Dynamic Layout Container -->
+  <div class="layout-wrapper" 
+       [class.with-sidebar]="layoutConfig?.showSidebar"
+       [class.rtl-sidebar]="isRTL && layoutConfig?.showSidebar">
+    <ng-container #layoutContainer></ng-container>
+  </div>
+  
+  <!-- Footer (if needed) -->
+  <footer 
+    *ngIf="layoutConfig?.showFooter" 
+    class="app-footer"
+    [attr.data-locale]="localeId">
+    
+    <!-- Locale-aware footer content -->
+    <div class="footer-info" *ngIf="localeInfo">
+      <span class="locale-indicator">
+        {{ localeId }} | {{ currentCurrency }}
+      </span>
+      <span class="current-time">
+        {{ new Date() | localeDate }}
+      </span>
+    </div>
+  </footer>
+  
+</div>

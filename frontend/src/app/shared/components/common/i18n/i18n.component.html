@@ -1,61 +1,135 @@
-<div class="language-selector__container">
-  <div
-    class="language-selector__overlay"
-    [ngClass]="toggleLanguageMenu ? 'show' : 'hide'"
-  >
-    <div
-      class="language-selector__slider"
-      [ngClass]="toggleLanguageMenu ? 'open' : 'closed'"
-    >
-      <div class="language-selector__slider-inner">
-        <div class="language-select">
-          <ng-container *ngFor="let language of languages">
-            <div
-              class="language-select__language"
-              [class.selected]="selectedLanguage.key === language.key"
-            >
-              <img
-                (click)="changeLanguage(language)"
-                [src]="language.flag"
-                [alt]="language.language"
-              />
-            </div>
-          </ng-container>
-        </div>
-        <div class="currency-select">
-          <label i18n>Monedă:</label>
-          <ul class="currency-select__list">
-            <ng-container *ngFor="let currency of selectedLanguage.currency">
-              <li
-                (click)="changeCurrency(currency.value)"
-                [class.selected]="
-                  currency.value === selectedLanguage.defaultCurrency
-                "
-              >
-                {{ currency.value }}
-              </li>
-            </ng-container>
-          </ul>
-        </div>
-        <div class="confirm">
+<!-- Language Selector Modal -->
+<div class="language-selector" [attr.aria-hidden]="!isMenuOpen()" role="dialog" aria-labelledby="language-selector-title">
+  
+  <!-- Backdrop Overlay -->
+  <div 
+    class="language-selector__overlay" 
+    [class]="getMenuStateClass()"
+    [attr.aria-hidden]="!isMenuOpen()"
+    (click)="onToggleLanguageMenu()"
+    [style.pointer-events]="isMenuOpen() ? 'auto' : 'none'">
+  </div>
+
+  <!-- Main Slider Panel -->
+  <div 
+    class="language-selector__slider" 
+    [class]="getSliderStateClass()"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-hidden]="!isMenuOpen()">
+    
+    <div class="language-selector__content">
+      
+      <!-- Header -->
+      <div class="language-selector__header">
+        <h2 id="language-selector-title" class="language-selector__title" i18n>
+          Select Language & Currency
+        </h2>
+        
+        <button 
+          type="button"
+          class="language-selector__close-btn"
+          (click)="onToggleLanguageMenu()"
+          [attr.aria-label]="'Close language selector'"
+          i18n-aria-label>
+          <span class="close-icon" aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <!-- Language Selection Section -->
+      <div class="language-section" role="group" aria-labelledby="language-section-title">
+        <h3 id="language-section-title" class="section-title" i18n>Language</h3>
+        
+        <div class="language-grid" role="radiogroup" [attr.aria-label]="'Select language'">
           <button
-            (click)="setLanguage(selectedLanguage)"
-            class="btn-custom btn-primary btn-full-width"
-          >
-            {{ selectedLanguage.language }} ({{
-              selectedLanguage.defaultCurrency
-            }})
+            *ngFor="let language of availableLanguages; trackBy: trackByLanguageKey"
+            type="button"
+            class="language-option"
+            [class.selected]="isLanguageSelected(language)"
+            [attr.aria-pressed]="isLanguageSelected(language)"
+            [attr.aria-label]="'Select ' + language.language"
+            (click)="onChangeLanguage(language)"
+            role="radio"
+            [attr.aria-checked]="isLanguageSelected(language)">
+            
+            <img 
+              [src]="language.flag" 
+              [alt]="language.language + ' flag'"
+              class="language-flag"
+              loading="lazy" />
+            
+            <span class="language-name">{{ language.language }}</span>
+            
+            <span 
+              *ngIf="isLanguageSelected(language)" 
+              class="selected-indicator"
+              aria-hidden="true">
+              ✓
+            </span>
           </button>
         </div>
-        <div class="language-selector__close" (click)="toggleLanguage()">
-          <img
-            src="assets/images/icons/close.svg"
-            [class.close]="toggleLanguageMenu"
-            alt="Close language selector"
-            i18n-alt
-          />
+      </div>
+
+      <!-- Currency Selection Section -->
+      <div 
+        *ngIf="hasSelectedLanguage() && selectedLanguage().currency"
+        class="currency-section" 
+        role="group" 
+        aria-labelledby="currency-section-title">
+        
+        <h3 id="currency-section-title" class="section-title" i18n>Currency</h3>
+        
+        <div class="currency-grid" role="radiogroup" [attr.aria-label]="'Select currency'">
+          <button
+            *ngFor="let currency of selectedLanguage().currency; trackBy: trackByCurrencyValue"
+            type="button"
+            class="currency-option"
+            [class.selected]="isCurrencySelected(currency.value)"
+            [attr.aria-pressed]="isCurrencySelected(currency.value)"
+            [attr.aria-label]="'Select ' + currency.value + ' currency'"
+            (click)="onChangeCurrency(currency.value)"
+            role="radio"
+            [attr.aria-checked]="isCurrencySelected(currency.value)">
+            
+            <span class="currency-code">{{ currency.value }}</span>
+            
+            <span 
+              *ngIf="isCurrencySelected(currency.value)"
+              class="selected-indicator"
+              aria-hidden="true">
+              ✓
+            </span>
+          </button>
         </div>
       </div>
+
+      <!-- Action Buttons -->
+      <div class="language-selector__actions">
+        <button
+          type="button"
+          class="btn btn--secondary"
+          (click)="onToggleLanguageMenu()"
+          [attr.aria-label]="'Cancel language selection'"
+          i18n-aria-label>
+          <span i18n>Cancel</span>
+        </button>
+        
+        <button
+          type="button"
+          class="btn btn--primary"
+          [disabled]="!hasSelectedLanguage()"
+          (click)="onSetLanguage(selectedLanguage())"
+          [attr.aria-label]="'Apply language: ' + selectedLanguage().language + ' with currency: ' + selectedLanguage().defaultCurrency"
+          i18n-aria-label>
+          <span *ngIf="hasSelectedLanguage()" i18n>
+            Apply {{ selectedLanguage().language }} ({{ selectedLanguage().defaultCurrency }})
+          </span>
+          <span *ngIf="!hasSelectedLanguage()" i18n>
+            Select Language
+          </span>
+        </button>
+      </div>
+
     </div>
   </div>
 </div>

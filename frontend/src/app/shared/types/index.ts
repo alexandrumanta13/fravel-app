@@ -1,5 +1,6 @@
 export * from './geolocation.type';
 export * from './airports.type';
+export * from './backend-airports.type';
 export * from './top_destinations.type';
 export * from './flights-results.type';
 // Legacy Kiwi types moved to _reference/kiwi-legacy/

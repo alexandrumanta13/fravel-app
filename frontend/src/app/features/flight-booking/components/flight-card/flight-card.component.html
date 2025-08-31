@@ -1,0 +1,181 @@
+<article 
+  class="flight-card"
+  [class.selected]="selected"
+  [class.hovered]="hovered()"
+  [class.loading]="isLoading"
+  [attr.aria-label]="flightAriaLabel()"
+  [attr.aria-selected]="selected"
+  role="option"
+  tabindex="0"
+  (click)="onFlightSelect()"
+  (keydown)="onKeyDown($event)"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()">
+
+  <!-- Loading Overlay -->
+  <div class="flight-card__loading" *ngIf="isLoading">
+    <mat-spinner diameter="32"></mat-spinner>
+  </div>
+
+  <!-- Flight Header -->
+  <header class="flight-card__header">
+    <div class="airline-info">
+      <img 
+        [src]="getAirlineLogoUrl()"
+        [alt]="airlineName()"
+        class="airline-logo"
+        loading="lazy"
+        (error)="onImageError($event)">
+      <div class="airline-details">
+        <span class="airline-name">{{ airlineName() }}</span>
+        <span class="flight-code" *ngIf="flight.booking_token">
+          {{ flight.booking_token.substring(0, 6) }}...
+        </span>
+      </div>
+    </div>
+
+    <div class="flight-price">
+      <span class="price-amount">{{ formattedPrice() }}</span>
+      <span class="price-per-person">{{ 'FLIGHTS.PER_PERSON' | translate }}</span>
+    </div>
+  </header>
+
+  <!-- Flight Route -->
+  <section class="flight-card__route" 
+           [attr.aria-label]="'Flight route from ' + flight.cityFrom + ' to ' + flight.cityTo">
+    
+    <!-- Departure -->
+    <div class="route-point departure">
+      <div class="time">{{ departureTime() }}</div>
+      <div class="airport-code">{{ flight.cityCodeFrom }}</div>
+      <div class="city-name">{{ flight.cityFrom }}</div>
+    </div>
+
+    <!-- Flight Path -->
+    <div class="flight-path">
+      <div class="duration-info">
+        <span class="duration">{{ duration() }}</span>
+        <span class="stops">{{ stopsText() }}</span>
+      </div>
+      
+      <div class="route-visual">
+        <div class="route-line">
+          <div class="plane-icon" [attr.aria-hidden]="true">
+            <mat-icon>flight</mat-icon>
+          </div>
+        </div>
+        
+        <!-- Stops indicators -->
+        <div class="stops-indicators" *ngIf="stopsCount() > 0" [attr.aria-hidden]="true">
+          <div 
+            class="stop-dot" 
+            *ngFor="let stop of [].constructor(stopsCount()); let i = index"
+            [style.left.%]="(i + 1) * (100 / (stopsCount() + 1))">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrival -->
+    <div class="route-point arrival">
+      <div class="time">
+        {{ arrivalTime() }}
+        <span class="next-day-indicator" *ngIf="isNextDay()" [attr.aria-label]="'Next day arrival'">
+          +1
+        </span>
+      </div>
+      <div class="airport-code">{{ flight.cityCodeTo }}</div>
+      <div class="city-name">{{ flight.cityTo }}</div>
+    </div>
+  </section>
+
+  <!-- Flight Details (expandable) -->
+  <section class="flight-card__details" *ngIf="showDetails">
+    <div class="details-content">
+      <!-- Route segments -->
+      <div class="route-segments" *ngIf="flight.route && flight.route.length > 0">
+        <h4>{{ 'FLIGHTS.ROUTE_DETAILS' | translate }}</h4>
+        <div class="segments-list">
+          <div 
+            *ngFor="let segment of flight.route; let i = index"
+            class="segment"
+            [attr.aria-label]="'Segment ' + (i + 1) + ' from ' + segment.cityFrom + ' to ' + segment.cityTo">
+            
+            <div class="segment-route">
+              <span class="segment-from">{{ segment.cityCodeFrom }}</span>
+              <mat-icon>arrow_forward</mat-icon>
+              <span class="segment-to">{{ segment.cityCodeTo }}</span>
+            </div>
+            
+            <div class="segment-info">
+              <span class="segment-airline">{{ segment.airline }}</span>
+              <span class="segment-time">{{ segment.hoursFrom }} - {{ segment.hoursTo }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional flight info -->
+      <div class="additional-info">
+        <div class="info-item" *ngIf="flight.duration">
+          <mat-icon>schedule</mat-icon>
+          <span>{{ 'FLIGHTS.TOTAL_FLIGHT_TIME' | translate }}: {{ duration() }}</span>
+        </div>
+        
+        <div class="info-item">
+          <mat-icon>connecting_airports</mat-icon>
+          <span>{{ stopsText() }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flight Actions -->
+  <footer class="flight-card__actions">
+    <div class="secondary-actions">
+      <!-- Compare Button -->
+      <button 
+        *ngIf="showCompare"
+        mat-icon-button
+        class="compare-btn"
+        (click)="onCompareClick($event)"
+        [attr.aria-label]="'FLIGHTS.COMPARE_FLIGHT' | translate"
+        [matTooltip]="'FLIGHTS.COMPARE_FLIGHT' | translate"
+        [disabled]="isLoading">
+        <mat-icon>compare_arrows</mat-icon>
+      </button>
+
+      <!-- Details Toggle -->
+      <button 
+        mat-icon-button
+        class="details-btn"
+        (click)="onToggleDetails($event)"
+        [attr.aria-label]="'FLIGHTS.TOGGLE_DETAILS' | translate"
+        [matTooltip]="'FLIGHTS.TOGGLE_DETAILS' | translate"
+        [attr.aria-expanded]="showDetails"
+        [disabled]="isLoading">
+        <mat-icon>{{ showDetails ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+    </div>
+
+    <!-- Primary Action -->
+    <button 
+      mat-raised-button
+      color="primary"
+      class="book-btn"
+      (click)="onBookClick($event)"
+      [attr.aria-label]="'FLIGHTS.BOOK_FLIGHT' | translate"
+      [disabled]="isLoading">
+      
+      <mat-icon *ngIf="!isLoading">flight_takeoff</mat-icon>
+      <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+      
+      <span>{{ 'FLIGHTS.SELECT' | translate }}</span>
+    </button>
+  </footer>
+
+  <!-- Selection Indicator -->
+  <div class="selection-indicator" *ngIf="selected" [attr.aria-hidden]="true">
+    <mat-icon>check_circle</mat-icon>
+  </div>
+</article>

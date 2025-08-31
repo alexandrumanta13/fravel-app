@@ -1,35 +1,119 @@
-<header class="header">
-  <a routerlink="/" class="header__logo-container">
-    <img src="assets/logo/logo-white.svg" alt="" />
-  </a>
-  <div
-    class="lang__container"
-    [class.menu-open]="state"
-    (click)="toggleLanguage()"
-  >
-    <div class="lang__default-lang">
-      <img [src]="selectedLanguage.flag" [alt]="selectedLanguage.language" />
-    </div>
+<!-- Main Header -->
+<header [class]="getHeaderCssClasses()" role="banner">
+  
+  <!-- Logo Section -->
+  <div class="header__logo-section" *ngIf="headerConfig().showLogo">
+    <a routerLink="/" 
+       class="header__logo-container" 
+       [attr.aria-label]="'Navigate to homepage'"
+       tabindex="0">
+      <img [src]="logoUrl()" 
+           [alt]="logoAlt()" 
+           class="header__logo"
+           loading="eager" />
+    </a>
   </div>
-  <div class="header__menu">
-    <div class="hamburger" (click)="toggleMenuState()">
-      <a class="line_container" [ngClass]="toggleMenu ? 'open' : 'closed'"></a>
+
+  <!-- Navigation Section -->
+  <nav class="header__navigation" role="navigation" aria-label="Main navigation">
+    
+    <!-- Language Selector -->
+    <div class="header__language-selector" 
+         *ngIf="headerConfig().showLanguageSelector">
+      
+      <button class="language-toggle" 
+              [class.active]="isLanguageMenuOpen()"
+              (click)="onToggleLanguage()"
+              [attr.aria-expanded]="isLanguageMenuOpen()"
+              aria-haspopup="menu"
+              [attr.aria-label]="'Select language. Current: ' + selectedLanguage().language">
+        
+        <img [src]="selectedLanguage().flag" 
+             [alt]="selectedLanguage().language + ' flag'" 
+             class="language-flag"
+             loading="lazy" />
+        
+        <span class="language-label" aria-hidden="true">
+          {{ selectedLanguage().language }}
+        </span>
+        
+        <span class="dropdown-arrow" 
+              [class.rotated]="isLanguageMenuOpen()" 
+              aria-hidden="true">
+          ▼
+        </span>
+      </button>
+
+      <!-- Language Dropdown -->
+      <div class="language-dropdown" 
+           [class.open]="isLanguageMenuOpen()"
+           role="menu"
+           [attr.aria-hidden]="!isLanguageMenuOpen()">
+        
+        <button *ngFor="let option of languageOptions(); trackBy: trackByLanguageKey" 
+                class="language-option"
+                [class.active]="option.isActive"
+                [disabled]="!option.isAvailable"
+                (click)="onLanguageSelect(option)"
+                role="menuitem"
+                [attr.aria-label]="'Switch to ' + option.language.language">
+          
+          <img [src]="option.language.flag" 
+               [alt]="option.language.language + ' flag'" 
+               class="language-flag"
+               loading="lazy" />
+          
+          <span class="language-name">{{ option.language.language }}</span>
+          
+          <span *ngIf="option.isActive" 
+                class="active-indicator" 
+                aria-label="Currently selected">
+            ✓
+          </span>
+        </button>
+      </div>
     </div>
-  </div>
+
+    <!-- Mobile Menu Toggle -->
+    <div class="header__mobile-menu" *ngIf="headerConfig().showMenu">
+      <button class="hamburger-menu" 
+              [class.active]="isMenuOpen()"
+              (click)="onToggleMenu()"
+              [attr.aria-expanded]="isMenuOpen()"
+              aria-controls="mobile-navigation"
+              [attr.aria-label]="isMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'">
+        
+        <div class="hamburger-lines" [attr.data-state]="menuAnimationState()">
+          <span class="line line-1"></span>
+          <span class="line line-2"></span>
+          <span class="line line-3"></span>
+        </div>
+      </button>
+    </div>
+
+  </nav>
 </header>
 
-<app-stepper #stepper [ngClass]="{ show: toggleStepper }" class="stepper">
-  <app-step (click)="stepper.setStep(1)"> </app-step>
-  <app-step (click)="stepper.setStep(2)">
-    <div step-title i18n>Pasageri si bagaje</div>
-  </app-step>
-  <app-step (click)="stepper.setStep(3)">
-    <div step-title i18n>Alege data</div>
-  </app-step>
-  <app-step (click)="stepper.setStep(4)">
-    <div step-title i18n>Alege zbor</div>
-  </app-step>
-  <app-step (click)="stepper.setStep(5)">
-    <div step-title i18n>Finalizeaza</div>
-  </app-step>
-</app-stepper>
+<!-- Flight Booking Stepper -->
+<div class="stepper-container" *ngIf="headerConfig().showStepper">
+  <app-stepper #stepper 
+               [class]="getStepperCssClass()"
+               role="navigation"
+               aria-label="Flight booking progress">
+    
+    <app-step *ngFor="let step of stepperSteps(); let i = index; trackBy: trackByStepId" 
+              [class.completed]="step.isCompleted"
+              [class.active]="step.isActive"
+              [class.disabled]="!step.isClickable"
+              (click)="onStepClick(step)"
+              [attr.aria-current]="step.isActive ? 'step' : null"
+              [attr.aria-disabled]="!step.isClickable"
+              [tabindex]="step.isClickable ? 0 : -1"
+              role="button">
+      
+      @if (i > 0) {
+        <div class="step-title" i18n>{{ step.title }}</div>
+      }
+    </app-step>
+  </app-stepper>
+</div>

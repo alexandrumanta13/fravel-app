@@ -1,0 +1,221 @@
+.bookings-management {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    .header-stats {
+      display: flex;
+      gap: 20px;
+
+      .stat {
+        padding: 8px 16px;
+        background: #f8f9fa;
+        border-radius: 6px;
+        font-weight: 500;
+        color: #495057;
+      }
+    }
+  }
+
+  .filters-section {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .search-box {
+      flex: 1;
+
+      input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+        }
+      }
+    }
+
+    .filter-controls {
+      display: flex;
+      gap: 12px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+
+      select, input[type="date"] {
+        padding: 12px 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        min-width: 150px;
+
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+        }
+      }
+    }
+  }
+
+  .bookings-table {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    .table-header {
+      display: grid;
+      grid-template-columns: 120px 1fr 120px 150px 100px 100px 150px;
+      gap: 16px;
+      padding: 16px 20px;
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #666;
+      border-bottom: 1px solid #dee2e6;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr 1fr 100px;
+        span:nth-child(n+4) {
+          display: none;
+        }
+      }
+    }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 120px 150px 100px 100px 150px;
+      gap: 16px;
+      padding: 16px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      align-items: center;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr 1fr 100px;
+        span:nth-child(n+4) {
+          display: none;
+        }
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background: #f8f9fa;
+      }
+
+      .booking-id {
+        font-weight: 600;
+        color: #007bff;
+      }
+
+      .status {
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-align: center;
+
+        &.confirmed {
+          background: #e8f5e8;
+          color: #2d8f2d;
+        }
+
+        &.pending {
+          background: #fff3cd;
+          color: #856404;
+        }
+
+        &.cancelled {
+          background: #f8d7da;
+          color: #721c24;
+        }
+      }
+
+      .amount {
+        font-weight: 600;
+        color: #28a745;
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+
+        .btn-sm {
+          padding: 6px 12px;
+          border-radius: 4px;
+          font-size: 0.8rem;
+          border: 1px solid;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &.btn-outline {
+            background: white;
+            color: #007bff;
+            border-color: #007bff;
+
+            &:hover {
+              background: #007bff;
+              color: white;
+            }
+          }
+
+          &.btn-success {
+            background: #28a745;
+            color: white;
+            border-color: #28a745;
+
+            &:hover {
+              background: #218838;
+            }
+          }
+
+          &.btn-warning {
+            background: #ffc107;
+            color: #212529;
+            border-color: #ffc107;
+
+            &:hover {
+              background: #e0a800;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pagination {
+    margin-top: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+  }
+}

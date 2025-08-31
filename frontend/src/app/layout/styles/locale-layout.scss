@@ -1,0 +1,188 @@
+// Locale-specific layout styles
+// This file should be imported in your main styles.scss
+
+// RTL Support
+.app-layout.rtl {
+  direction: rtl;
+  text-align: right;
+
+  // Flip margins and paddings
+  .layout-wrapper {
+    &.with-sidebar {
+      padding-left: 0;
+      padding-right: 250px; // Adjust based on your sidebar width
+    }
+    
+    &.rtl-sidebar {
+      .sidebar {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+
+  // Flip navigation elements
+  .app-header {
+    .nav-items {
+      flex-direction: row-reverse;
+    }
+    
+    .logo {
+      margin-left: auto;
+      margin-right: 0;
+    }
+  }
+
+  // Flip form elements
+  .form-group {
+    text-align: right;
+    
+    label {
+      text-align: right;
+    }
+    
+    .form-control {
+      text-align: right;
+    }
+  }
+
+  // Flip buttons
+  .btn-group {
+    flex-direction: row-reverse;
+  }
+
+  // Flip icons
+  .icon {
+    transform: scaleX(-1);
+    
+    &.no-flip {
+      transform: none;
+    }
+  }
+}
+
+// Language-specific styles
+.locale-ro {
+  // Romanian-specific styling
+  font-family: 'SFProDisplay-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  .currency-display {
+    &::after {
+      content: ' RON';
+    }
+  }
+}
+
+.locale-en {
+  // English-specific styling
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  
+  .currency-display {
+    &::before {
+      content: '$';
+    }
+  }
+}
+
+// Region-specific styles
+.region-ro_ro {
+  .date-display {
+    // Romanian date format dd.mm.yyyy
+    .day::after { content: '.'; }
+    .month::after { content: '.'; }
+  }
+}
+
+.region-en_us {
+  .date-display {
+    // US date format mm/dd/yyyy
+    .month::after { content: '/'; }
+    .day::after { content: '/'; }
+  }
+}
+
+// Layout adjustments for different locales
+@media (max-width: 768px) {
+  .app-layout.rtl {
+    .mobile-nav {
+      right: auto;
+      left: 0;
+    }
+    
+    .mobile-menu-toggle {
+      float: left;
+    }
+  }
+}
+
+// Accessibility improvements
+.app-layout {
+  &[data-direction="rtl"] {
+    .skip-link {
+      left: auto;
+      right: -9999px;
+      
+      &:focus {
+        right: 10px;
+      }
+    }
+  }
+}
+
+// Print styles with locale support
+@media print {
+  .app-layout {
+    &.locale-ar,
+    &.locale-he,
+    &.locale-fa {
+      direction: rtl;
+      text-align: right;
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .app-layout {
+    .locale-indicator {
+      border: 2px solid currentColor;
+      padding: 2px 6px;
+    }
+  }
+}
+
+// Footer locale-specific styling
+.app-footer {
+  .footer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary, #666);
+
+    .locale-indicator {
+      background: var(--bg-secondary, #f5f5f5);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-weight: 500;
+    }
+
+    .current-time {
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}
+
+// Dark mode support with locale
+@media (prefers-color-scheme: dark) {
+  .app-footer {
+    .footer-info {
+      color: var(--text-secondary-dark, #ccc);
+      
+      .locale-indicator {
+        background: var(--bg-secondary-dark, #333);
+      }
+    }
+  }
+}

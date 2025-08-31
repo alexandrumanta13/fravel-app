@@ -64,7 +64,9 @@ export class TravelFusionService {
                         MaxHops: 2,
                         Timeout: 40,
                         TravellerList: { Traveller: [{ Age: 30 }] },
-                        IncrementalResults: true
+                        IncrementalResults: true,
+                        Language: defaultLanguage || 'en',
+                        Currency: 'RON'
                     }
                 }
             }

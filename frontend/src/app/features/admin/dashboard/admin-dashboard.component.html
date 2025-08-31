@@ -1,0 +1,88 @@
+<div class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome to the administrative panel</p>
+  </div>
+
+  <div class="dashboard-stats" *ngIf="!isLoading">
+    <div class="stat-card">
+      <div class="stat-icon users-icon"></div>
+      <div class="stat-info">
+        <h3>{{ stats.totalUsers }}</h3>
+        <p>Total Users</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon bookings-icon"></div>
+      <div class="stat-info">
+        <h3>{{ stats.totalBookings }}</h3>
+        <p>Total Bookings</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon revenue-icon"></div>
+      <div class="stat-info">
+        <h3>{{ stats.totalRevenue | currency:'EUR' }}</h3>
+        <p>Total Revenue</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon pending-icon"></div>
+      <div class="stat-info">
+        <h3>{{ stats.pendingBookings }}</h3>
+        <p>Pending Bookings</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <div class="recent-bookings-section">
+      <h2>Recent Bookings</h2>
+      <div class="bookings-table" *ngIf="recentBookings.length > 0; else noBookings">
+        <div class="table-header">
+          <span>User</span>
+          <span>Flight</span>
+          <span>Date</span>
+          <span>Status</span>
+          <span>Amount</span>
+        </div>
+        <div class="table-row" *ngFor="let booking of recentBookings">
+          <span>{{ booking.userName }}</span>
+          <span>{{ booking.flightNumber }}</span>
+          <span>{{ booking.bookingDate | date:'short' }}</span>
+          <span class="status" [class]="booking.status">{{ booking.status }}</span>
+          <span>{{ booking.amount | currency:'EUR' }}</span>
+        </div>
+      </div>
+      <ng-template #noBookings>
+        <p class="no-data">No recent bookings found</p>
+      </ng-template>
+    </div>
+
+    <div class="quick-actions">
+      <h2>Quick Actions</h2>
+      <div class="action-buttons">
+        <button class="action-btn" routerLink="/admin/users">
+          <span class="icon users-icon"></span>
+          Manage Users
+        </button>
+        <button class="action-btn" routerLink="/admin/bookings">
+          <span class="icon bookings-icon"></span>
+          View Bookings
+        </button>
+        <button class="action-btn" routerLink="/admin/analytics">
+          <span class="icon analytics-icon"></span>
+          Analytics
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-spinner" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading dashboard data...</p>
+  </div>
+</div>

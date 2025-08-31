@@ -1,0 +1,245 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="header-content">
+      <div class="user-avatar">
+        <div class="avatar-circle">
+          {{ (user?.firstName?.charAt(0) || '') + (user?.lastName?.charAt(0) || '') }}
+        </div>
+      </div>
+      <div class="user-info">
+        <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>
+        <p class="user-email">{{ user?.email }}</p>
+        <div class="user-badges">
+          <span class="badge" *ngIf="user?.role === 'admin'">Admin</span>
+          <span class="badge member-badge">Member since {{ user?.createdAt | date:'MMM yyyy' || 'Recently' }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button 
+        class="btn-secondary" 
+        (click)="toggleEdit()" 
+        *ngIf="!isEditing">
+        Edit Profile
+      </button>
+      <button 
+        class="btn-secondary" 
+        (click)="toggleEdit()" 
+        *ngIf="isEditing">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <div class="profile-content">
+    <!-- Success/Error Messages -->
+    <div class="alert success" *ngIf="successMessage">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M9 12l2 2 4-4"/>
+        <circle cx="12" cy="12" r="9"/>
+      </svg>
+      {{ successMessage }}
+    </div>
+
+    <div class="alert error" *ngIf="errorMessage">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="12" cy="12" r="9"/>
+        <line x1="15" y1="9" x2="9" y2="15"/>
+        <line x1="9" y1="9" x2="15" y2="15"/>
+      </svg>
+      {{ errorMessage }}
+    </div>
+
+    <div class="profile-sections">
+      <!-- Personal Information -->
+      <div class="profile-section">
+        <div class="section-header">
+          <h2>Personal Information</h2>
+          <p>Manage your personal details and preferences</p>
+        </div>
+
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                formControlName="firstName"
+                class="form-control"
+                [class.error]="getFieldError('firstName')"
+                [readonly]="!isEditing"
+                placeholder="Enter your first name">
+              <div class="error-message" *ngIf="getFieldError('firstName')">
+                {{ getFieldError('firstName') }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                formControlName="lastName"
+                class="form-control"
+                [class.error]="getFieldError('lastName')"
+                [readonly]="!isEditing"
+                placeholder="Enter your last name">
+              <div class="error-message" *ngIf="getFieldError('lastName')">
+                {{ getFieldError('lastName') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-control"
+                [class.error]="getFieldError('email')"
+                [readonly]="!isEditing"
+                placeholder="Enter your email">
+              <div class="error-message" *ngIf="getFieldError('email')">
+                {{ getFieldError('email') }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                formControlName="phone"
+                class="form-control"
+                [class.error]="getFieldError('phone')"
+                [readonly]="!isEditing"
+                placeholder="Enter your phone number">
+              <div class="error-message" *ngIf="getFieldError('phone')">
+                {{ getFieldError('phone') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions" *ngIf="isEditing">
+            <button
+              type="submit"
+              class="btn-primary"
+              [disabled]="isLoading || profileForm.invalid"
+              [class.loading]="isLoading">
+              <span *ngIf="!isLoading">Save Changes</span>
+              <span *ngIf="isLoading" class="loading-content">
+                <svg class="spinner" width="16" height="16" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
+                  <path d="M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4z" fill="currentColor"/>
+                </svg>
+                Saving...
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Account Security -->
+      <div class="profile-section">
+        <div class="section-header">
+          <h2>Account Security</h2>
+          <p>Manage your password and security settings</p>
+        </div>
+
+        <div class="security-options">
+          <div class="security-item">
+            <div class="security-info">
+              <h3>Password</h3>
+              <p>Last updated 3 months ago</p>
+            </div>
+            <button class="btn-outline">Change Password</button>
+          </div>
+
+          <div class="security-item">
+            <div class="security-info">
+              <h3>Two-Factor Authentication</h3>
+              <p>Not enabled</p>
+            </div>
+            <button class="btn-outline">Enable 2FA</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preferences -->
+      <div class="profile-section">
+        <div class="section-header">
+          <h2>Preferences</h2>
+          <p>Customize your experience</p>
+        </div>
+
+        <div class="preferences-list">
+          <div class="preference-item">
+            <div class="preference-info">
+              <h3>Email Notifications</h3>
+              <p>Receive booking confirmations and travel updates</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <h3>Marketing Emails</h3>
+              <p>Receive promotions and special offers</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <h3>SMS Notifications</h3>
+              <p>Receive flight updates via SMS</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Actions -->
+      <div class="profile-section danger-section">
+        <div class="section-header">
+          <h2>Account Actions</h2>
+          <p>Manage your account</p>
+        </div>
+
+        <div class="account-actions">
+          <button class="btn-secondary" (click)="logout()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16,17 21,12 16,7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Log Out
+          </button>
+
+          <button class="btn-danger" (click)="deleteAccount()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="3,6 5,6 21,6"/>
+              <path d="M19 6l-2 14H7L5 6"/>
+              <path d="M10 11v6"/>
+              <path d="M14 11v6"/>
+              <path d="M5 6l1-2h12l1 2"/>
+            </svg>
+            Delete Account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

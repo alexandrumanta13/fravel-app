@@ -1,11 +1,120 @@
-<div class="loader__container">
-  <div class="loader__globe">
-    <img src="assets/images/loader/globe.svg" alt="" />
-    <img src="assets/images/loader/globe.svg" alt="" />
+<!-- Loader Component - Accessibility & Performance Optimized -->
+<div 
+  *ngIf="isVisible()" 
+  [class]="containerClasses()"
+  role="status"
+  [attr.aria-live]="isComplete() ? 'polite' : 'assertive'"
+  [attr.aria-busy]="!isComplete()"
+  [attr.aria-label]="getAriaLabel()"
+  [attr.aria-describedby]="shouldShowProgress() ? 'loader-progress' : null">
+
+  <!-- Main Loader Content -->
+  <div class="loader__content" role="img" [attr.aria-label]="'Loading animation'">
+    
+    <!-- Plane Animation (Default) -->
+    <div *ngIf="loaderConfig().animationType === 'plane'" class="loader__animation loader__plane-animation">
+      <div class="loader__globe" aria-hidden="true">
+        <img 
+          src="assets/images/loader/globe.svg" 
+          alt=""
+          class="loader__globe-bg"
+          loading="eager"
+          width="120"
+          height="120" />
+        <img 
+          src="assets/images/loader/globe.svg" 
+          alt=""
+          class="loader__globe-fg"
+          loading="eager"
+          width="120"
+          height="120" />
+      </div>
+      <div class="loader__plane" aria-hidden="true">
+        <img 
+          src="assets/images/loader/plane.svg" 
+          alt=""
+          class="loader__plane-img"
+          loading="eager"
+          width="60"
+          height="40" />
+      </div>
+    </div>
+
+    <!-- Spinner Animation -->
+    <div *ngIf="loaderConfig().animationType === 'spinner'" class="loader__animation loader__spinner-animation">
+      <div class="loader__spinner" aria-hidden="true">
+        <div class="loader__spinner-ring"></div>
+        <div class="loader__spinner-ring"></div>
+        <div class="loader__spinner-ring"></div>
+      </div>
+    </div>
+
+    <!-- Pulse Animation -->
+    <div *ngIf="loaderConfig().animationType === 'pulse'" class="loader__animation loader__pulse-animation">
+      <div class="loader__pulse" aria-hidden="true">
+        <div class="loader__pulse-dot"></div>
+        <div class="loader__pulse-dot"></div>
+        <div class="loader__pulse-dot"></div>
+      </div>
+    </div>
+
   </div>
-  <div class="loader__plane">
-    <img src="assets/images/loader/plane.svg" alt="" />
+
+  <!-- Loading Message -->
+  <div class="loader__message" *ngIf="message()">
+    <p class="loader__text" [attr.id]="'loader-message'">
+      {{ message() }}
+    </p>
   </div>
+
+  <!-- Progress Bar -->
+  <div 
+    *ngIf="shouldShowProgress() && progress() > 0"
+    class="loader__progress"
+    role="progressbar"
+    [attr.aria-valuenow]="progress()"
+    [attr.aria-valuemin]="0"
+    [attr.aria-valuemax]="100"
+    [attr.aria-valuetext]="getAriaValueText()"
+    [attr.id]="'loader-progress'">
+    
+    <div class="loader__progress-track">
+      <div 
+        class="loader__progress-fill"
+        [style.transform]="'scaleX(' + (progress() / 100) + ')'"
+        [attr.aria-hidden]="true">
+      </div>
+    </div>
+    
+    <!-- Progress Percentage -->
+    <div 
+      *ngIf="shouldShowPercentage()" 
+      class="loader__percentage"
+      [attr.aria-hidden]="true">
+      {{ progressPercentage() }}
+    </div>
+  </div>
+
+  <!-- Completion Check -->
+  <div 
+    *ngIf="isComplete()" 
+    class="loader__completion"
+    role="status"
+    aria-live="polite"
+    [attr.aria-label]="'Loading complete'">
+    
+    <div class="loader__check" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+      </svg>
+    </div>
+    <span class="loader__completion-text">Complete!</span>
+  </div>
+
 </div>
 
-<!-- {{ loaderProgress$ | async }} -->
+<!-- Screen Reader Status Updates -->
+<div class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+  <span *ngIf="isComplete()">Loading completed successfully</span>
+  <span *ngIf="!isComplete() && progress() > 0">Loading {{ progressPercentage() }}</span>
+</div>
